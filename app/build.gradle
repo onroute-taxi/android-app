@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        // if you have multiple outputs (when using splits), you may want to have other index than 0
+
+        // you should set your package name here if you are using different application IDs
+        // resourcePackageName "your.package.name"
+
+        // You can set optional annotation processing options here, like these commented options:
+        // logLevel 'INFO'
+        // logFile '/var/log/aa.log'
+    }
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
+
+    defaultConfig {
+        applicationId "com.enamakel.backseattester"
+        minSdkVersion 21
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        leak.initWith(buildTypes.debug)
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+ext {
+    AAVersion = "3.3.2"
+    autoParcelVersion = "0.1"
+    daggerVersion = "1.2.2"
+    googleAnalyticsVersion = "8.3.0"
+    leakCanaryVersion = "1.3.1"
+    lombokVersion = "1.16.6"
+    okHttpVersion = "3.0.0-RC1"
+    picassoVersion = "2.5.2"
+    retrofit2Version = "2.0.0-beta3"
+    retrofitVersion = "2.0.0-beta2"
+    supportVersion = "23.1.1"
+    showcaseVersion = "5.4.0"
+    circleIndicatorVersion = "1.1.8"
+    jericoVersion = "3.3"
+    flowlayoutVersion = "1.10@aar"
+}
+
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'org.java-websocket:Java-WebSocket:1.3.0'
+    compile 'com.google.code.gson:gson:2.5'
+
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.android.support:cardview-v7:$supportVersion"
+    compile "com.android.support:customtabs:$supportVersion"
+    compile "com.android.support:design:$supportVersion"
+    compile "com.android.support:preference-v7:$supportVersion"
+    compile "com.android.support:recyclerview-v7:$supportVersion"
+
+    // Leakcanary. A memory leak detection library for Android and Java.
+    debugCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    leakCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+
+    // Dagger, A fast dependency injector for Android and Java
+    compile "com.squareup.dagger:dagger:$daggerVersion"
+    provided "com.squareup.dagger:dagger-compiler:$daggerVersion"
+
+    // Picasso, A powerful image downloading and caching library
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+
+    // Android Annotations
+    apt "org.androidannotations:androidannotations:$AAVersion"
+    compile "org.androidannotations:androidannotations-api:$AAVersion"
+
+    // Project Lombok
+    compile "org.projectlombok:lombok:$lombokVersion"
+
+    // Google Analytics
+    compile "com.google.android.gms:play-services-analytics:$googleAnalyticsVersion"
+
+    // Autoparcel-Gson. Gson for parcel
+    compile "me.tatarka:auto-parcel-gson:$autoParcelVersion"
+    apt "me.tatarka:auto-parcel-gson-processor:$autoParcelVersion"
+
+    // Showcase & Circle indicator. For initial tutorial
+    compile "com.github.amlcurran.showcaseview:library:$showcaseVersion"
+    compile "me.relex:circleindicator:$circleIndicatorVersion@aar"
+
+    // Flow layout
+    compile "org.apmem.tools:layouts:$flowlayoutVersion"
+
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:3.0.0@aar') {
+        transitive = true
+    }
+}
+
+
+//apply plugin: "com.google.gms.google-services"

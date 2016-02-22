@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.enamakel.backseattester.fragments.JourneyFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/journeyStart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Start Journey"/>
+
+            <Button
+                android:id="@+id/journeyStop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Stop Journey"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/journeyStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <com.mapbox.mapboxsdk.views.MapView
+            android:id="@+id/mapboxMapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:access_token="pk.eyJ1Ijoic3RldmVudDk1IiwiYSI6ImNpZXlrY3p4MjBncTlzZ20wNjh6YzNnZmcifQ.WlBjMsOqMlF10vahBXmXDw"/>
+    </LinearLayout>
+</RelativeLayout>

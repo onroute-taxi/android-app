@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015 Ha Duy Trung
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <!-- Font size -->
+    <string-array name="text_size_options">
+        <item>@string/text_size_extra_small</item>
+        <item>@string/text_size_small</item>
+        <item>@string/text_size_medium</item>
+        <item>@string/text_size_large</item>
+        <item>@string/text_size_extra_large</item>
+    </string-array>
+    <string-array name="pref_text_size_values">
+        <item>-1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <!-- Font -->
+    <string-array name="font_options">
+        <item>Default (Roboto)</item>
+        <item>Droid Sans</item>
+        <item>Droid Serif</item>
+        <item>Libre Baskerville</item>
+        <item>Roboto Slab</item>
+    </string-array>
+    <string-array name="font_values">
+        <item>Roboto</item>
+        <item>DroidSans</item>
+        <item>DroidSerif</item>
+        <item>LibreBaskerville</item>
+        <item>RobotoSlab</item>
+    </string-array>
+
+
+
+    <!-- Story display -->
+    <string-array name="pref_story_display_values">
+        <!--<item>@string/pref_story_display_value_comments</item>-->
+        <item>@string/pref_story_display_value_article</item>
+        <item>@string/pref_story_display_value_readability</item>
+    </string-array>
+    <!--<string name="pref_story_display_value_comments">comments</string>-->
+    <string name="pref_story_display_value_article">article</string>
+    <string name="pref_story_display_value_readability">ad-free</string>
+
+    <!--&lt;!&ndash; Comment max lines &ndash;&gt;-->
+    <!--<string-array name="comment_max_lines_options">-->
+        <!--<item>@string/comment_max_lines_3</item>-->
+        <!--<item>@string/comment_max_lines_4</item>-->
+        <!--<item>@string/comment_max_lines_5</item>-->
+        <!--<item>@string/comment_max_lines_all</item>-->
+    <!--</string-array>-->
+    <string-array name="comment_max_lines_values">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Color codes -->
+    <array name="color_codes">
+        <item>@color/red500</item>
+        <item>@color/pink500</item>
+        <item>@color/purple500</item>
+        <item>@color/deepPurple500</item>
+        <item>@color/indigo500</item>
+        <item>@color/blue500</item>
+        <item>@color/lightBlue500</item>
+        <item>@color/cyan500</item>
+        <item>@color/teal500</item>
+        <item>@color/green500</item>
+    </array>
+</resources>
