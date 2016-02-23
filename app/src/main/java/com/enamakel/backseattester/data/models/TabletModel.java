@@ -12,7 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.enamakel.backseattester.TabbedActivity;
+import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.google.gson.annotations.Expose;
 

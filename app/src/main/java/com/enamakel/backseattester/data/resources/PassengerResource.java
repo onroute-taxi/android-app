@@ -1,7 +1,7 @@
 package com.enamakel.backseattester.data.resources;
 
 
-import com.enamakel.backseattester.TabbedActivity;
+import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.websocket.Request;
@@ -11,14 +11,20 @@ import javax.inject.Inject;
 
 
 public class PassengerResource extends BaseResource {
-    PassengerModel passenger;
+    @Inject PassengerModel passenger;
     @Inject SessionModel session;
+    @Inject Websocket websocket;
+
+
+    public void checkin(String macAddress) {
+        Request request = new Request("passenger", "checkin", macAddress);
+        websocket.send(request);
+    }
 
 
     @Override
     public void onSocketResponse(SessionModel session) {
         passenger = session.getPassenger();
-//        TabbedActivity.context.passengerFragment.onPassengerChange(passenger);
     }
 
 
@@ -26,8 +32,8 @@ public class PassengerResource extends BaseResource {
         session.setPassenger(passenger);
 
         TabbedActivity.info("saving passenger details");
-        Request request = Request.create("passenger", "save");
-        Websocket.send(request);
+        Request request = new Request("passenger", "save");
+        websocket.send(request);
     }
 
 
@@ -37,8 +43,8 @@ public class PassengerResource extends BaseResource {
 
         session.setPassenger(passenger);
 
-        Request request = Request.create("passenger", "skip_otp");
-        Websocket.send(request);
+        Request request = new Request("passenger", "skip_otp");
+        websocket.send(request);
     }
 
 
@@ -49,7 +55,7 @@ public class PassengerResource extends BaseResource {
         session.setPassenger(passenger);
 
         TabbedActivity.info("sending OTP to " + number);
-        Request request = Request.create("passenger", "ask_otp");
-        Websocket.send(request);
+        Request request = new Request("passenger", "ask_otp");
+        websocket.send(request);
     }
 }

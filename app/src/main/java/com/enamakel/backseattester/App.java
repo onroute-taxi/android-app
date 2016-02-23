@@ -6,27 +6,17 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 import com.enamakel.backseattester.data.models.SessionModel;
-import com.enamakel.backseattester.data.models.TabletModel;
-import com.enamakel.backseattester.data.resources.JourneyResource;
-import com.enamakel.backseattester.data.resources.MediaResource;
-import com.enamakel.backseattester.data.resources.PassengerResource;
-import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.util.FontCache;
 import com.enamakel.backseattester.util.Preferences;
 import com.google.android.gms.analytics.Tracker;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import dagger.ObjectGraph;
 
 
-/**
- * Created by robert on 12/31/15.
- */
 public class App extends Application {
-    public static String HOST_ADDRESS = "";
+    public static String HOST_ADDRESS = "192.168.1.120";
     public static Typeface TYPE_FACE = null;
     public static Typeface TYPE_FACE_BOLD = null;
     RefWatcher refWatcher;
@@ -35,13 +25,13 @@ public class App extends Application {
     static Context context;
 
 
-    public static Gson gson;
+//    public static Gson gson;
 
-    /* Instances of the different resources */
-    public static TabletResource tabletResource;
-    public static JourneyResource journeyResource;
-    public static PassengerResource passengerResource;
-    public static MediaResource mediaResource;
+//    /* Instances of the different resources */
+//    public static TabletResource tabletResource;
+//    public static JourneyResource journeyResource;
+//    public static PassengerResource passengerResource;
+//    public static MediaResource mediaResource;
 
 
     /**
@@ -53,17 +43,17 @@ public class App extends Application {
 
     static {
         // Gson init
-        final GsonBuilder builder = new GsonBuilder();
-        builder.excludeFieldsWithoutExposeAnnotation();
-        gson = builder.create();
+//        final GsonBuilder builder = new GsonBuilder();
+//        builder.excludeFieldsWithoutExposeAnnotation();
+//        gson = builder.create();
 
         // Initialize the session variable
-        session = new SessionModel();
-
-        // Set the tablet variable!
-        TabletModel tabletModel = TabletModel.getInstance();
-        session.setTablet(tabletModel);
-        tabletModel.initializeLocationListener(TabbedActivity.context);
+//        session = new SessionModel();
+//
+//         Set the tablet variable!
+//        TabletModel tabletModel = TabletModel.getInstance();
+//        session.setTablet(tabletModel);
+//        tabletModel.initializeLocationListener(TabbedActivity.context);
     }
 
 

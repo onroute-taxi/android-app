@@ -5,8 +5,13 @@ import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.websocket.Request;
 import com.enamakel.backseattester.websocket.Websocket;
 
+import javax.inject.Inject;
+
 
 public class JourneyResource extends BaseResource {
+    @Inject Websocket websocket;
+
+
     @Override
     public void onSocketResponse(SessionModel session) {
 
@@ -14,13 +19,13 @@ public class JourneyResource extends BaseResource {
 
 
     public void beginJourney() {
-        Request request = Request.create("journey", "begin");
-        Websocket.send(request);
+        Request request = new Request("journey", "begin");
+        websocket.send(request);
     }
 
 
     public void endJourney() {
-        Request request = Request.create("journey", "end");
-        Websocket.send(request);
+        Request request = new Request("journey", "end");
+        websocket.send(request);
     }
 }

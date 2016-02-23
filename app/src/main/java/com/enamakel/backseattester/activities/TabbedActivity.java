@@ -1,14 +1,15 @@
-package com.enamakel.backseattester;
+package com.enamakel.backseattester.activities;
 
-import android.os.Bundle;
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.enamakel.backseattester.R;
+import com.enamakel.backseattester.activities.base.BaseActivity;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.enamakel.backseattester.fragments.JourneyFragment_;
 import com.enamakel.backseattester.fragments.PassengerFragment;
@@ -16,33 +17,39 @@ import com.enamakel.backseattester.fragments.PassengerFragment_;
 import com.enamakel.backseattester.fragments.SessionFragment;
 import com.enamakel.backseattester.fragments.SessionFragment_;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-//@EActivity(R.layout.activity_tabbed)
-public class TabbedActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-
+@EActivity(R.layout.activity_tabbed)
+public class TabbedActivity extends BaseActivity {
     public static TabbedActivity context;
 
+    static final String INTENT_BASE = TabbedActivity.class.getName();
+    public static final String PASSENGER_MAC = INTENT_BASE + ".mac";
+
+    @ViewById TabLayout tabLayout;
+    @ViewById ViewPager viewPager;
+
     /* Instances of the different fragments */
-    public static SessionFragment sessionFragment;
-    public static PassengerFragment passengerFragment;
-    public static JourneyFragment journeyFragment;
+    public SessionFragment sessionFragment;
+    public PassengerFragment passengerFragment;
+    public JourneyFragment journeyFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tabbed);
+
+
+
+    @AfterViews
+    void afterViews() {
         context = this;
-
-        // Initialize view
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        getIntent().getStringExtra(PASSENGER_MAC);
     }
 
 

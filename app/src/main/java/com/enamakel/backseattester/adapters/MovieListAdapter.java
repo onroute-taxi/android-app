@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.enamakel.backseattester.R;
-import com.enamakel.backseattester.TabbedActivity;
+import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.media.MovieModel;
 import com.enamakel.backseattester.data.resources.MediaResource;
 

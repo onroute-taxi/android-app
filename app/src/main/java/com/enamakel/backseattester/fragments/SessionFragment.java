@@ -1,5 +1,6 @@
 package com.enamakel.backseattester.fragments;
 
+
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.method.ScrollingMovementMethod;
@@ -7,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.R;
+import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.websocket.Websocket;
 
 import org.androidannotations.annotations.AfterViews;
@@ -20,6 +21,8 @@ import org.androidannotations.annotations.ViewById;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.inject.Inject;
+
 
 @EFragment(R.layout.fragment_session)
 public class SessionFragment extends Fragment {
@@ -30,6 +33,9 @@ public class SessionFragment extends Fragment {
     @ViewById Button sessionHeartbeat;
     @ViewById TextView sessionLogContainer;
 
+    @Inject TabletResource tabletResource;
+    @Inject Websocket websocket;
+
 
     @AfterViews
     void afterViewInjection() {
@@ -38,6 +44,8 @@ public class SessionFragment extends Fragment {
 
         sessionSocketIPtext.setText("192.168.1.120");
         sessionStatusText.setText("activity started");
+
+        sessionRestartWebserverClicked();
     }
 
 
@@ -56,8 +64,8 @@ public class SessionFragment extends Fragment {
 
         try {
             URI socket_uri = new URI(socket_url);
-            Websocket.connect(socket_uri);
-        } catch (URISyntaxException e) {
+            websocket.connect(socket_uri);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -65,12 +73,12 @@ public class SessionFragment extends Fragment {
 
     @Click
     void sessionCheckinClicked() {
-        App.tabletResource.checkin();
+        tabletResource.checkin();
     }
 
 
     @Click
     void sessionHeartbeatClicked() {
-        App.tabletResource.hearbeat();
+        tabletResource.hearbeat();
     }
 }

@@ -7,15 +7,18 @@ import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+
+@Data
 public class SessionModel extends BaseModel {
-    @Expose @Setter @Getter TabletModel tablet;
-    @Expose @Setter @Getter PassengerModel passenger;
-    @Expose @Setter @Getter JourneyModel journey;
-    @Expose @Setter List<Command> commands;
-    @Expose @Getter @Setter List<MovieModel> movies;
+    @Expose TabletModel tablet;
+    @Expose PassengerModel passenger;
+    @Expose JourneyModel journey;
+    @Expose List<Command> commands;
+    @Expose List<MovieModel> movies;
 
 
     public SessionModel() {

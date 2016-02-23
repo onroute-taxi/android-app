@@ -7,9 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 
-import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.data.models.TabletModel;
+import com.enamakel.backseattester.data.resources.JourneyResource;
+import com.enamakel.backseattester.websocket.Websocket;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -22,21 +23,27 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import javax.inject.Inject;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 @EFragment(R.layout.fragment_journey)
 public class JourneyFragment extends Fragment {
+    static JourneyFragment instance;
+
     Icon circleIcon;
     @ViewById Button journeyStop;
     @ViewById Button journeyStart;
     @ViewById MapView mapboxMapView;
-    static JourneyFragment instance;
+
+    @Inject JourneyResource journeyResource;
+    @Inject Websocket websocket;
 
 
     @AfterViews
-    void afterViewInjection() {
+    void afterViewsInjection() {
         mapboxMapView.setStyleUrl(Style.MAPBOX_STREETS);
         mapboxMapView.setCenterCoordinate(new LatLng(40.73581, -73.99155));
         mapboxMapView.setZoomLevel(16);
@@ -78,7 +85,7 @@ public class JourneyFragment extends Fragment {
         TabletModel.TabletStatus status = TabletModel.getInstance().getStatus();
         mapboxMapView.addMarker(new MarkerOptions()
                 .position(new LatLng(status.getLatitude(), status.getLongitude())));
-        App.journeyResource.endJourney();
+        journeyResource.endJourney();
     }
 
 
@@ -89,6 +96,6 @@ public class JourneyFragment extends Fragment {
         TabletModel.TabletStatus status = TabletModel.getInstance().getStatus();
         mapboxMapView.addMarker(new MarkerOptions()
                 .position(new LatLng(status.getLatitude(), status.getLongitude())));
-        App.journeyResource.beginJourney();
+        journeyResource.beginJourney();
     }
 }
