@@ -13,6 +13,7 @@ import javax.inject.Inject;
 public class TabletResource extends BaseResource {
     @Inject SessionModel session;
     @Inject Websocket websocket;
+    @Inject TabletModel tablet;
 
 
     @Override
@@ -23,7 +24,7 @@ public class TabletResource extends BaseResource {
 
     public void checkin() {
         // Set the tablet into the session
-        session.setTablet(TabletModel.getInstance());
+//        session.setTablet(tablet);
 
         // Create and send the request!
         TabbedActivity.info("checking in");
@@ -32,9 +33,9 @@ public class TabletResource extends BaseResource {
     }
 
 
-    public void hearbeat() {
+    public void heartbeat() {
         // Create and send the request
-        TabbedActivity.info("sending hearbeat");
+        TabbedActivity.info("sending heartbeat");
         Request request = new Request("tablet", "heartbeat");
         websocket.send(request);
     }

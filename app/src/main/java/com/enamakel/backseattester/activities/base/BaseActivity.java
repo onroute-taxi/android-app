@@ -1,9 +1,14 @@
 package com.enamakel.backseattester.activities.base;
 
 
+import android.content.Context;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.WindowManager;
+
+import com.enamakel.backseattester.views.CustomViewGroup;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -13,10 +18,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 //        // Obtain the shared Tracker instance.
 //        NewsApplication application = (NewsApplication) getApplication();
 //        tracker = application.getDefaultTracker();
+//        disableStatusBar();
     }
 
 
@@ -26,5 +31,50 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        Log.i(TAG, "Setting screen name: " + getTrackingName());
 //        tracker.setScreenName(getTrackingName());
 //        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
+
+
+    /**
+     * Get the height of the status bar. Either from programatically or a hard-coded default value.
+     *
+     * @return The height of the status bar.
+     */
+    float getStatusBarHeight() {
+        float result = 50 * getResources().getDisplayMetrics().scaledDensity;
+
+        // Attempt to get the height via default resources..
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) result = getResources().getDimensionPixelSize(resourceId);
+
+        return result;
+    }
+
+
+    /**
+     * Helper function to disable the status bar. This function does not disable notifications but
+     * it disables access to the status bar by drawing a transparent box on it.
+     */
+    void disableStatusBar() {
+        WindowManager manager = ((WindowManager) getApplicationContext()
+                .getSystemService(Context.WINDOW_SERVICE));
+
+        WindowManager.LayoutParams localLayoutParams = new WindowManager.LayoutParams();
+        localLayoutParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+        localLayoutParams.gravity = Gravity.TOP;
+        localLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
+
+                // this is to enable the notification to receive touch events
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+
+                // Draws over status bar
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+
+        localLayoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+        localLayoutParams.height = (int) (getStatusBarHeight());
+        localLayoutParams.format = PixelFormat.TRANSPARENT;
+
+        CustomViewGroup view = new CustomViewGroup(this);
+
+        manager.addView(view, localLayoutParams);
     }
 }

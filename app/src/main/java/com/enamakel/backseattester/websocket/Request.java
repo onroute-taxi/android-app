@@ -4,25 +4,22 @@ package com.enamakel.backseattester.websocket;
 import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.data.models.BaseModel;
 import com.enamakel.backseattester.data.models.SessionModel;
-import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 
 import javax.inject.Inject;
 
-import lombok.Setter;
+import lombok.Data;
 
 
 /**
  * This class represents a request. This is what we'll send to the websocket server.
  */
+@Data
 public class Request extends BaseModel {
-    @Expose @Setter double id;
-    @Expose @Setter String resource = "";
-    @Expose @Setter String function = "";
-    @Expose @Setter SessionModel session;
-    @Expose @Setter String data;
-
-    @Inject static Gson gson;
+    @Expose String resource = "";
+    @Expose String function = "";
+    @Expose @Inject SessionModel session;
+    @Expose String data;
 
 
     public Request(String resource, String function) {
@@ -39,6 +36,7 @@ public class Request extends BaseModel {
 
         // Note: The static session object is attached to every request. This makes requests more
         // uniform.
-        setSession(App.session);
+        App.getApplicationGraph().inject(this);
+//        setSession(App.getApplicationGraph().get(SessionModel.class));
     }
 }

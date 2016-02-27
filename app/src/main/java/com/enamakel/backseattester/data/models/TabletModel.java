@@ -12,9 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.google.gson.annotations.Expose;
+
+import javax.inject.Inject;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class TabletModel extends BaseModel {
 
     @Expose @Getter public TabletStatus status = new TabletStatus();
 
+
     public class TabletStatus {
         @Expose @Setter @Getter double latitude;
         @Expose @Setter @Getter double longitude;
@@ -42,11 +44,9 @@ public class TabletModel extends BaseModel {
     }
 
 
-    static @Getter TabletModel instance = new TabletModel();
-
-
-    TabletModel() {
-        WifiManager manager = (WifiManager) TabbedActivity.context.getSystemService(Context.WIFI_SERVICE);
+    @Inject
+    public TabletModel(Context context) {
+        WifiManager manager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = manager.getConnectionInfo();
 
         device = Build.DEVICE;
@@ -57,9 +57,9 @@ public class TabletModel extends BaseModel {
     }
 
 
-    public void initializeLocationListener(Activity activity) {
+    public void initializeLocationListener(Context context) {
         LocationManager locationManager = (LocationManager)
-                activity.getSystemService(Context.LOCATION_SERVICE);
+                context.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new TabletLocationListener();
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 0, locationListener);

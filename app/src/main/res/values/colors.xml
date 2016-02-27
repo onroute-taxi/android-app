@@ -336,6 +336,8 @@
     <color name="bigiRedMain">#C8211A</color>
     <color name="bigiRedDark">#870806</color>
     <color name="bigiRedLight">#D54740</color>
+
+    <color name="ashYellow">#f5a623</color>
 </resources>
 <!--<?xml version="1.0" encoding="utf-8"?>-->
 <!--<resources>-->

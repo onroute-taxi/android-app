@@ -17,12 +17,12 @@ apt {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.enamakel.backseattester"
-        minSdkVersion 21
-        targetSdkVersion 21
+        minSdkVersion 15
+        targetSdkVersion 15
         versionCode 1
         versionName "1.0"
     }
@@ -102,10 +102,16 @@ dependencies {
     // Flow layout
     compile "org.apmem.tools:layouts:$flowlayoutVersion"
 
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
-    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:3.0.0@aar') {
+    // Sliding tabstrip
+    compile "com.astuetz:pagerslidingtabstrip:1.0.1"
+
+    // mapbox for maps!
+    compile("com.mapbox.mapboxsdk:mapbox-android-sdk:3.0.0@aar") {
         transitive = true
     }
+
+    // Nano http server
+    compile "com.nanohttpd:nanohttpd-webserver:2.1.1"
 }
 
 

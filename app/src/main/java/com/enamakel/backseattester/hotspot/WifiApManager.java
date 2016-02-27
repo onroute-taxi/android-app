@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class WifiApManager {
     final WifiManager wifiManager;
     final static String TAG = WifiApManager.class.getSimpleName();
-    static final int WIFI_AP_STATE_FAILED = 4;
 
     Method wifiControlMethod;
     Method wifiApConfigurationMethod;
@@ -26,7 +25,6 @@ public class WifiApManager {
 
     public WifiApManager(Context context) {
         wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-
 
         try {
             wifiControlMethod = wifiManager.getClass().getMethod("setWifiApEnabled",
@@ -40,15 +38,36 @@ public class WifiApManager {
     }
 
 
-    /**
-     *
-     * @param config
-     * @param enabled
-     * @return
-     */
+    public WifiApState getWifiApState() {
+        try {
+            Method method = wifiManager.getClass().getMethod("getWifiApState");
+            int tmp = ((Integer) method.invoke(wifiManager));
+            tmp %= 10;
+            Log.d("wifi", "" + tmp);
+            // Fix for Android 4
+
+            if (tmp >= WifiApState.class.getEnumConstants().length)
+                return WifiApState.WIFI_AP_STATE_FAILED;
+
+            return WifiApState.class.getEnumConstants()[tmp];
+        } catch (Exception e) {
+            Log.e(this.getClass().toString(), "", e);
+            return WifiApState.WIFI_AP_STATE_FAILED;
+        }
+    }
+
+
     public boolean setWifiApState(WifiConfiguration config, boolean enabled) {
         try {
-            if (enabled) wifiManager.setWifiEnabled(!enabled);
+
+            if (enabled) {
+//                int res = wifiManager.addNetwork(config);
+//                wifiManager.enableNetwork(res, true);
+                wifiManager.setWifiEnabled(!enabled);
+//                return true;
+            }
+
+
             return (Boolean) wifiControlMethod.invoke(wifiManager, config, enabled);
         } catch (Exception e) {
             Log.e(TAG, "", e);
@@ -62,16 +81,6 @@ public class WifiApManager {
             return (WifiConfiguration) wifiApConfigurationMethod.invoke(wifiManager, null);
         } catch (Exception e) {
             return null;
-        }
-    }
-
-
-    public int getWifiApState() {
-        try {
-            return (Integer) wifiApState.invoke(wifiManager);
-        } catch (Exception e) {
-            Log.e(TAG, e.getMessage(), e);
-            return WIFI_AP_STATE_FAILED;
         }
     }
 

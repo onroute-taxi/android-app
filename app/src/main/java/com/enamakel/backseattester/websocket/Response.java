@@ -1,17 +1,17 @@
 package com.enamakel.backseattester.websocket;
 
+
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.google.gson.annotations.Expose;
 
-import lombok.Getter;
+import lombok.Data;
 
-/**
- * Created by robert on 12/29/15.
- */
+
+@Data
 public class Response {
-    @Expose @Getter String status;
-    @Expose @Getter String error_message;
-    @Expose @Getter String error;
-    @Expose @Getter Request request;
-    @Expose @Getter SessionModel session;
+    @Expose String status;
+    @Expose String error_message;
+    @Expose String error;
+    @Expose Request request;
+    @Expose SessionModel session;
 }

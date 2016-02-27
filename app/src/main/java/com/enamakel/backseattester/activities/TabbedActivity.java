@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.BaseActivity;
+import com.enamakel.backseattester.activities.base.InjectableActivity;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.enamakel.backseattester.fragments.JourneyFragment_;
 import com.enamakel.backseattester.fragments.PassengerFragment;
@@ -26,7 +27,7 @@ import java.util.List;
 
 
 @EActivity(R.layout.activity_tabbed)
-public class TabbedActivity extends BaseActivity {
+public class TabbedActivity extends InjectableActivity {
     public static TabbedActivity context;
 
     static final String INTENT_BASE = TabbedActivity.class.getName();

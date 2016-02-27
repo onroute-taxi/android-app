@@ -2,29 +2,30 @@ package com.enamakel.backseattester;
 
 
 import android.content.Context;
-import android.util.Log;
 
 import com.enamakel.backseattester.activities.SmsActivity_;
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.activities.TabbedActivity_;
-import com.enamakel.backseattester.activities.WelcomeActivity;
+import com.enamakel.backseattester.activities.WelcomeActivity_;
+import com.enamakel.backseattester.activities.WifiWelcomeActivity_;
 import com.enamakel.backseattester.adapters.MovieListAdapter;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.TabletModel;
+import com.enamakel.backseattester.data.resources.BaseResource;
 import com.enamakel.backseattester.data.resources.JourneyResource;
 import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.data.resources.TabletResource;
-import com.enamakel.backseattester.fragments.JourneyFragment_;
+import com.enamakel.backseattester.fragments.BaseFragment;
 import com.enamakel.backseattester.fragments.PassengerFragment_;
 import com.enamakel.backseattester.fragments.SessionFragment_;
+import com.enamakel.backseattester.hotspot.WifiHotspot;
+import com.enamakel.backseattester.websocket.Request;
+import com.enamakel.backseattester.websocket.Response;
+import com.enamakel.backseattester.websocket.WebSocketClient;
 import com.enamakel.backseattester.websocket.Websocket;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 import javax.inject.Singleton;
 
@@ -34,31 +35,44 @@ import dagger.Provides;
 
 @Module(
         injects = {
+                // Activities
                 SmsActivity_.class,
                 TabbedActivity_.class,
-                WelcomeActivity.class,
+                WelcomeActivity_.class,
+                WifiWelcomeActivity_.class,
 
+                // Fragments
+                BaseFragment.class,
                 SessionFragment_.class,
-//                DrawerActivity.class,
-                JourneyFragment_.class,
                 PassengerFragment_.class,
 
-
+                // Resources
+                BaseResource.class,
                 JourneyResource.class,
                 MediaResource.class,
                 PassengerResource.class,
                 TabletResource.class,
+
+                // Websocket
                 Websocket.class,
+                WebSocketClient.class,
+                Request.class,
+                Response.class,
 
-                MovieListAdapter.class
+                // Models
+                SessionModel.class,
+                TabletModel.class,
 
+                MovieListAdapter.class,
+                WifiHotspot.class,
         },
         library = true
 )
 public class ActivityModule {
-    final static String socket_ip = "192.168.1.120";
+    public final static String socket_ip = "192.168.1.120";
     final Context context;
     final Gson gson;
+    final Websocket websocket;
 
     /**
      * This variable holds the session for the entire app! All resources will refer to this
@@ -77,12 +91,9 @@ public class ActivityModule {
 
         // Initialize the session variable
         session = new SessionModel();
-        session.setPassenger(new PassengerModel());
 
-        // Set the tablet variable!
-        TabletModel tabletModel = TabletModel.getInstance();
-        session.setTablet(tabletModel);
-        tabletModel.initializeLocationListener(TabbedActivity.context);
+        // Setup the websocket
+        websocket = new Websocket(context, gson);
     }
 
 
@@ -103,6 +114,13 @@ public class ActivityModule {
     @Provides
     @Singleton
     public SessionModel provideSessionModel() {
+        // Initialize the session variable
+        session.setPassenger(new PassengerModel());
+
+        // Set the tablet variable!
+        TabletModel tabletModel = new TabletModel(context);
+        session.setTablet(tabletModel);
+        tabletModel.initializeLocationListener(context);
         return session;
     }
 
@@ -123,15 +141,14 @@ public class ActivityModule {
 
     @Provides
     @Singleton
-    public Websocket providesWebsocket(Context context) {
-        Log.d("ActivityModule", "providing websocket");
-        try {
-            URI uri = new URI("ws://" + socket_ip + ":1414");
-            return new Websocket(uri, context);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+    public TabletModel providesTablet(SessionModel session) {
+        return session.getTablet();
+    }
 
-        return null;
+
+    @Provides
+    @Singleton
+    public Websocket providesWebsocket() {
+        return websocket;
     }
 }

@@ -11,8 +11,7 @@ import lombok.Getter;
 
 public abstract class BaseModel {
     protected @Expose @Getter long id;
-
-    @Expose @Inject Gson gson;
+    protected @Inject Gson gson;
 
 
     public String toJSON() {

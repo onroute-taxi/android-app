@@ -13,19 +13,18 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 
 public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     Context context;
+    Gson gson;
+
     boolean isConnected;
 
-    @Inject Gson gson;
 
-
-    public WebSocketClient(URI serverURI, Context context) {
+    public WebSocketClient(URI serverURI, Context context, Gson gson) {
         super(serverURI);
         this.context = context;
+        this.gson = gson;
         isConnected = false;
     }
 

@@ -7,6 +7,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -17,6 +18,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".App"
         android:theme="@style/AppTheme" >
         <receiver android:name=".reciever.PowerConnectionReceiver" >
             <intent-filter>
@@ -31,23 +33,34 @@
         </activity>
         <activity
             android:name=".activities.WelcomeActivity_"
+            android:screenOrientation="sensorLandscape"
             android:label="@string/title_activity_welcome" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- The following two intent-filters are the key to set homescreen -->
-                <!-- <category android:name="android.intent.category.HOME" /> -->
-                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                 <!--&lt;!&ndash;The following two intent-filters are the key to set homescreen&ndash;&gt;-->
+                 <!--&lt;!&ndash;<category android:name="android.intent.category.HOME" />&ndash;&gt;-->
+                 <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".activities.SmsActivity_"
+            android:screenOrientation="sensorLandscape"
             android:label="@string/title_activity_sms" >
         </activity>
         <activity
-            android:name=".activities.WifiWelcomeActivity"
+            android:name=".activities.WifiWelcomeActivity_"
+            android:screenOrientation="sensorLandscape"
             android:label="@string/title_activity_wifi_welcome" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <!-- The following two intent-filters are the key to set homescreen -->
+                 <category android:name="android.intent.category.HOME" />
+                 <category android:name="android.intent.category.DEFAULT" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

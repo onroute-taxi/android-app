@@ -2,25 +2,37 @@ package com.enamakel.backseattester.websocket;
 
 
 import android.content.Context;
+import android.util.Log;
 
+import com.enamakel.backseattester.ActivityModule;
 import com.enamakel.backseattester.activities.TabbedActivity;
 import com.google.gson.Gson;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.inject.Inject;
 
+import lombok.Setter;
+
 
 public class Websocket {
-    public WebSocketClient client;
-    URI uri;
+    WebSocketClient client;
+    Gson gson;
+    @Setter URI uri;
 
-    @Inject Gson gson;
 
+    @Inject
+    public Websocket(Context context, Gson gson) {
+        Log.d("ActivityModule", "providing websocket");
+        this.gson = gson;
 
-    public Websocket(URI uri, Context context) {
-        this.uri = uri;
-        client = new WebSocketClient(uri, context);
+        try {
+            uri = new URI("ws://" + ActivityModule.socket_ip + ":1414");
+            client = new WebSocketClient(uri, context, gson);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
 

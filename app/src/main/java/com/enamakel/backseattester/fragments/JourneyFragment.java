@@ -40,6 +40,7 @@ public class JourneyFragment extends Fragment {
 
     @Inject JourneyResource journeyResource;
     @Inject Websocket websocket;
+    @Inject TabletModel tablet;
 
 
     @AfterViews
@@ -82,7 +83,7 @@ public class JourneyFragment extends Fragment {
 
     @Click
     void journeyStopClicked() {
-        TabletModel.TabletStatus status = TabletModel.getInstance().getStatus();
+        TabletModel.TabletStatus status = tablet.getStatus();
         mapboxMapView.addMarker(new MarkerOptions()
                 .position(new LatLng(status.getLatitude(), status.getLongitude())));
         journeyResource.endJourney();
@@ -93,7 +94,7 @@ public class JourneyFragment extends Fragment {
     void journeyStartClicked() {
         mapboxMapView.removeAllAnnotations();
 
-        TabletModel.TabletStatus status = TabletModel.getInstance().getStatus();
+        TabletModel.TabletStatus status = tablet.getStatus();
         mapboxMapView.addMarker(new MarkerOptions()
                 .position(new LatLng(status.getLatitude(), status.getLongitude())));
         journeyResource.beginJourney();

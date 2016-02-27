@@ -13,6 +13,7 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import dagger.ObjectGraph;
+import lombok.Getter;
 
 
 public class App extends Application {
@@ -21,17 +22,8 @@ public class App extends Application {
     public static Typeface TYPE_FACE_BOLD = null;
     RefWatcher refWatcher;
     Tracker tracker;
-    ObjectGraph applicationGraph;
-    static Context context;
-
-
-//    public static Gson gson;
-
-//    /* Instances of the different resources */
-//    public static TabletResource tabletResource;
-//    public static JourneyResource journeyResource;
-//    public static PassengerResource passengerResource;
-//    public static MediaResource mediaResource;
+    @Getter static ObjectGraph applicationGraph;
+    @Getter static Context context;
 
 
     /**
@@ -39,22 +31,6 @@ public class App extends Application {
      * object when dealing with the object's session.
      */
     public static SessionModel session;
-
-
-    static {
-        // Gson init
-//        final GsonBuilder builder = new GsonBuilder();
-//        builder.excludeFieldsWithoutExposeAnnotation();
-//        gson = builder.create();
-
-        // Initialize the session variable
-//        session = new SessionModel();
-//
-//         Set the tablet variable!
-//        TabletModel tabletModel = TabletModel.getInstance();
-//        session.setTablet(tabletModel);
-//        tabletModel.initializeLocationListener(TabbedActivity.context);
-    }
 
 
     /**
@@ -95,15 +71,5 @@ public class App extends Application {
         TYPE_FACE_BOLD = FontCache.getBold(this, Preferences.Theme.getTypeface(this));
 
 //        AppUtils.registerAccountsUpdatedListener(this);
-    }
-
-
-    public static Context getContext() {
-        return context;
-    }
-
-
-    public ObjectGraph getApplicationGraph() {
-        return applicationGraph;
     }
 }
