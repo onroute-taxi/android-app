@@ -22,15 +22,29 @@
     <attr name="subtitleTextSize" format="dimension|reference"/>
     <attr name="contentTextSize" format="dimension|reference"/>
     <attr name="preferenceHelpStyle" format="reference"/>
+
     <declare-styleable name="PreferenceHelp">
         <attr name="dialogTitle"/>
         <attr name="dialogLayout"/>
     </declare-styleable>
+
     <declare-styleable name="SpinnerPreference">
         <attr name="entries"/>
         <attr name="entryValues"/>
     </declare-styleable>
+
     <declare-styleable name="StoryView">
         <attr name="local" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MasonryGridView">
+        <attr name="columns" format="integer"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="DashboardTileView">
+        <attr name="widthBlocks" format="integer"></attr>
+        <!--<attr name="widthUnit" format="float"></attr>-->
+        <attr name="heightBlocks" format="integer"></attr>
+        <!--<attr name="heightUnit" format="float"></attr>-->
     </declare-styleable>
 </resources>

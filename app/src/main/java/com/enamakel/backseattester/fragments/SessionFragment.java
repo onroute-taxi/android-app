@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.data.resources.TabletResource;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.websocket.Websocket;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -26,7 +26,6 @@ public class SessionFragment extends BaseFragment {
     @ViewById EditText sessionSocketIPtext;
     @ViewById Button sessionRestartWebserver;
     @ViewById Button sessionCheckin;
-//    @ViewById Button sessionHeartbeat;
     @ViewById TextView sessionLogContainer;
 
     @Inject TabletResource tabletResource;
@@ -65,10 +64,4 @@ public class SessionFragment extends BaseFragment {
     void sessionCheckinClicked() {
         tabletResource.checkin();
     }
-
-
-//    @Click
-//    void sessionHeartbeatClicked() {
-//        tabletResource.heartbeat();
-//    }
 }

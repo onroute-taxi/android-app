@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.InjectableActivity;
-import com.enamakel.backseattester.hotspot.ClientScanResult;
-import com.enamakel.backseattester.hotspot.WifiHotspot;
+import com.enamakel.backseattester.network.hotspot.ClientScanResult;
+import com.enamakel.backseattester.network.hotspot.WifiHotspot;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;

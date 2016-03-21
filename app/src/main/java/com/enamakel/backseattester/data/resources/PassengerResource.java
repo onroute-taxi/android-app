@@ -4,26 +4,32 @@ package com.enamakel.backseattester.data.resources;
 import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
-import com.enamakel.backseattester.websocket.Request;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.websocket.Request;
+import com.enamakel.backseattester.network.websocket.Websocket;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 
+@Singleton
 public class PassengerResource extends BaseResource {
-    @Inject PassengerModel passenger;
     @Inject SessionModel session;
     @Inject Websocket websocket;
+    PassengerModel passenger;
 
 
     public void checkin(String macAddress) {
+        passenger = new PassengerModel();
+        passenger.erase(macAddress);
+        session.setPassenger(passenger);
+
         Request request = new Request("passenger", "checkin", macAddress);
         websocket.send(request);
     }
 
 
     @Override
-    public void onSocketResponse(SessionModel session) {
+    public void onServerResponse(SessionModel session) {
         passenger = session.getPassenger();
     }
 
@@ -39,7 +45,7 @@ public class PassengerResource extends BaseResource {
 
     public void skipOTP(String number) {
         PassengerModel passenger = new PassengerModel();
-        passenger.setPhone_number(number);
+        passenger.setPhoneNumber(number);
 
         session.setPassenger(passenger);
 
@@ -50,7 +56,7 @@ public class PassengerResource extends BaseResource {
 
     public void sendOTP(String number) {
         PassengerModel passenger = new PassengerModel();
-        passenger.setPhone_number(number);
+        passenger.setPhoneNumber(number);
 
         session.setPassenger(passenger);
 

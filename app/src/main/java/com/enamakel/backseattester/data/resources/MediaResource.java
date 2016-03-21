@@ -6,8 +6,8 @@ import android.util.Log;
 import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.media.MovieModel;
-import com.enamakel.backseattester.websocket.Request;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.websocket.Request;
+import com.enamakel.backseattester.network.websocket.Websocket;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -15,9 +15,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import lombok.Getter;
+
 
 public class MediaResource extends BaseResource {
-    public List<MovieModel> movies = new ArrayList();
+    @Getter List<MovieModel> movies = new ArrayList();
     @Inject Websocket websocket;
 
 
@@ -35,7 +37,7 @@ public class MediaResource extends BaseResource {
 
 
     @Override
-    public void onSocketResponse(SessionModel session) {
+    public void onServerResponse(SessionModel session) {
         for (SessionModel.Command command : session.getCommands()) {
             Log.d("media", command.getOpcode());
             switch (command.getOpcode()) {
@@ -43,6 +45,7 @@ public class MediaResource extends BaseResource {
                     TabbedActivity.debug("updating movie list");
                     movies = gson.fromJson(command.getJson(), new TypeToken<List<MovieModel>>() {
                     }.getType());
+                    if (movies == null) movies = new ArrayList<>();
             }
         }
     }

@@ -8,8 +8,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.enamakel.backseattester.App;
+import com.enamakel.backseattester.data.resources.JourneyResource;
+import com.enamakel.backseattester.data.resources.MediaResource;
+import com.enamakel.backseattester.data.resources.PassengerResource;
+import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.util.Injectable;
 import com.enamakel.backseattester.util.MenuTintDelegate;
+
+import javax.inject.Inject;
 
 
 /**
@@ -19,10 +25,16 @@ public abstract class BaseFragment extends Fragment {
     protected final MenuTintDelegate menuTintDelegate = new MenuTintDelegate();
     boolean isAttached;
 
+    protected @Inject PassengerResource passengerResource;
+    protected @Inject MediaResource mediaResource;
+    protected @Inject JourneyResource journeyResource;
+    protected @Inject TabletResource tabletResource;
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        App.getApplicationGraph().inject(this);
         isAttached = true;
     }
 

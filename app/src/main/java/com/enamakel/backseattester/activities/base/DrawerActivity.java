@@ -33,7 +33,6 @@ public abstract class DrawerActivity extends InjectableActivity {
     Class<? extends Activity> pendingNavigation;
     Bundle pendingNavigationExtras;
     Dialog feedbackDialog;
-//    @Inject FeedbackClient feedbackClient;
 
 
     @Override

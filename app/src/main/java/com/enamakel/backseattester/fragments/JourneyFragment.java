@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.data.models.TabletModel;
 import com.enamakel.backseattester.data.resources.JourneyResource;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.websocket.Websocket;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -30,7 +30,7 @@ import javax.inject.Inject;
  * A simple {@link Fragment} subclass.
  */
 @EFragment(R.layout.fragment_journey)
-public class JourneyFragment extends Fragment {
+public class JourneyFragment extends BaseFragment {
     static JourneyFragment instance;
 
     Icon circleIcon;

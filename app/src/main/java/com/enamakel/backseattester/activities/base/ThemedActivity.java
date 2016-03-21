@@ -6,7 +6,6 @@ import android.support.annotation.CallSuper;
 import android.view.Menu;
 
 import com.enamakel.backseattester.util.MenuTintDelegate;
-import com.enamakel.backseattester.util.Preferences;
 
 
 public abstract class ThemedActivity extends BaseActivity {
@@ -15,12 +14,9 @@ public abstract class ThemedActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Preferences.Theme.apply(this, isDialogTheme());
         super.onCreate(savedInstanceState);
         menuTintDelegate.onActivityCreated(this);
     }
-
-
 
 
     @CallSuper

@@ -1,23 +1,33 @@
 package com.enamakel.backseattester.data.resources;
 
 
+import android.util.Log;
+
 import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.TabletModel;
-import com.enamakel.backseattester.websocket.Request;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.websocket.Request;
+import com.enamakel.backseattester.network.websocket.Websocket;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 
+@Singleton
 public class TabletResource extends BaseResource {
     @Inject SessionModel session;
     @Inject Websocket websocket;
     @Inject TabletModel tablet;
 
 
+    public TabletResource() {
+        super();
+        Log.d("tablet", "helo");
+    }
+
+
     @Override
-    public void onSocketResponse(SessionModel session) {
+    public void onServerResponse(SessionModel session) {
 
     }
 

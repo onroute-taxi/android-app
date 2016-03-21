@@ -1,7 +1,6 @@
 package com.enamakel.backseattester.fragments;
 
 
-import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +10,9 @@ import android.widget.ListView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.adapters.MovieListAdapter;
+import com.enamakel.backseattester.data.listeners.ResponseManager;
 import com.enamakel.backseattester.data.models.PassengerModel;
+import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 
@@ -25,7 +26,7 @@ import javax.inject.Inject;
 
 
 @EFragment(R.layout.fragment_passenger)
-public class PassengerFragment extends Fragment {
+public class PassengerFragment extends BaseFragment {
     @ViewById EditText passengerPhoneNumber;
     @ViewById EditText passengerFullName;
     @ViewById EditText passengerEmail;
@@ -41,13 +42,27 @@ public class PassengerFragment extends Fragment {
 
     @Inject MediaResource mediaResource;
     @Inject PassengerResource passengerResource;
+    @Inject ResponseManager responseManager;
 
 
     @AfterViews
-    void afterViewInjection() {
+    void afterViews() {
         passengerPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-        passengerDetailsLayout.setVisibility(View.INVISIBLE);
-        passengerMovieList.setVisibility(View.INVISIBLE);
+
+        // Register a listener for a change in the passenger..
+        responseManager.addListener(new ResponseManager.Listener() {
+            @Override
+            public void onServerResponse(SessionModel session) {
+                onPassengerChange(session.getPassenger());
+            }
+        }, getClass().getName());
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        responseManager.removeListener(getClass().getName());
     }
 
 
@@ -56,20 +71,20 @@ public class PassengerFragment extends Fragment {
         if (passenger != null) {
             passengerDetailsLayout.setVisibility(View.VISIBLE);
 
-            passengerPhoneNumber.setText(passenger.getPhone_number());
+            passengerPhoneNumber.setText(passenger.getPhoneNumber());
             passengerEmail.setText(passenger.getEmail());
-            passengerFullName.setText(passenger.getFull_name());
+            passengerFullName.setText(passenger.getFullName());
 
             setupMovieList();
         } else {
-            passengerDetailsLayout.setVisibility(View.INVISIBLE);
+//            passengerDetailsLayout.setVisibility(View.INVISIBLE);
         }
     }
 
 
     @UiThread
     public void setupMovieList() {
-        MovieListAdapter adapter = new MovieListAdapter(getActivity(), mediaResource.movies);
+        MovieListAdapter adapter = new MovieListAdapter(mediaResource.getMovies());
         passengerMovieList.setAdapter(adapter);
     }
 
@@ -101,8 +116,8 @@ public class PassengerFragment extends Fragment {
     @Click
     void passengerSaveDetailsClicked() {
         PassengerModel passenger = new PassengerModel();
-        passenger.setPhone_number(passengerPhoneNumber.getText().toString());
-        passenger.setFull_name(passengerFullName.getText().toString());
+        passenger.setPhoneNumber(passengerPhoneNumber.getText().toString());
+        passenger.setFullName(passengerFullName.getText().toString());
         passenger.setEmail(passengerEmail.getText().toString());
 
         passengerResource.save(passenger);

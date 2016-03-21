@@ -8,6 +8,8 @@ import com.enamakel.backseattester.activities.TabbedActivity_;
 import com.enamakel.backseattester.activities.WelcomeActivity_;
 import com.enamakel.backseattester.activities.WifiWelcomeActivity_;
 import com.enamakel.backseattester.adapters.MovieListAdapter;
+import com.enamakel.backseattester.data.listeners.ResponseManager;
+import com.enamakel.backseattester.data.models.BaseModel;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.TabletModel;
@@ -17,13 +19,15 @@ import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.fragments.BaseFragment;
+import com.enamakel.backseattester.fragments.JourneyFragment_;
 import com.enamakel.backseattester.fragments.PassengerFragment_;
 import com.enamakel.backseattester.fragments.SessionFragment_;
-import com.enamakel.backseattester.hotspot.WifiHotspot;
-import com.enamakel.backseattester.websocket.Request;
-import com.enamakel.backseattester.websocket.Response;
-import com.enamakel.backseattester.websocket.WebSocketClient;
-import com.enamakel.backseattester.websocket.Websocket;
+import com.enamakel.backseattester.network.hotspot.WifiHotspot;
+import com.enamakel.backseattester.network.websocket.Request;
+import com.enamakel.backseattester.network.websocket.Response;
+import com.enamakel.backseattester.network.websocket.WebSocketClient;
+import com.enamakel.backseattester.network.websocket.Websocket;
+import com.enamakel.backseattester.services.DatabaseService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,6 +49,7 @@ import dagger.Provides;
                 BaseFragment.class,
                 SessionFragment_.class,
                 PassengerFragment_.class,
+                JourneyFragment_.class,
 
                 // Resources
                 BaseResource.class,
@@ -62,38 +67,31 @@ import dagger.Provides;
                 // Models
                 SessionModel.class,
                 TabletModel.class,
+                PassengerModel.class,
+                BaseModel.class,
 
+                // Services
+                DatabaseService.class,
+
+                // Others
                 MovieListAdapter.class,
                 WifiHotspot.class,
         },
         library = true
 )
 public class ActivityModule {
-    public final static String socket_ip = "192.168.1.120";
+    public final static String socket_ip = "192.168.1.124";
     final Context context;
-    final Gson gson;
-    final Websocket websocket;
 
     /**
      * This variable holds the session for the entire app! All resources will refer to this
      * object when dealing with the object's session.
      */
-    final SessionModel session;
+    SessionModel session;
 
 
     public ActivityModule(Context context) {
         this.context = context;
-
-        // Gson init
-        final GsonBuilder builder = new GsonBuilder();
-        builder.excludeFieldsWithoutExposeAnnotation();
-        gson = builder.create();
-
-        // Initialize the session variable
-        session = new SessionModel();
-
-        // Setup the websocket
-        websocket = new Websocket(context, gson);
     }
 
 
@@ -107,7 +105,10 @@ public class ActivityModule {
     @Provides
     @Singleton
     public Gson provideGson() {
-        return gson;
+        // Gson init
+        final GsonBuilder builder = new GsonBuilder();
+        builder.excludeFieldsWithoutExposeAnnotation();
+        return builder.create();
     }
 
 
@@ -115,6 +116,9 @@ public class ActivityModule {
     @Singleton
     public SessionModel provideSessionModel() {
         // Initialize the session variable
+        session = new SessionModel();
+
+        // Set the passenger!
         session.setPassenger(new PassengerModel());
 
         // Set the tablet variable!
@@ -133,7 +137,6 @@ public class ActivityModule {
 
 
     @Provides
-    @Singleton
     public PassengerModel providesPassenger(SessionModel session) {
         return session.getPassenger();
     }
@@ -149,6 +152,13 @@ public class ActivityModule {
     @Provides
     @Singleton
     public Websocket providesWebsocket() {
-        return websocket;
+        return new Websocket();
+    }
+
+
+    @Provides
+    @Singleton
+    public ResponseManager providesResponseManager() {
+        return new ResponseManager();
     }
 }

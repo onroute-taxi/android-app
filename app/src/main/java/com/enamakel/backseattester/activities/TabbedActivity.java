@@ -1,15 +1,17 @@
 package com.enamakel.backseattester.activities;
 
 
+import android.content.Context;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.Toast;
 
+import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.R;
-import com.enamakel.backseattester.activities.base.BaseActivity;
 import com.enamakel.backseattester.activities.base.InjectableActivity;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.enamakel.backseattester.fragments.JourneyFragment_;
@@ -42,15 +44,10 @@ public class TabbedActivity extends InjectableActivity {
     public JourneyFragment journeyFragment;
 
 
-
-
     @AfterViews
     void afterViews() {
-        context = this;
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
-        getIntent().getStringExtra(PASSENGER_MAC);
     }
 
 
@@ -111,10 +108,11 @@ public class TabbedActivity extends InjectableActivity {
      * @param message Message to be logged
      */
     public static void info(final String message) {
+        if (context == null) return;
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                 context.sessionFragment.logMessage(message);
             }
         });
@@ -127,6 +125,7 @@ public class TabbedActivity extends InjectableActivity {
      * @param message Message to be logged
      */
     public static void debug(final String message) {
+        if (context == null) return;
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {

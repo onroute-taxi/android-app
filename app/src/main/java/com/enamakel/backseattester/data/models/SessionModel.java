@@ -7,6 +7,8 @@ import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +16,8 @@ import lombok.Setter;
 
 @Data
 public class SessionModel extends BaseModel {
-    @Expose TabletModel tablet;
-    @Expose PassengerModel passenger;
+    @Expose @Inject TabletModel tablet;
+    @Expose @Inject PassengerModel passenger;
     @Expose JourneyModel journey;
     @Expose List<Command> commands;
     @Expose List<MovieModel> movies;

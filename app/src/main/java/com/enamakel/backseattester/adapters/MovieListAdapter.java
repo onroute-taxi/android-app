@@ -10,27 +10,30 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.media.MovieModel;
 import com.enamakel.backseattester.data.resources.MediaResource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 
 public class MovieListAdapter extends BaseAdapter {
-    List<MovieModel> movies;
-    Context context;
+    List<MovieModel> movies = new ArrayList();
     static LayoutInflater inflater = null;
 
     @Inject MediaResource mediaResource;
+    @Inject Context context;
 
 
-    public MovieListAdapter(Activity mainActivity, List<MovieModel> movies) {
+    public MovieListAdapter(List<MovieModel> movies) {
+        super();
         this.movies = movies;
-        context = mainActivity;
+        App.inject(this);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

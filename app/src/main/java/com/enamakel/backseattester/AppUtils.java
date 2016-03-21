@@ -2,36 +2,24 @@ package com.enamakel.backseattester;
 
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.OnAccountsUpdateListener;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Parcelable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DimenRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.IntentCompat;
-import android.support.v4.util.Pair;
 import android.text.Html;
 import android.text.Layout;
 import android.text.Spannable;
@@ -44,11 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enamakel.backseattester.util.AlertDialogBuilder;
-import com.enamakel.backseattester.util.Preferences;
 import com.enamakel.backseattester.util.ScrollAwareFABBehavior;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class AppUtils {
@@ -58,36 +42,6 @@ public class AppUtils {
     static final String ABBR_HOUR = "h";
     static final String ABBR_MINUTE = "m";
     static final String PLAY_STORE_URL = "market://details?id=" + BuildConfig.APPLICATION_ID;
-
-
-    public static void openWebUrlExternal(Context context, String title, String url) {
-        Intent intent = createViewIntent(context, title, url);
-//        if (!HackerNewsClient.BASE_WEB_URL.contains(Uri.parse(url).getHost())) {
-//            if (intent.resolveActivity(context.getPackageManager()) != null)
-//                context.startActivity(intent);
-//            return;
-//        }
-
-        List<ResolveInfo> activities = context.getPackageManager()
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        ArrayList<Intent> intents = new ArrayList<>();
-        for (ResolveInfo info : activities) {
-            if (info.activityInfo.packageName.equalsIgnoreCase(context.getPackageName()))
-                continue;
-
-            intents.add(createViewIntent(context, title, url)
-                    .setPackage(info.activityInfo.packageName));
-        }
-
-        if (intents.isEmpty()) return;
-
-        if (intents.size() == 1) context.startActivity(intents.remove(0));
-        else context.startActivity(Intent.createChooser(intents.remove(0),
-                context.getString(R.string.chooser_title))
-                .putExtra(Intent.EXTRA_INITIAL_INTENTS,
-                        intents.toArray(new Parcelable[intents.size()])));
-
-    }
 
 
     public static void setTextWithLinks(TextView textView, String htmlText) {
@@ -351,15 +305,7 @@ public class AppUtils {
 
     public static void showAccountChooser(final Context context, AlertDialogBuilder alertDialogBuilder,
                                           Account[] accounts) {
-        String username = Preferences.getUsername(context);
         final String[] items = new String[accounts.length + 1];
-        int checked = -1;
-        for (int i = 0; i < accounts.length; i++) {
-            String accountName = accounts[i].name;
-            items[i] = accountName;
-
-            if (TextUtils.equals(accountName, username)) checked = i;
-        }
 
 //        items[items.length - 1] = context.getString(R.string.add_account);
 //        alertDialogBuilder
@@ -421,27 +367,6 @@ public class AppUtils {
         Intent chooserIntent = Intent.createChooser(shareIntent, context.getString(R.string.share));
         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return chooserIntent;
-    }
-
-
-    @NonNull
-    static Intent createViewIntent(Context context, String title, String url) {
-        if (Preferences.customChromeTabEnabled(context)) {
-            Intent shareIntent = new Intent(context, ShareBroadcastReceiver.class);
-            shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
-            shareIntent.putExtra(Intent.EXTRA_TEXT, url);
-            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-                    .setToolbarColor(ContextCompat.getColor(context, R.color.red300))
-                    .setActionButton(BitmapFactory.decodeResource(context.getResources(),
-                                    R.drawable.ic_share_grey600_24dp),
-                            context.getString(R.string.share),
-                            PendingIntent.getBroadcast(context, 0, shareIntent,
-                                    PendingIntent.FLAG_ONE_SHOT))
-                    .build();
-            customTabsIntent.intent.setData(Uri.parse(url));
-            return customTabsIntent.intent;
-
-        } else return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
 

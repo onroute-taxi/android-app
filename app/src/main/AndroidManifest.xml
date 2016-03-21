@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.enamakel.backseattester" >
+<manifest package="com.enamakel.backseattester"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-sdk tools:overrideLibrary="android.support.customtabs" />
+    <uses-sdk tools:overrideLibrary="android.support.customtabs"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".App"
-        android:theme="@style/AppTheme" >
-        <receiver android:name=".reciever.PowerConnectionReceiver" >
+        android:theme="@style/AppTheme">
+        <receiver android:name=".reciever.PowerConnectionReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>
         </receiver>
 
         <activity
             android:name=".activities.TabbedActivity_"
-            android:label="@string/title_activity_tabbed" >
+            android:label="@string/title_activity_tabbed">
         </activity>
         <activity
             android:name=".activities.WelcomeActivity_"
-            android:screenOrientation="sensorLandscape"
-            android:label="@string/title_activity_welcome" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                 <!--&lt;!&ndash;The following two intent-filters are the key to set homescreen&ndash;&gt;-->
-                 <!--&lt;!&ndash;<category android:name="android.intent.category.HOME" />&ndash;&gt;-->
-                 <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt;-->
+            android:label="@string/title_activity_welcome"
+            android:screenOrientation="sensorLandscape">
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- &lt;!&ndash;The following two intent-filters are the key to set homescreen&ndash;&gt; -->
+            <!-- &lt;!&ndash;<category android:name="android.intent.category.HOME" />&ndash;&gt; -->
+            <!-- &lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt; -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".activities.SmsActivity_"
-            android:screenOrientation="sensorLandscape"
-            android:label="@string/title_activity_sms" >
+            android:label="@string/title_activity_sms"
+            android:screenOrientation="sensorLandscape">
         </activity>
         <activity
             android:name=".activities.WifiWelcomeActivity_"
-            android:screenOrientation="sensorLandscape"
-            android:label="@string/title_activity_wifi_welcome" >
+            android:label="@string/title_activity_wifi_welcome"
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
                 <!-- The following two intent-filters are the key to set homescreen -->
-                 <category android:name="android.intent.category.HOME" />
-                 <category android:name="android.intent.category.DEFAULT" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <service
+            android:name=".services.DatabaseService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
+        <activity
+            android:name=".activities.DashboardActivity_"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/DashboardTheme"
+            android:screenOrientation="sensorLandscape">
         </activity>
     </application>
 

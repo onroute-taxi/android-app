@@ -25,6 +25,7 @@
         <item name="android:textColorSecondary">?android:attr/textColorPrimary</item>
     </style>
 
+
     <!-- =================== -->
     <!-- Preference themes   -->
     <!-- =================== -->
@@ -159,6 +160,12 @@
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
+    <style name="DashboardTileStyle">
+        <!--<item name="android:background">@color/grey800</item>-->
+        <item name="android:textColor">@color/white1000</item>
+        <item name="android:textColorSecondary">@color/grey50</item>
+    </style>
+
     <!-- ========== -->
     <!-- Text sizes -->
     <!-- ========== -->
@@ -192,9 +199,12 @@
         <item name="contentTextSize">20sp</item>
     </style>
 
-    <!-- =========== -->
+    <style name="DashboardTileStyle.Card">
+
+    </style>
+
+
     <!-- Card styles -->
-    <!-- =========== -->
     <style name="BaseAppCardView" parent="CardView">
         <item name="cardPreventCornerOverlap">false</item>
         <item name="cardUseCompatPadding">true</item>

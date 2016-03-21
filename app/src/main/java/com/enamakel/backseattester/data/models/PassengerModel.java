@@ -8,10 +8,18 @@ import lombok.Data;
 
 @Data
 public class PassengerModel extends BaseModel {
-    @Expose String phone_number;
-    @Expose String mac_address;
-    @Expose String full_name;
+    @Expose String phoneNumber;
+    @Expose String macAddress;
+    @Expose String fullName;
     @Expose String email;
     @Expose int age;
-    @Expose long created_at;
+    @Expose long createdAt;
+
+
+    public void erase(String macAddress) {
+        this.macAddress = macAddress;
+        phoneNumber = null;
+        fullName = null;
+        email = null;
+    }
 }

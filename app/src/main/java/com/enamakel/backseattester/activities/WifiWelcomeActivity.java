@@ -6,20 +6,29 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.InjectableActivity;
-import com.enamakel.backseattester.hotspot.ClientScanResult;
-import com.enamakel.backseattester.hotspot.Webserver;
-import com.enamakel.backseattester.hotspot.WifiHotspot;
+import com.enamakel.backseattester.data.resources.PassengerResource;
+import com.enamakel.backseattester.network.hotspot.ClientScanResult;
+import com.enamakel.backseattester.network.hotspot.Webserver;
+import com.enamakel.backseattester.network.hotspot.WifiHotspot;
+import com.enamakel.backseattester.services.DatabaseService;
+import com.enamakel.backseattester.util.EaseInOutQuintInterpolator;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.io.IOException;
@@ -33,13 +42,17 @@ public class WifiWelcomeActivity extends InjectableActivity {
     final static String TAG = WifiWelcomeActivity.class.getSimpleName();
 
     @ViewById FrameLayout contentFrame;
+    @ViewById FrameLayout promptFrame;
     @ViewById VideoView videoView;
+    @ViewById LinearLayout wifiInfo;
 
     @Inject WifiHotspot wifiHotspot;
+
 
     Handler handler = new Handler();
     boolean continueChecking = true;
     final int interval = 1000;
+    boolean hasAnimated = false;
 
     final Runnable statusChecker = new Runnable() {
         @Override
@@ -50,7 +63,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
 
             try {
-                Log.d(TAG, "refresing hotspot");
+                // Log.d(TAG, "refresing hotspot");
                 refreshHotspot();
             } finally {
                 // 100% guarantee that this always happens, even if your update method throws an
@@ -66,10 +79,22 @@ public class WifiWelcomeActivity extends InjectableActivity {
         String path = "android.resource://" + getPackageName() + "/" + R.raw.thrones;
         videoView.setVideoURI(Uri.parse(path));
         videoView.setOnPreparedListener(PreparedListener);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Start the database service!
+        if (!DatabaseService.isRunning(this))
+            startService(new Intent(this, DatabaseService.class));
+
+        handler.removeCallbacks(statusChecker);
+        /*statusChecker.run();*/
 
         // Start the Wifi htotspot
-        startHotspot();
-//        statusChecker.run();
+        /*startHotspot();*/
 
         // Start the webserver
         try {
@@ -82,7 +107,62 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
     @Click
     void contentFrameClicked() {
-        startHotspot();
+        Log.d(TAG, "show animation");
+        onUserConnected("AA:BB:CC:DD:EE:FF");
+        if (hasAnimated) return;
+        hasAnimated = true;
+
+        animateBarFullscreen();
+        fadeWifiInfoOut();
+    }
+
+
+    void fadeWifiInfoOut() {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setDuration(250);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                wifiInfo.setVisibility(View.GONE);
+            }
+
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        wifiInfo.startAnimation(fadeOut);
+    }
+
+
+    void animateBarFullscreen() {
+        final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                promptFrame.getLayoutParams();
+
+        final int oldMargin = params.bottomMargin;
+        final int oldHeight = promptFrame.getMeasuredHeight();
+        final int parentHeight = contentFrame.getMeasuredHeight();
+
+        Animation animation = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                params.bottomMargin = (int) (oldMargin * (1f - interpolatedTime));
+                params.height = oldHeight + (int) ((parentHeight - oldHeight) * interpolatedTime);
+                promptFrame.setLayoutParams(params);
+            }
+        };
+
+        animation.setDuration(500);
+        animation.setInterpolator(new EaseInOutQuintInterpolator(3));
+        promptFrame.startAnimation(animation);
     }
 
 
@@ -109,16 +189,17 @@ public class WifiWelcomeActivity extends InjectableActivity {
     }
 
 
+    @UiThread
     void onUserConnected(String macAddress) {
         Log.d(TAG, macAddress);
 
         continueChecking = false;
         handler.removeCallbacks(statusChecker);
+        passengerResource.checkin(macAddress);
 
         // Register client here and goto next screen
         Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, TabbedActivity_.class);
-        intent.putExtra(TabbedActivity.PASSENGER_MAC, macAddress);
+        Intent intent = new Intent(this, DashboardActivity_.class);
         startActivity(intent);
     }
 
