@@ -15,7 +15,7 @@ import org.androidannotations.annotations.ViewById;
 
 @EActivity(R.layout.activity_dashboard)
 public class DashboardActivity extends AppCompatActivity {
-    @ViewById LinearLayout dashboardContainer;
+//    @ViewById LinearLayout dashboardContainer;
 
 
     @AfterViews
@@ -25,6 +25,6 @@ public class DashboardActivity extends AppCompatActivity {
         MasonryGridView gridView = new MasonryGridView(this, 6);
         gridView.addView(tile);
 
-        dashboardContainer.addView(gridView);
+//        dashboardContainer.addView(gridView);
     }
 }
