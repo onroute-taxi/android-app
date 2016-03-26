@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 
-public class Superuser {
+public class SuperuserUtils {
     /**
      * Execute the given command with super-user permissions
      *

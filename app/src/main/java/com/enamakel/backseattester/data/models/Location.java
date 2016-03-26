@@ -1,4 +1,4 @@
-package com.enamakel.backseattester.util;
+package com.enamakel.backseattester.data.models;
 
 import com.google.gson.annotations.Expose;
 

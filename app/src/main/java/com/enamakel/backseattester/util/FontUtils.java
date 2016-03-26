@@ -7,7 +7,7 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 
 
-public class FontUtil {
+public class FontUtils {
     static final ArrayMap<String, Typeface> typefaceMap;
 
 

@@ -1,7 +1,6 @@
-package com.enamakel.backseattester;
+package com.enamakel.backseattester.util;
 
 
-import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -17,8 +16,6 @@ import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.StyleRes;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.IntentCompat;
 import android.text.Html;
 import android.text.Layout;
@@ -31,8 +28,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.enamakel.backseattester.util.AlertDialogBuilder;
-import com.enamakel.backseattester.util.ScrollAwareFABBehavior;
+import com.enamakel.backseattester.BuildConfig;
+import com.enamakel.backseattester.R;
 
 
 public class AppUtils {
@@ -222,62 +219,6 @@ public class AppUtils {
     }
 
 
-//    public static Pair<String, String> getCredentials(Context context) {
-//        String username = Preferences.getUsername(context);
-//        if (TextUtils.isEmpty(username)) return null;
-//
-//        AccountManager accountManager = AccountManager.get(context);
-//        Account[] accounts = accountManager.getAccountsByType(BuildConfig.APPLICATION_ID);
-//        for (Account account : accounts)
-//            if (TextUtils.equals(username, account.name))
-//                return Pair.create(username, accountManager.getPassword(account));
-//
-//        return null;
-//    }
-
-
-//    /**
-//     * Displays UI to allow user to login
-//     * If no accounts exist in user's device, regardless of login status, prompt to login again
-//     * If 1 or more accounts in user's device, and already logged in, prompt to update password
-//     * If 1 or more accounts in user's device, and logged out, show account chooser
-//     *
-//     * @param context            activity context
-//     * @param alertDialogBuilder dialog builder
-//     */
-//    public static void showLogin(Context context, AlertDialogBuilder alertDialogBuilder) {
-//        Account[] accounts = AccountManager.get(context).getAccountsByType(BuildConfig.APPLICATION_ID);
-//
-//        // no accounts, ask to login or re-login
-//        if (accounts.length == 0) context.startActivity(new Intent(context, LoginActivity.class));
-//
-//        else if (!TextUtils.isEmpty(Preferences.getUsername(context)))
-//            // stale account, ask to re-login
-//            context.startActivity(new Intent(context, LoginActivity.class));
-//
-//        else
-//            // logged out, choose from existing accounts to log in
-//            showAccountChooser(context, alertDialogBuilder, accounts);
-//
-//    }
-//
-//
-//    public static void registerAccountsUpdatedListener(final Context context) {
-//        AccountManager.get(context).addOnAccountsUpdatedListener(new OnAccountsUpdateListener() {
-//            @Override
-//            public void onAccountsUpdated(Account[] accounts) {
-//                String username = Preferences.getUsername(context);
-//                if (TextUtils.isEmpty(username)) return;
-//
-//                for (Account account : accounts)
-//                    if (TextUtils.equals(account.name, username)) return;
-//
-//                Preferences.setUsername(context, null);
-//            }
-//        }, null, true);
-//    }
-
-
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void openPlayStore(Context context) {
@@ -293,47 +234,6 @@ public class AppUtils {
             context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Toast.makeText(context, R.string.no_playstore, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public static void showAccountChooser(final Context context, AlertDialogBuilder alertDialogBuilder,
-                                          Account[] accounts) {
-        final String[] items = new String[accounts.length + 1];
-
-//        items[items.length - 1] = context.getString(R.string.add_account);
-//        alertDialogBuilder
-//                .init(context)
-//                .setTitle(R.string.choose_account)
-//                .setSingleChoiceItems(items, checked, new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (which == items.length - 1) {
-//                            Intent intent = new Intent(context, LoginActivity.class);
-//                            intent.putExtra(LoginActivity.EXTRA_ADD_ACCOUNT, true);
-//                            context.startActivity(intent);
-//                        } else {
-//                            Preferences.setUsername(context, items[which]);
-//                            Toast.makeText(context,
-//                                    context.getString(R.string.welcome, items[which]),
-//                                    Toast.LENGTH_SHORT)
-//                                    .show();
-//                        }
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .show();
-    }
-
-
-    public static void toggleFab(FloatingActionButton fab, boolean visible) {
-        CoordinatorLayout.LayoutParams p = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-        if (visible) {
-            fab.show();
-            p.setBehavior(new ScrollAwareFABBehavior());
-        } else {
-            fab.hide();
-            p.setBehavior(null);
         }
     }
 
