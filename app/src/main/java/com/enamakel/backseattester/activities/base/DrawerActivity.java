@@ -22,7 +22,6 @@ public abstract class DrawerActivity extends InjectableActivity {
     View drawer;
     Class<? extends Activity> pendingNavigation;
     Bundle pendingNavigationExtras;
-    Dialog feedbackDialog;
 
 
     @Override
