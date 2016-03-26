@@ -21,34 +21,10 @@ import javax.inject.Inject;
 
 
 public class DrawerFragment extends BaseFragment {
-    @Inject AlertDialogBuilder alertDialogBuilder;
-    TextView drawerAccount;
-    View drawerLogout;
-    View drawerUser;
-
-
-    final SharedPreferences.OnSharedPreferenceChangeListener mLoginListener
-            = new SharedPreferences.OnSharedPreferenceChangeListener() {
-        @Override
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if (getActivity() == null) return;
-
-            if (TextUtils.equals(key, getActivity().getString(R.string.pref_username)))
-                setUsername();
-        }
-    };
-
-
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .registerOnSharedPreferenceChangeListener(mLoginListener);
-    }
-
-
-    @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_drawer, container, false);
 //        drawerAccount = (TextView) view.findViewById(R.id.drawer_account);
 //        drawerAccount.setOnClickListener(new View.OnClickListener() {
@@ -145,15 +121,6 @@ public class DrawerFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setUsername();
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        PreferenceManager.getDefaultSharedPreferences(getActivity())
-                .unregisterOnSharedPreferenceChangeListener(mLoginListener);
     }
 
 
@@ -164,22 +131,6 @@ public class DrawerFragment extends BaseFragment {
 
     void navigate(Class<? extends Activity> activityClass, Bundle extras) {
         ((DrawerActivity) getActivity()).navigate(activityClass, extras);
-    }
-
-
-    void setUsername() {
-//        if (getView() == null) return;
-//
-//        String username = Preferences.getUsername(getActivity());
-//        if (!TextUtils.isEmpty(username)) {
-//            drawerAccount.setText(username);
-//            drawerLogout.setVisibility(View.VISIBLE);
-//            drawerUser.setVisibility(View.VISIBLE);
-//        } else {
-//            drawerAccount.setText(R.string.login);
-//            drawerLogout.setVisibility(View.GONE);
-//            drawerUser.setVisibility(View.GONE);
-//        }
     }
 }
 

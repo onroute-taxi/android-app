@@ -25,8 +25,6 @@ import javax.inject.Inject;
 
 
 public abstract class DrawerActivity extends InjectableActivity {
-    @Inject AlertDialogBuilder alertDialogBuilder;
-
     ActionBarDrawerToggle drawerToggle;
     DrawerLayout drawerLayout;
     View drawer;
@@ -105,54 +103,8 @@ public abstract class DrawerActivity extends InjectableActivity {
     }
 
 
-//    public void showFeedback() {
-//        showFeedbackDialog(getLayoutInflater().inflate(R.layout.dialog_feedback, drawerLayout, false));
-//        closeDrawers();
-//    }
-
-
     void closeDrawers() {
         drawerLayout.closeDrawers();
-    }
-
-
-    void showFeedbackDialog(View dialogView) {
-        AppUtils.setTextWithLinks((TextView) dialogView.findViewById(R.id.feedback_note),
-                getString(R.string.feedback_note));
-        final TextInputLayout titleLayout = (TextInputLayout)
-                dialogView.findViewById(R.id.textinput_title);
-        final TextInputLayout bodyLayout = (TextInputLayout)
-                dialogView.findViewById(R.id.textinput_body);
-        final EditText title = (EditText) dialogView.findViewById(R.id.edittext_title);
-        final EditText body = (EditText) dialogView.findViewById(R.id.edittext_body);
-        final View sendButton = dialogView.findViewById(R.id.feedback_button);
-        feedbackDialog = alertDialogBuilder
-                .init(this)
-                .setView(dialogView)
-                .create();
-        dialogView.findViewById(R.id.button_rate).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppUtils.openPlayStore(DrawerActivity.this);
-                feedbackDialog.dismiss();
-            }
-        });
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                titleLayout.setErrorEnabled(false);
-                bodyLayout.setErrorEnabled(false);
-                if (title.length() == 0) titleLayout.setError(getString(R.string.title_required));
-                if (body.length() == 0) bodyLayout.setError(getString(R.string.comment_required));
-                if (title.length() == 0 || body.length() == 0) return;
-
-                sendButton.setEnabled(false);
-
-//                feedbackClient.send(title.getText().toString(), body.getText().toString(),
-//                        new FeedbackCallback(DrawerActivity.this));
-            }
-        });
-        feedbackDialog.show();
     }
 
 
@@ -168,21 +120,4 @@ public abstract class DrawerActivity extends InjectableActivity {
         else feedbackDialog.findViewById(R.id.feedback_button).setEnabled(true);
 
     }
-
-
-//    class FeedbackCallback implements FeedbackClient.Callback {
-//        final WeakReference<DrawerActivity> weakReference;
-//
-//
-//        public FeedbackCallback(DrawerActivity drawerActivity) {
-//            weakReference = new WeakReference<>(drawerActivity);
-//        }
-//
-//
-//        @Override
-//        public void onResponse(Boolean success) {
-//            if (weakReference.get() != null && !weakReference.get().isActivityDestroyed())
-//                weakReference.get().onFeedbackSent(success);
-//        }
-//    }
 }
