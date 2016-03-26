@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.views.gridview.grid.ScrollableGrid;
 
+import lombok.Getter;
+
 
 /**
  * Created by Eduard Albu on 18 03 2016
@@ -22,10 +24,9 @@ import com.enamakel.backseattester.views.gridview.grid.ScrollableGrid;
  * @author eduard.albu@gmail.com
  */
 public class CompoundView extends LinearLayout {
-
     private Context mContext;
-    private static RecyclerView recyclerView;
-    private static ScrollableGrid scrollableGrid;
+    private @Getter static RecyclerView recyclerView;
+    private @Getter static ScrollableGrid scrollableGrid;
 
 
     public CompoundView(Context context) {
@@ -57,6 +58,7 @@ public class CompoundView extends LinearLayout {
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View root = inflater.inflate(R.layout.gridview_compound_layout, this);
+
         recyclerView = (RecyclerView) root.findViewById(R.id.compoundView_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, HORIZONTAL, false));
         scrollableGrid = (ScrollableGrid) root.findViewById(R.id.scrollable_gridView);
@@ -69,15 +71,5 @@ public class CompoundView extends LinearLayout {
         recyclerView = (RecyclerView) this.findViewById(R.id.compoundView_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext, HORIZONTAL, false));
         scrollableGrid = (ScrollableGrid) this.findViewById(R.id.scrollable_gridView);
-    }
-
-
-    public ScrollableGrid getScrollableGrid() {
-        return scrollableGrid;
-    }
-
-
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
     }
 }

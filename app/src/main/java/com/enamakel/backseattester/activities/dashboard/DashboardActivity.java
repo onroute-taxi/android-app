@@ -1,9 +1,7 @@
 package com.enamakel.backseattester.activities.dashboard;
 
 
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,10 +11,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.enamakel.backseattester.R;
-import com.enamakel.backseattester.views.gridview.items.ButtonsGridItem;
-import com.enamakel.backseattester.views.gridview.items.ImageGridItem;
 import com.enamakel.backseattester.views.gridview.OnGridItemClickListener;
 import com.enamakel.backseattester.views.gridview.grid.ScrollableGrid;
+import com.enamakel.backseattester.views.gridview.items.ButtonsGridItem;
+import com.enamakel.backseattester.views.gridview.items.ImageGridItem;
 import com.enamakel.backseattester.views.gridview.list.CompoundView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 
 
 @EActivity(R.layout.activity_dashboard)
-public class DashboardActivity extends AppCompatActivity implements OnGridItemClickListener,
+public class DashboardActivity extends BaseDashboardActivity implements OnGridItemClickListener,
         BottomListAdapter.OnBottomItemClickListener {
 
     private ScrollableGrid scrollableGrid;
@@ -36,26 +34,21 @@ public class DashboardActivity extends AppCompatActivity implements OnGridItemCl
     private static final String COLUMN_TWO_ID = "column two id";
     private static final String COLUMN_THREE_ID = "column three id";
 
-    @ViewById Toolbar toolbar;
+//    @ViewById Toolbar toolbar;
     @ViewById CompoundView compoundView;
+    RecyclerView recyclerView;
 
     @AfterViews
     protected void afterViews() {
-        // Get toolbar from layout
-        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(DashboardActivity.this, "Menu clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-        setSupportActionBar(toolbar);
+        initializeToolbar(R.id.toolbar);
 
         assert compoundView != null;
+
         // obtain a link to the ScrollableGrid
         scrollableGrid = compoundView.getScrollableGrid();
+
         // obtain a link to the RecyclerView
-        RecyclerView recyclerView = compoundView.getRecyclerView();
+        recyclerView = compoundView.getRecyclerView();
 
         // create an adapter instance and set it to the recycler view
         BottomListAdapter adapter = new BottomListAdapter(createTestObject());
@@ -67,6 +60,7 @@ public class DashboardActivity extends AppCompatActivity implements OnGridItemCl
             scrollableGrid.addNewColumn(COLUMN_ONE_ID, 2);
             scrollableGrid.addNewColumn(COLUMN_TWO_ID, 3);
             scrollableGrid.addNewColumn(COLUMN_THREE_ID, 2);
+
             // this is a listener which will be called when an item is clicked
             scrollableGrid.setOnGridItemClickListener(this);
 

@@ -17,8 +17,7 @@ import android.widget.VideoView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.InjectableActivity;
-import com.enamakel.backseattester.activities.dashboard.*;
-import com.enamakel.backseattester.data.resources.PassengerResource;
+import com.enamakel.backseattester.activities.dashboard.DashboardActivity_;
 import com.enamakel.backseattester.network.hotspot.ClientScanResult;
 import com.enamakel.backseattester.network.hotspot.Webserver;
 import com.enamakel.backseattester.network.hotspot.WifiHotspot;
@@ -48,7 +47,6 @@ public class WifiWelcomeActivity extends InjectableActivity {
     @ViewById LinearLayout wifiInfo;
 
     @Inject WifiHotspot wifiHotspot;
-
 
     Handler handler = new Handler();
     boolean continueChecking = true;
@@ -113,8 +111,8 @@ public class WifiWelcomeActivity extends InjectableActivity {
         if (hasAnimated) return;
         hasAnimated = true;
 
-//        animateBarFullscreen();
-//        fadeWifiInfoOut();
+        /*animateBarFullscreen();
+        fadeWifiInfoOut();*/
     }
 
 
@@ -180,10 +178,10 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
 
         if (clients.size() > 0) {
-            Log.d(TAG, "got clients");
-
             for (ClientScanResult client : clients) {
                 onUserConnected(client.getHWAddr());
+
+                // stop the loop immediately and return. We only need one client.
                 return;
             }
         } //else if (wifiHotspot.isInactive() && !wifiHotspot.isStarting()) wifiHotspot.start();

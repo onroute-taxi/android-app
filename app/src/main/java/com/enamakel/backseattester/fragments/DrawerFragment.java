@@ -18,41 +18,6 @@ public class DrawerFragment extends BaseFragment {
                              @Nullable ViewGroup container,
                              @Nullable final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_drawer, container, false);
-//        drawerAccount = (TextView) view.findViewById(R.id.drawer_account);
-//        drawerAccount.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Account[] accounts = AccountManager.get(getActivity())
-//                        .getAccountsByType(BuildConfig.APPLICATION_ID);
-//                // no accounts, ask to login or re-login
-////                if (accounts.length == 0)
-////                    startActivity(new Intent(getActivity(), LoginActivity.class));
-////                else // has accounts, show account chooser regardless of login status
-////                    AppUtils.showAccountChooser(getActivity(), alertDialogBuilder,
-////                            accounts);
-//            }
-//        });
-//
-//        drawerLogout = view.findViewById(R.id.drawer_logout);
-//        drawerLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                alertDialogBuilder
-//                        .init(getActivity())
-//                        .setMessage(R.string.logout_confirm)
-//                        .setNegativeButton(android.R.string.cancel, null)
-//                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Preferences.setUsername(getActivity(), null);
-//                            }
-//                        })
-//                        .show();
-//            }
-//        });
-//
-//        drawerUser = view.findViewById(R.id.drawer_user);
-
 //        view.findViewById(R.id.drawer_list).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

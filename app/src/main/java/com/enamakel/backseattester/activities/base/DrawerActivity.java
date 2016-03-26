@@ -2,7 +2,6 @@ package com.enamakel.backseattester.activities.base;
 
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;

@@ -7,6 +7,7 @@ import com.enamakel.backseattester.activities.SmsActivity_;
 import com.enamakel.backseattester.activities.TabbedActivity_;
 import com.enamakel.backseattester.activities.WelcomeActivity_;
 import com.enamakel.backseattester.activities.WifiWelcomeActivity_;
+import com.enamakel.backseattester.activities.dashboard.DashboardActivity_;
 import com.enamakel.backseattester.adapters.MovieListAdapter;
 import com.enamakel.backseattester.data.listeners.ResponseManager;
 import com.enamakel.backseattester.data.models.BaseModel;
@@ -19,6 +20,7 @@ import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.fragments.BaseFragment;
+import com.enamakel.backseattester.fragments.DrawerFragment;
 import com.enamakel.backseattester.fragments.JourneyFragment_;
 import com.enamakel.backseattester.fragments.PassengerFragment_;
 import com.enamakel.backseattester.fragments.SessionFragment_;
@@ -44,12 +46,14 @@ import dagger.Provides;
                 TabbedActivity_.class,
                 WelcomeActivity_.class,
                 WifiWelcomeActivity_.class,
+                DashboardActivity_.class,
 
                 // Fragments
                 BaseFragment.class,
                 SessionFragment_.class,
                 PassengerFragment_.class,
                 JourneyFragment_.class,
+                DrawerFragment.class,
 
                 // Resources
                 BaseResource.class,

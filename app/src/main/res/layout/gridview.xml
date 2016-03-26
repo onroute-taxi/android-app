@@ -5,6 +5,5 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:animateLayoutChanges="true"
-    android:background="@android:color/holo_blue_dark">
-
+    android:background="#484848">
 </LinearLayout>
