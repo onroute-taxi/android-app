@@ -7,7 +7,7 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 
 
-public class FontCache {
+public class FontUtil {
     static final ArrayMap<String, Typeface> typefaceMap;
 
 
@@ -38,26 +38,5 @@ public class FontCache {
         }
 
         return typefaceMap.get(fontName);
-    }
-
-
-    /**
-     * Returns the 'bold' version of the given font.
-     *
-     * @param context      The context of the application
-     * @param typefaceName The font name to load.
-     * @return A {@link Typeface} instance of the font. null if the font isin't in the assets
-     * folder.
-     */
-    public static Typeface getBold(Context context, String typefaceName) {
-        if (TextUtils.isEmpty(typefaceName)) return null;
-
-        // Remove the -bold component if it exists.
-        typefaceName = typefaceName.replace("-bold", "");
-
-        // Append '-bold' to the font name.
-        typefaceName = typefaceName.replace(".ttf", "") + "-bold.ttf";
-
-        return get(context, typefaceName);
     }
 }
