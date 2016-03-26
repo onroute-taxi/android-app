@@ -17,6 +17,7 @@ import android.widget.VideoView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.InjectableActivity;
+import com.enamakel.backseattester.activities.dashboard.*;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.network.hotspot.ClientScanResult;
 import com.enamakel.backseattester.network.hotspot.Webserver;
@@ -112,8 +113,8 @@ public class WifiWelcomeActivity extends InjectableActivity {
         if (hasAnimated) return;
         hasAnimated = true;
 
-        animateBarFullscreen();
-        fadeWifiInfoOut();
+//        animateBarFullscreen();
+//        fadeWifiInfoOut();
     }
 
 
