@@ -1,4 +1,4 @@
-package com.enamakel.backseattester.activities.dashboard;
+package com.enamakel.backseattester.activities.base;
 
 
 import android.support.v7.app.ActionBar;
@@ -28,8 +28,8 @@ public abstract class BaseDashboardActivity extends DrawerActivity {
 //        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
 //                ActionBar.DISPLAY_SHOW_TITLE);
         actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(true);
-//        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.toolbar);
     }

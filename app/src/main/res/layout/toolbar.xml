@@ -10,14 +10,15 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
 
         <TextView
             android:id="@+id/toolbar_hourTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
             android:text="1:30 PM"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
@@ -25,14 +26,15 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
 
         <TextView
             android:id="@+id/toolbar_dateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
             android:text="18 February 2016"
             android:textColor="@android:color/white"
             android:textSize="20sp"/>
@@ -40,7 +42,9 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
 
         <ImageButton
             android:id="@+id/toolbar_button"
@@ -49,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_power_settings_new_white_24dp"
-            android:tint="@color/white"/>
+            android:tint="@color/white"
+            />
     </LinearLayout>
 </RelativeLayout>

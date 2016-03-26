@@ -11,7 +11,7 @@
     <!-- The navigation drawer -->
     <ScrollView
         android:id="@+id/drawer"
-        style="@style/AppNavigationDrawer"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:scrollbars="none">

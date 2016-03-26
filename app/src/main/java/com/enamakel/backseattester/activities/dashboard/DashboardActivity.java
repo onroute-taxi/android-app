@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.enamakel.backseattester.R;
+import com.enamakel.backseattester.activities.base.BaseDashboardActivity;
 import com.enamakel.backseattester.views.gridview.OnGridItemClickListener;
 import com.enamakel.backseattester.views.gridview.grid.ScrollableGrid;
 import com.enamakel.backseattester.views.gridview.items.ButtonsGridItem;
@@ -144,24 +145,24 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_dashboard, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_dashboard, menu);
+//        return true;
+//    }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_menu:
-                // TODO: 2/9/16 perform search action
-                Toast.makeText(DashboardActivity.this, getString(R.string.action_example), Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.action_menu:
+//                // TODO: 2/9/16 perform search action
+//                Toast.makeText(DashboardActivity.this, getString(R.string.action_example), Toast.LENGTH_SHORT).show();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 }
