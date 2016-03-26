@@ -6,6 +6,11 @@ import java.io.IOException;
 
 
 public class Superuser {
+    /**
+     * Execute the given command with super-user permissions
+     *
+     * @param command The command to execute
+     */
     public static void execute(String command) {
         try {
             Process su = Runtime.getRuntime().exec("su");
@@ -22,10 +27,15 @@ public class Superuser {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
 
+    /**
+     * Execute the given commands with super-user permissions. Each commands gets executed one after
+     * the other.
+     *
+     * @param commands The commands to executes
+     */
     public static void execute(String[] commands) {
         try {
             Process su = Runtime.getRuntime().exec("su");

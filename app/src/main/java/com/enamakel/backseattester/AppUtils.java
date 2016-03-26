@@ -188,12 +188,6 @@ public class AppUtils {
     }
 
 
-//    public static boolean isHackerNewsUrl(ItemManager.WebItem item) {
-//        return !TextUtils.isEmpty(item.getUrl()) &&
-//                item.getUrl().equals(String.format(HackerNewsClient.WEB_ITEM_PATH, item.getId()));
-//    }
-
-
     public static int getDimensionInDp(Context context, @DimenRes int dimenResId) {
         return (int) (context.getResources().getDimension(dimenResId) /
                 context.getResources().getDisplayMetrics().density);
