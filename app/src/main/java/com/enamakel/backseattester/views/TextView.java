@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import com.enamakel.backseattester.util.FontUtil;
+import com.enamakel.backseattester.util.FontUtils;
 
 
 public class TextView extends AppCompatTextView {
@@ -18,8 +18,8 @@ public class TextView extends AppCompatTextView {
     public TextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        Typeface font = FontUtil.get(context, "Roboto.ttf");
-        Typeface fontBold = FontUtil.get(context, "Roboto-bold.ttf");
+        Typeface font = FontUtils.get(context, "Roboto.ttf");
+        Typeface fontBold = FontUtils.get(context, "Roboto-bold.ttf");
 
         if (!isInEditMode()) setTypeface(font);
 

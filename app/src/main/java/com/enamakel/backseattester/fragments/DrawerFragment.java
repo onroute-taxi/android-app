@@ -2,22 +2,14 @@ package com.enamakel.backseattester.fragments;
 
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.DrawerActivity;
-import com.enamakel.backseattester.util.AlertDialogBuilder;
-
-import javax.inject.Inject;
 
 
 public class DrawerFragment extends BaseFragment {

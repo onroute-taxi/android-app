@@ -7,21 +7,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.enamakel.backseattester.AppUtils;
 import com.enamakel.backseattester.R;
-import com.enamakel.backseattester.util.AlertDialogBuilder;
-
-import javax.inject.Inject;
 
 
 public abstract class DrawerActivity extends InjectableActivity {
@@ -105,19 +97,5 @@ public abstract class DrawerActivity extends InjectableActivity {
 
     void closeDrawers() {
         drawerLayout.closeDrawers();
-    }
-
-
-    void onFeedbackSent(boolean success) {
-        Toast.makeText(DrawerActivity.this,
-                success ? R.string.feedback_sent : R.string.feedback_failed,
-                Toast.LENGTH_SHORT)
-                .show();
-
-        if (feedbackDialog == null || !feedbackDialog.isShowing()) return;
-
-        if (success) feedbackDialog.dismiss();
-        else feedbackDialog.findViewById(R.id.feedback_button).setEnabled(true);
-
     }
 }

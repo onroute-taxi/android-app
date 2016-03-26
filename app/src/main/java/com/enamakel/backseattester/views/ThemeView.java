@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
-import com.enamakel.backseattester.AppUtils;
+import com.enamakel.backseattester.util.AppUtils;
 import com.enamakel.backseattester.R;
 
 

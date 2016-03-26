@@ -5,24 +5,22 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.view.Menu;
 
-import com.enamakel.backseattester.util.MenuTintDelegate;
-
 
 public abstract class ThemedActivity extends BaseActivity {
-    final MenuTintDelegate menuTintDelegate = new MenuTintDelegate();
+//    final MenuTintDelegate menuTintDelegate = new MenuTintDelegate();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        menuTintDelegate.onActivityCreated(this);
+//        menuTintDelegate.onActivityCreated(this);
     }
 
 
     @CallSuper
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menuTintDelegate.onOptionsMenuCreated(menu);
+//        menuTintDelegate.onOptionsMenuCreated(menu);
         return super.onCreateOptionsMenu(menu);
     }
 

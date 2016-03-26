@@ -13,7 +13,6 @@ import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.data.resources.TabletResource;
 import com.enamakel.backseattester.util.Injectable;
-import com.enamakel.backseattester.util.MenuTintDelegate;
 
 import javax.inject.Inject;
 
@@ -22,7 +21,6 @@ import javax.inject.Inject;
  * Base fragment which performs injection using parent's activity object graphs if any
  */
 public abstract class BaseFragment extends Fragment {
-    protected final MenuTintDelegate menuTintDelegate = new MenuTintDelegate();
     boolean isAttached;
 
     protected @Inject PassengerResource passengerResource;
@@ -44,7 +42,6 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         if (getActivity() instanceof Injectable) ((Injectable) getActivity()).inject(this);
-        menuTintDelegate.onActivityCreated(getActivity());
     }
 
 
@@ -52,7 +49,6 @@ public abstract class BaseFragment extends Fragment {
     public final void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (isAttached()) { // TODO http://b.android.com/80783
             createOptionsMenu(menu, inflater);
-            menuTintDelegate.onOptionsMenuCreated(menu);
         }
     }
 

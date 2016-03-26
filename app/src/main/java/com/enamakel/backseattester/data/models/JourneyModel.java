@@ -1,6 +1,5 @@
 package com.enamakel.backseattester.data.models;
 
-import com.enamakel.backseattester.util.Location;
 import com.google.gson.annotations.Expose;
 
 import lombok.Setter;
