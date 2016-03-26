@@ -1,25 +1,21 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/mainLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
-    tools:context="com.enamakel.backseattester.activities.DashboardActivity">
+    tools:context=".activities.dashboard.DashboardActivity"
+    android:background="#d5d5d5">
 
-    <com.enamakel.backseattester.views.masonry.MasonryGridView
+    <include
+        android:id="@+id/toolbar_layout"
+        layout="@layout/toolbar"/>
+
+    <com.enamakel.backseattester.views.gridview.list.CompoundView
+        android:id="@+id/compound_view"
+        android:layout_below="@id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/horizontalScrollView">
-
-    </com.enamakel.backseattester.views.masonry.MasonryGridView>
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:background="#1A1A1A">
-
-    </HorizontalScrollView>
-
+        android:elevation="4dp"/>
 </RelativeLayout>

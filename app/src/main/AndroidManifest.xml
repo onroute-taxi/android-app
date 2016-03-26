@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.enamakel.backseattester"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest
+    package="com.enamakel.backseattester"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="android.support.customtabs"/>
 
@@ -47,6 +48,17 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
+            android:name=".activities.dashboard.DashboardActivity_"
+            android:label="@string/title_activity_dashboard"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/DashboardTheme">
+            <intent-filter>
+                <!-- The following two intent-filters are the key to set homescreen -->
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>s
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.SmsActivity_"
             android:label="@string/title_activity_sms"
             android:screenOrientation="sensorLandscape">
@@ -69,13 +81,5 @@
             android:enabled="true"
             android:exported="true">
         </service>
-
-        <activity
-            android:name=".activities.DashboardActivity_"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/DashboardTheme"
-            android:screenOrientation="sensorLandscape">
-        </activity>
     </application>
-
 </manifest>
