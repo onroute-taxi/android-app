@@ -22,7 +22,6 @@ public class TabletResource extends BaseResource {
 
     public TabletResource() {
         super();
-        Log.d("tablet", "helo");
     }
 
 

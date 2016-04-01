@@ -30,6 +30,11 @@ public class App extends Application {
     }
 
 
+    public static <T> T get(Class<T> type) {
+        return applicationGraph.get(type);
+    }
+
+
     @Override
     public void onCreate() {
         super.onCreate();

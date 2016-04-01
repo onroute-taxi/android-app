@@ -84,7 +84,7 @@ import dagger.Provides;
         library = true
 )
 public class ActivityModule {
-    public final static String socket_ip = "192.168.1.124";
+    public final static String socket_ip = "192.168.1.232";
     final Context context;
 
     /**

@@ -63,7 +63,6 @@ public class TabletModel extends BaseModel {
         LocationListener locationListener = new TabletLocationListener();
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 0, locationListener);
-        Log.d("fuck", "init");
     }
 
 

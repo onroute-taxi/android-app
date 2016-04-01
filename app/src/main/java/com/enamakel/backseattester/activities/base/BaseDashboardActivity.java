@@ -14,7 +14,7 @@ public abstract class BaseDashboardActivity extends DrawerActivity {
 
     protected void initializeToolbar(int id) {
         // Get toolbar from layout
-        toolbar = (Toolbar) findViewById(id);
+//        toolbar = (Toolbar) findViewById(id);
 //        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 //        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -22,15 +22,15 @@ public abstract class BaseDashboardActivity extends DrawerActivity {
 //                Toast.makeText(getApplicationContext(), "Menu clicked", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
 //        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME |
 //                ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setCustomView(R.layout.toolbar);
+//        actionBar.setDisplayShowTitleEnabled(false);
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowCustomEnabled(true);
+//        actionBar.setCustomView(R.layout.toolbar);
     }
 }

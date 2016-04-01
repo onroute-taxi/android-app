@@ -4,7 +4,9 @@ package com.enamakel.backseattester.network.websocket;
 import android.content.Context;
 import android.util.Log;
 
+import com.enamakel.backseattester.App;
 import com.enamakel.backseattester.activities.TabbedActivity;
+import com.enamakel.backseattester.data.resources.TabletResource;
 import com.google.gson.Gson;
 
 import org.java_websocket.handshake.ServerHandshake;
@@ -43,6 +45,10 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
         Log.i("Websocket", "Opened");
         TabbedActivity.info("connected to " + uri.toString());
         connected = true;
+
+        // As soon as the connection is made, we checkin the app!
+        TabletResource tabletResource = App.get(TabletResource.class);
+        tabletResource.checkin();
     }
 
 

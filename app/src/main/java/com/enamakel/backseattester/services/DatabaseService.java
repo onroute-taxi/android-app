@@ -20,9 +20,9 @@ public class DatabaseService extends BaseService {
 
     @Inject Websocket websocket;
     @Inject TabletResource tabletResource;
+
     final Handler handler = new Handler();
     final long interval = 5000;
-
     final Runnable statusChecker = new Runnable() {
         @Override
         public void run() {
