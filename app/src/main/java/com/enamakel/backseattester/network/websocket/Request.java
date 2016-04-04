@@ -2,7 +2,7 @@ package com.enamakel.backseattester.network.websocket;
 
 
 import com.enamakel.backseattester.App;
-import com.enamakel.backseattester.data.models.BaseModel;
+import com.enamakel.backseattester.data.models.base.BaseModel;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.google.gson.annotations.Expose;

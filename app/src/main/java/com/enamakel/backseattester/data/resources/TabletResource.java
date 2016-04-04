@@ -1,9 +1,6 @@
 package com.enamakel.backseattester.data.resources;
 
 
-import android.util.Log;
-
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.TabletModel;
 import com.enamakel.backseattester.network.websocket.Request;
@@ -36,7 +33,6 @@ public class TabletResource extends BaseResource {
 //        session.setTablet(tablet);
 
         // Create and send the request!
-        TabbedActivity.info("checking in");
         Request request = new Request("tablet", "checkin");
         websocket.send(request);
     }
@@ -44,7 +40,6 @@ public class TabletResource extends BaseResource {
 
     public void heartbeat() {
         // Create and send the request
-        TabbedActivity.info("sending heartbeat");
         Request request = new Request("tablet", "heartbeat");
         websocket.send(request);
     }

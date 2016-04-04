@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.enamakel.backseattester.ActivityModule;
 import com.enamakel.backseattester.App;
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.listeners.ResponseManager;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.google.gson.Gson;
@@ -73,7 +72,7 @@ public class Websocket {
 
 
     public void connect(final URI uri) {
-        TabbedActivity.info("connecting to " + uri.toString());
+//        TabbedActivity.info("connecting to " + uri.toString());
         try {
             if (client != null) client.close();
             client = generateClient();
@@ -89,7 +88,7 @@ public class Websocket {
 
     public void send(String message) {
         if (client == null || !client.isConnected()) {
-            TabbedActivity.info("not connected to server");
+//            TabbedActivity.info("not connected to server");
             connect();
         }
 

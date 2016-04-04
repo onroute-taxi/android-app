@@ -24,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.enamakel.backseattester.R;
+import com.enamakel.backseattester.data.models.media.MediaModel;
+import com.squareup.picasso.Picasso;
+
+import lombok.Getter;
 
 
 /**
@@ -33,19 +37,26 @@ import com.enamakel.backseattester.R;
  * @author eduard.albu@gmail.com
  */
 public class ImageGridItem extends FrameLayout {
+    private Bitmap offscreenBitmap;
+    private Canvas offscreenCanvas;
+    private BitmapShader bitmapShader;
+    private Paint paint;
+    private RectF rectF;
 
-    private Bitmap mOffscreenBitmap;
-    private Canvas mOffscreenCanvas;
-    private BitmapShader mBitmapShader;
-    private Paint mPaint;
-    private RectF mRectF;
+    private Handler handler;
+    private Context context;
+    private @Getter ImageView backgroundImage;
+    private @Getter ImageView bottomIconImage;
+    private TextView bottomTitleText;
+    private TextView bottomDescription;
+    private @Getter MediaModel mediaModel;
 
-    private Handler mHandler;
-    private Context mContext;
-    private ImageView mBackgroundImage;
-    private ImageView mBottomIconImage;
-    private TextView mBottomTitleText;
-    private TextView mBottomDescription;
+
+    public ImageGridItem(Context context, MediaModel model) {
+        super(context);
+        initializeView(context);
+        setMediaModel(model);
+    }
 
 
     public ImageGridItem(Context context) {
@@ -74,47 +85,58 @@ public class ImageGridItem extends FrameLayout {
 
 
     public void initializeView(Context context) {
-        mContext = context;
+        this.context = context;
         setWillNotDraw(false);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View root = inflater.inflate(R.layout.gridview_image_item, this);
-        mBackgroundImage = (ImageView) root.findViewById(R.id.image_item_background);
-        mBottomIconImage = (ImageView) root.findViewById(R.id.bottom_icon_imageView);
-        mBottomTitleText = (TextView) root.findViewById(R.id.bottom_item_title);
-        mBottomTitleText.setSingleLine(true);
-        mBottomTitleText.setEllipsize(TextUtils.TruncateAt.END);
-        mBottomDescription = (TextView) root.findViewById(R.id.bottom_item_description);
-        mBottomDescription.setSingleLine(true);
-        mBottomDescription.setEllipsize(TextUtils.TruncateAt.END);
-        mHandler = new Handler();
+        backgroundImage = (ImageView) root.findViewById(R.id.image_item_background);
+        bottomIconImage = (ImageView) root.findViewById(R.id.bottom_icon_imageView);
+        bottomTitleText = (TextView) root.findViewById(R.id.bottom_item_title);
+        bottomTitleText.setSingleLine(true);
+        bottomTitleText.setEllipsize(TextUtils.TruncateAt.END);
+        bottomDescription = (TextView) root.findViewById(R.id.bottom_item_description);
+        bottomDescription.setSingleLine(true);
+        bottomDescription.setEllipsize(TextUtils.TruncateAt.END);
+        handler = new Handler();
     }
 
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mBackgroundImage = (ImageView) this.findViewById(R.id.image_item_background);
-        mBottomIconImage = (ImageView) this.findViewById(R.id.bottom_icon_imageView);
-        mBottomTitleText = (TextView) this.findViewById(R.id.bottom_item_title);
-        mBottomTitleText.setSingleLine(true);
-        mBottomTitleText.setEllipsize(TextUtils.TruncateAt.END);
-        mBottomDescription = (TextView) this.findViewById(R.id.bottom_item_description);
-        mBottomDescription.setSingleLine(true);
-        mBottomDescription.setEllipsize(TextUtils.TruncateAt.END);
+        backgroundImage = (ImageView) this.findViewById(R.id.image_item_background);
+        bottomIconImage = (ImageView) this.findViewById(R.id.bottom_icon_imageView);
+        bottomTitleText = (TextView) this.findViewById(R.id.bottom_item_title);
+        bottomTitleText.setSingleLine(true);
+        bottomTitleText.setEllipsize(TextUtils.TruncateAt.END);
+        bottomDescription = (TextView) this.findViewById(R.id.bottom_item_description);
+        bottomDescription.setSingleLine(true);
+        bottomDescription.setEllipsize(TextUtils.TruncateAt.END);
+    }
+
+
+    public void setMediaModel(MediaModel model) {
+        mediaModel = model;
+
+        Picasso.with(getContext()).load(model.getImagePath()).into(backgroundImage);
+
+        setIconImage(R.drawable.ic_favorite_white_24dp);
+        setTitle(model.getTitle());
+        setDescription(model.getDescription());
     }
 
 //    @Override
 //    public void draw(Canvas canvas) {
-//        if (mOffscreenBitmap == null) {
-//            mOffscreenBitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
-//            mOffscreenCanvas = new Canvas(mOffscreenBitmap);
-//            mBitmapShader = new BitmapShader(mOffscreenBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-//            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-//            mPaint.setShader(mBitmapShader);
-//            mRectF = new RectF(0f, 0f, canvas.getWidth(), canvas.getHeight());
+//        if (offscreenBitmap == null) {
+//            offscreenBitmap = Bitmap.createBitmap(canvas.getWidth(), canvas.getHeight(), Bitmap.Config.ARGB_8888);
+//            offscreenCanvas = new Canvas(offscreenBitmap);
+//            bitmapShader = new BitmapShader(offscreenBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+//            paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//            paint.setShader(bitmapShader);
+//            rectF = new RectF(0f, 0f, canvas.getWidth(), canvas.getHeight());
 //        }
-//        super.draw(mOffscreenCanvas);
-//        canvas.drawRoundRect(mRectF, 20, 20, mPaint);
+//        super.draw(offscreenCanvas);
+//        canvas.drawRoundRect(rectF, 20, 20, paint);
 //    }
 
 
@@ -122,17 +144,17 @@ public class ImageGridItem extends FrameLayout {
      * Set background image
      */
     public void setBackgroundImage(@DrawableRes int imageRes) {
-        mBackgroundImage.setImageResource(imageRes);
+        backgroundImage.setImageResource(imageRes);
     }
 
 
     public void setBackgroundImage(Bitmap backgroundImage) {
-        mBackgroundImage.setImageBitmap(backgroundImage);
+        this.backgroundImage.setImageBitmap(backgroundImage);
     }
 
 
     public void setBackgroundImage(Drawable drawable) {
-        mBackgroundImage.setImageDrawable(drawable);
+        backgroundImage.setImageDrawable(drawable);
     }
 
 
@@ -140,17 +162,17 @@ public class ImageGridItem extends FrameLayout {
      * Set image for icon
      */
     public void setIconImage(@DrawableRes int imageRes) {
-        mBottomIconImage.setImageResource(imageRes);
+        bottomIconImage.setImageResource(imageRes);
     }
 
 
     public void setIconImage(Bitmap backgroundImage) {
-        mBottomIconImage.setImageBitmap(backgroundImage);
+        bottomIconImage.setImageBitmap(backgroundImage);
     }
 
 
     public void setIconImage(Drawable drawable) {
-        mBottomIconImage.setImageDrawable(drawable);
+        bottomIconImage.setImageDrawable(drawable);
     }
 
 
@@ -158,7 +180,7 @@ public class ImageGridItem extends FrameLayout {
      * Set title text
      */
     public void setTitle(String title) {
-        mBottomTitleText.setText(title);
+        bottomTitleText.setText(title);
     }
 
 
@@ -166,7 +188,7 @@ public class ImageGridItem extends FrameLayout {
      * Set title type face
      */
     public void setTitleTypeface(Typeface typeface) {
-        mBottomTitleText.setTypeface(typeface);
+        bottomTitleText.setTypeface(typeface);
     }
 
 
@@ -174,12 +196,12 @@ public class ImageGridItem extends FrameLayout {
      * Set title text color
      */
     public void setTitleTextColor(@ColorRes int color) {
-        mBottomTitleText.setTextColor(mContext.getResources().getColor(color));
+        bottomTitleText.setTextColor(context.getResources().getColor(color));
     }
 
 
     public void setTitleTextHexColor(@ColorInt int color) {
-        mBottomTitleText.setTextColor(color);
+        bottomTitleText.setTextColor(color);
     }
 
 
@@ -187,7 +209,7 @@ public class ImageGridItem extends FrameLayout {
      * Set description text
      */
     public void setDescription(String title) {
-        mBottomDescription.setText(title);
+        bottomDescription.setText(title);
     }
 
 
@@ -195,7 +217,7 @@ public class ImageGridItem extends FrameLayout {
      * Set description type face
      */
     public void setDescriptionTypeface(Typeface typeface) {
-        mBottomDescription.setTypeface(typeface);
+        bottomDescription.setTypeface(typeface);
     }
 
 
@@ -203,11 +225,11 @@ public class ImageGridItem extends FrameLayout {
      * Set title text color
      */
     public void setDescriptionTextColor(@ColorRes int color) {
-        mBottomDescription.setTextColor(mContext.getResources().getColor(color));
+        bottomDescription.setTextColor(context.getResources().getColor(color));
     }
 
 
     public void setDescriptionTextHexColor(@ColorInt int color) {
-        mBottomDescription.setTextColor(color);
+        bottomDescription.setTextColor(color);
     }
 }

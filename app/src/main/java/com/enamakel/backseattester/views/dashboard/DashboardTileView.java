@@ -31,9 +31,9 @@ public class DashboardTileView extends RelativeLayout {
 
     @AfterViews
     void afterViews() {
-        String path = "android.resource://" + getContext().getPackageName() + "/" + R.raw.thrones;
-        videoView.setVideoURI(Uri.parse(path));
-        videoView.setOnPreparedListener(PreparedListener);
+//        String path = "android.resource://" + getContext().getPackageName() + "/" + R.raw.thrones;
+//        videoView.setVideoURI(Uri.parse(path));
+//        videoView.setOnPreparedListener(PreparedListener);
 
         View root = getRootView();
         ViewGroup.LayoutParams layoutParams = root.getLayoutParams();

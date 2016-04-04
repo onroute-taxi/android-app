@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.enamakel.backseattester.R;
-import com.enamakel.backseattester.adapters.MovieListAdapter;
 import com.enamakel.backseattester.data.listeners.ResponseManager;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
@@ -75,18 +74,18 @@ public class PassengerFragment extends BaseFragment {
             passengerEmail.setText(passenger.getEmail());
             passengerFullName.setText(passenger.getFullName());
 
-            setupMovieList();
+//            setupMovieList();
         } else {
 //            passengerDetailsLayout.setVisibility(View.INVISIBLE);
         }
     }
 
 
-    @UiThread
-    public void setupMovieList() {
-        MovieListAdapter adapter = new MovieListAdapter(mediaResource.getMovies());
-        passengerMovieList.setAdapter(adapter);
-    }
+//    @UiThread
+//    public void setupMovieList() {
+//        MovieListAdapter adapter = new MovieListAdapter(mediaResource.getMovies());
+//        passengerMovieList.setAdapter(adapter);
+//    }
 
 
     @Click

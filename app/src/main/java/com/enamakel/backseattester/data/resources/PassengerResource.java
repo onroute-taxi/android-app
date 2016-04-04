@@ -1,7 +1,6 @@
 package com.enamakel.backseattester.data.resources;
 
 
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.network.websocket.Request;
@@ -37,7 +36,6 @@ public class PassengerResource extends BaseResource {
     public void save(PassengerModel passenger) {
         session.setPassenger(passenger);
 
-        TabbedActivity.info("saving passenger details");
         Request request = new Request("passenger", "save");
         websocket.send(request);
     }
@@ -60,7 +58,6 @@ public class PassengerResource extends BaseResource {
 
         session.setPassenger(passenger);
 
-        TabbedActivity.info("sending OTP to " + number);
         Request request = new Request("passenger", "ask_otp");
         websocket.send(request);
     }

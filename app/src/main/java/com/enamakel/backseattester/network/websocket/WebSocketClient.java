@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.enamakel.backseattester.App;
-import com.enamakel.backseattester.activities.TabbedActivity;
 import com.enamakel.backseattester.data.resources.TabletResource;
 import com.google.gson.Gson;
 
@@ -43,7 +42,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
         Log.i("Websocket", "Opened");
-        TabbedActivity.info("connected to " + uri.toString());
         connected = true;
 
         // As soon as the connection is made, we checkin the app!
@@ -61,7 +59,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     @Override
     public void onMessage(String message) {
         Log.i("Websocket", message);
-        TabbedActivity.debug("got: " + message);
 
         Response response = gson.fromJson(message, Response.class);
         if (response.getStatus().equals("ok")) {
@@ -70,7 +67,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
 
         } else {
             Log.e("Websocket", response.getError_message());
-            TabbedActivity.info(response.getError_message());
         }
     }
 
@@ -78,7 +74,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     @Override
     public void onClose(int i, String s, boolean b) {
         Log.i("Websocket", "Closed " + s);
-        TabbedActivity.info("connection closed");
 
         connected = false;
         connecting = false;
@@ -89,7 +84,6 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
     public void onError(Exception exception) {
         Log.i("Websocket", "Error " + exception.getMessage());
         exception.printStackTrace();
-        TabbedActivity.info("connection error: " + exception.getMessage());
 
         close();
         connected = false;
