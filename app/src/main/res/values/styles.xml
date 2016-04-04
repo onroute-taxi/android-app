@@ -1,32 +1,5 @@
 <resources>
 
-    <!-- ========================= -->
-    <!-- Action bar/toolbar styles -->
-    <!-- ========================= -->
-    <style name="AppToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="searchViewStyle">@style/AppToolbarSearchView</item>
-        <item name="android:textColorSecondary">?android:attr/textColorPrimary</item>
-    </style>
-
-
-    <!-- =================== -->
-    <!-- Preference themes   -->
-    <!-- =================== -->
-    <style name="AppPreferenceThemeOverlay" parent="PreferenceThemeOverlay">
-        <item name="preferenceHelpStyle">@style/Preference.PreferenceHelp</item>
-    </style>
-
-    <style name="Preference.PreferenceHelp" parent="Preference">
-        <item name="android:layout">@layout/preference_help</item>
-    </style>
-
-    <!-- ================== -->
-    <!-- Search view styles -->
-    <!-- ================== -->
-    <style name="AppToolbarSearchView" parent="Widget.AppCompat.SearchView.ActionBar">
-        <item name="queryHint">@string/title_activity_search</item>
-    </style>
-
     <!-- ============= -->
     <!-- Widget styles -->
     <!-- ============= -->
@@ -182,20 +155,12 @@
         <item name="contentTextSize">20sp</item>
     </style>
 
-    <style name="DashboardTileStyle.Card">
-
-    </style>
-
-
-    <!-- Card styles -->
-    <style name="BaseAppCardView" parent="CardView">
-        <item name="cardPreventCornerOverlap">false</item>
-        <item name="cardUseCompatPadding">true</item>
-    </style>
-    <style name="AppCardView" parent="BaseAppCardView">
-        <item name="android:foreground">?attr/selectableItemBackground</item>
-    </style>
-    <style name="FlatCardView">
-        <item name="android:background">?attr/colorCardBackground</item>
+    <style name="AuthLoginPhoneButton">
+        <item name="android:background">#181818</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">@color/orange500</item>
     </style>
 </resources>

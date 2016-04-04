@@ -3,17 +3,15 @@ package com.enamakel.backseattester;
 
 import android.content.Context;
 
-import com.enamakel.backseattester.activities.SmsActivity_;
-import com.enamakel.backseattester.activities.TabbedActivity_;
-import com.enamakel.backseattester.activities.WelcomeActivity_;
+import com.enamakel.backseattester.activities.AdcolonyVideoActivity_;
+import com.enamakel.backseattester.activities.VideoPlayerActivity_;
 import com.enamakel.backseattester.activities.WifiWelcomeActivity_;
 import com.enamakel.backseattester.activities.dashboard.DashboardActivity_;
-import com.enamakel.backseattester.adapters.MovieListAdapter;
 import com.enamakel.backseattester.data.listeners.ResponseManager;
-import com.enamakel.backseattester.data.models.BaseModel;
 import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.models.TabletModel;
+import com.enamakel.backseattester.data.models.base.BaseModel;
 import com.enamakel.backseattester.data.resources.BaseResource;
 import com.enamakel.backseattester.data.resources.JourneyResource;
 import com.enamakel.backseattester.data.resources.MediaResource;
@@ -35,6 +33,7 @@ import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
+import auto.parcelgson.gson.AutoParcelGsonTypeAdapterFactory;
 import dagger.Module;
 import dagger.Provides;
 
@@ -42,11 +41,10 @@ import dagger.Provides;
 @Module(
         injects = {
                 // Activities
-                SmsActivity_.class,
-                TabbedActivity_.class,
-                WelcomeActivity_.class,
                 WifiWelcomeActivity_.class,
                 DashboardActivity_.class,
+                AdcolonyVideoActivity_.class,
+                VideoPlayerActivity_.class,
 
                 // Fragments
                 BaseFragment.class,
@@ -78,8 +76,8 @@ import dagger.Provides;
                 DatabaseService.class,
 
                 // Others
-                MovieListAdapter.class,
                 WifiHotspot.class,
+                Gson.class
         },
         library = true
 )
@@ -110,8 +108,9 @@ public class ActivityModule {
     @Singleton
     public Gson provideGson() {
         // Gson init
-        final GsonBuilder builder = new GsonBuilder();
-        builder.excludeFieldsWithoutExposeAnnotation();
+        final GsonBuilder builder = new GsonBuilder()
+            .excludeFieldsWithoutExposeAnnotation()
+            .registerTypeAdapterFactory(new AutoParcelGsonTypeAdapterFactory());
         return builder.create();
     }
 

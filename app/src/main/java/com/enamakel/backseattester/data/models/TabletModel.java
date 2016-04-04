@@ -1,7 +1,6 @@
 package com.enamakel.backseattester.data.models;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,8 +9,8 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.enamakel.backseattester.data.models.base.BaseModel;
 import com.enamakel.backseattester.fragments.JourneyFragment;
 import com.google.gson.annotations.Expose;
 

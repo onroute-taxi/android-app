@@ -7,12 +7,15 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black1000">
 
         <VideoView
             android:id="@+id/videoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:foregroundGravity="center_horizontal"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -28,113 +31,40 @@
             android:layout_gravity="center_horizontal|bottom"
             android:foregroundGravity="center_horizontal">
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/wifiInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <include layout="@layout/item_login_advanced"></include>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/promptFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/layout_wifi_prompt"
-                android:foregroundGravity="center_vertical">
+                android:foregroundGravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="30dp"
+                android:paddingTop="30dp">
 
-                <LinearLayout
-                    android:id="@+id/wifiInfo"
+                <com.enamakel.backseattester.views.TextView
+                    android:id="@+id/welcome_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Connect to the OnRoute Wifi"
+                    android:textColor="#FFF"
+                    android:textSize="30sp"
+                    android:textStyle="bold"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="15dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:src="@drawable/ic_wifi_black_24dp"
-                            android:tint="@color/ashYellow"/>
-
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="-2dp"
-                            android:text="Wifi"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/ashYellow"
-                            android:textSize="8dp"/>
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Connect to"
-                            android:textColor="#FFF"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text=" OnRoute"
-                            android:textColor="@color/ashYellow"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="Connect to"
-                            android:textColor="#FFF"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text=" OnRoute"
-                            android:textColor="@color/ashYellow"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-                        <com.enamakel.backseattester.views.TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text=" Wifi"
-                            android:textColor="#FFF"
-                            android:textSize="20dp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </FrameLayout>
+            </LinearLayout>
         </FrameLayout>
     </FrameLayout>
 </RelativeLayout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.enamakel.backseattester"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest package="com.enamakel.backseattester"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="android.support.customtabs"/>
 
@@ -20,6 +19,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".reciever.PowerConnectionReceiver">
             <intent-filter>
@@ -29,43 +29,8 @@
         </receiver>
 
         <activity
-            android:name=".activities.TabbedActivity_"
-            android:label="@string/title_activity_tabbed">
-        </activity>
-        <activity
-            android:name=".activities.WelcomeActivity_"
-            android:label="@string/title_activity_welcome"
-            android:screenOrientation="sensorLandscape">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- &lt;!&ndash;The following two intent-filters are the key to set homescreen&ndash;&gt; -->
-            <!-- &lt;!&ndash;<category android:name="android.intent.category.HOME" />&ndash;&gt; -->
-            <!-- &lt;!&ndash;<category android:name="android.intent.category.DEFAULT" />&ndash;&gt; -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".activities.dashboard.DashboardActivity_"
-            android:label="@string/title_activity_dashboard"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/DashboardTheme">
-            <intent-filter>
-                <!-- The following two intent-filters are the key to set homescreen -->
-                <category android:name="android.intent.category.HOME"/>
-                <category android:name="android.intent.category.DEFAULT"/>s
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.SmsActivity_"
-            android:label="@string/title_activity_sms"
-            android:screenOrientation="sensorLandscape">
-        </activity>
-        <activity
             android:name=".activities.WifiWelcomeActivity_"
-            android:label="@string/title_activity_wifi_welcome"
+            android:label="@string/app_name"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -75,11 +40,30 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.dashboard.DashboardActivity_"
+            android:label="@string/title_activity_dashboard"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/DashboardTheme"/>
+        <activity
+            android:name=".activities.SmsActivity_"
+            android:label="@string/title_activity_sms"
+            android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".activities.VideoPlayerActivity_"
+            android:label="@string/title_activity_video_player"
+            android:screenOrientation="sensorLandscape"/>
 
         <service
             android:name=".services.DatabaseService"
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <activity
+            android:name=".activities.AdcolonyVideoActivity_"
+            android:label="@string/title_activity_adcolony_video">
+        </activity>
     </application>
+
 </manifest>

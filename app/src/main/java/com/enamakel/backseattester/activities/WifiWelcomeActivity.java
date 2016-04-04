@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -12,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -45,6 +47,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
     @ViewById FrameLayout promptFrame;
     @ViewById VideoView videoView;
     @ViewById LinearLayout wifiInfo;
+    @ViewById TextView welcomeText;
 
     @Inject WifiHotspot wifiHotspot;
 
@@ -75,9 +78,12 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
     @AfterViews
     void afterViews() {
-        String path = "android.resource://" + getPackageName() + "/" + R.raw.thrones;
-        videoView.setVideoURI(Uri.parse(path));
+        videoView.setVideoURI(Uri.parse("/sdcard/raymond-s1e1.avi"));
         videoView.setOnPreparedListener(PreparedListener);
+
+        String welcomeHtmlText = "<font color=#FFF>Connect to</font> <font color=#FF9800>OnRoute</font> " +
+                "<font color=#FFF>to use this tablet</font>";
+        welcomeText.setText(Html.fromHtml(welcomeHtmlText));
     }
 
 
@@ -107,12 +113,12 @@ public class WifiWelcomeActivity extends InjectableActivity {
     @Click
     void contentFrameClicked() {
         Log.d(TAG, "show animation");
-        onUserConnected("AA:BB:CC:DD:EE:FF");
+//        onUserConnected("AA:BB:CC:DD:EE:FF");
         if (hasAnimated) return;
         hasAnimated = true;
 
-        /*animateBarFullscreen();
-        fadeWifiInfoOut();*/
+        animateBarFullscreen();
+        fadeWifiInfoOut();
     }
 
 

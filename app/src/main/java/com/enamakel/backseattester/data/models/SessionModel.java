@@ -1,7 +1,8 @@
 package com.enamakel.backseattester.data.models;
 
 
-import com.enamakel.backseattester.data.models.media.MovieModel;
+import com.enamakel.backseattester.data.models.base.BaseModel;
+import com.enamakel.backseattester.data.models.media.MediaModel;
 import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class SessionModel extends BaseModel {
     @Expose @Inject PassengerModel passenger;
     @Expose JourneyModel journey;
     @Expose List<Command> commands;
-    @Expose List<MovieModel> movies;
+    @Expose List<MediaModel> movies;
 
 
     public SessionModel() {

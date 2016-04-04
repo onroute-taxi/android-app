@@ -33,7 +33,6 @@
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeBackground">?colorPrimary</item>
         <item name="alertDialogTheme">@style/AppAlertDialog</item>
-        <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
         <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
 
         <!-- custom themed attributes -->
@@ -42,30 +41,7 @@
         <item name="contentTextSize">@dimen/text_size_small</item>
     </style>
 
-    <style name="AppTheme.Dark" parent="Theme.AppCompat.Dark.NoActionBar.FullScreen">
-        <!-- color palette -->
-        <item name="colorPrimary">@color/red800</item>
-        <item name="colorPrimaryDark">@color/red900</item>
-        <item name="colorAccent">@color/red300</item>
-        <item name="colorCardBackground">@color/cardview_dark_background</item>
-        <item name="colorCardHighlight">@color/grey800</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:textColorSecondary">@color/grey500</item>
 
-        <!-- default theme override -->
-        <item name="android:textColorTertiary">?android:textColorPrimary</item>
-        <item name="android:textColorLink">?colorAccent</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="actionModeBackground">?colorPrimary</item>
-        <item name="alertDialogTheme">@style/AppAlertDialog.Dark</item>
-        <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
-        <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu.Overflow</item>
-
-        <!-- custom themed attributes -->
-        <item name="titleTextSize">@dimen/text_size_medium</item>
-        <item name="subtitleTextSize">@dimen/text_size_small</item>
-        <item name="contentTextSize">@dimen/text_size_small</item>
-    </style>
 
     <!-- =================== -->
     <!-- Alert dialog themes -->

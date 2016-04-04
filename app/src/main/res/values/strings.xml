@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">BackseatTester</string>
+    <string name="app_name">OnRoute</string>
 
+    <string name="skip">Skip</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tabbed">TabbedActivity</string>
@@ -98,6 +99,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="title_activity_sms">SmsActivity</string>
-    <string name="title_activity_wifi_welcome">Welcome</string>
+    <string name="title_activity_wifi_welcome">Onroute Dashboard</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <string name="title_activity_video_player">VideoPlayerActivity</string>
+    <string name="title_activity_adcolony_video">AdcolonyVideoActivity</string>
 </resources>
