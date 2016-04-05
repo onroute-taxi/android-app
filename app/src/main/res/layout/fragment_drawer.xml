@@ -26,8 +26,7 @@
     <TextView
         android:id="@+id/drawer_list"
         style="@style/DrawerTextStyle"
-        android:layout_height="wrap_content"
-        android:text="@string/title_activity_about"/>
+        android:layout_height="wrap_content"/>
 
 
     <!--<TextView-->

@@ -34,7 +34,7 @@ public class Websocket {
 
     public Websocket() {
         Log.d("ActivityModule", "providing websocket");
-        App.getApplicationGraph().inject(this);
+        App.inject(this);
 
         try {
             uri = new URI("ws://" + ActivityModule.socket_ip + ":1414");

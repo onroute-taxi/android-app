@@ -44,10 +44,13 @@ public class WifiWelcomeActivity extends InjectableActivity {
     final static String TAG = WifiWelcomeActivity.class.getSimpleName();
 
     @ViewById FrameLayout contentFrame;
-    @ViewById FrameLayout promptFrame;
+    @ViewById LinearLayout promptFrame;
     @ViewById VideoView videoView;
     @ViewById LinearLayout wifiInfo;
     @ViewById TextView welcomeText;
+    @ViewById TextView instructionText;
+    @ViewById TextView smsText;
+    @ViewById View loginAdvanced;
 
     @Inject WifiHotspot wifiHotspot;
 
@@ -65,7 +68,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
 
             try {
-                // Log.d(TAG, "refresing hotspot");
+                 Log.d(TAG, "refresing hotspot");
                 refreshHotspot();
             } finally {
                 // 100% guarantee that this always happens, even if your update method throws an
@@ -81,9 +84,18 @@ public class WifiWelcomeActivity extends InjectableActivity {
         videoView.setVideoURI(Uri.parse("/sdcard/raymond-s1e1.avi"));
         videoView.setOnPreparedListener(PreparedListener);
 
-        String welcomeHtmlText = "<font color=#FFF>Connect to</font> <font color=#FF9800>OnRoute</font> " +
-                "<font color=#FFF>to use this tablet</font>";
+        String welcomeHtmlText = "<font color=#FFFFFF>Connect to the </font> <font color=#FF9800>OnRoute</font> " +
+                "<font color=#FFFFFF>Wifi to start</font>";
         welcomeText.setText(Html.fromHtml(welcomeHtmlText));
+
+
+        String instHtmlText = "<font color=#FFFFFF>Connect to the</font> <font color=#FF9800>OnRoute</font> " +
+                "<font color=#FFFFFF>wifi from your phone to start</font>";
+        instructionText.setText(Html.fromHtml(instHtmlText));
+
+        String smsHtmlText = "<font color=#FFFFFF>SMS</font> <font color=#FF9800>\"OnRoute\"</font> " +
+                "<font color=#FFFFFF>to 9819254358</font>";
+        smsText.setText(Html.fromHtml(smsHtmlText));
     }
 
 
@@ -96,10 +108,10 @@ public class WifiWelcomeActivity extends InjectableActivity {
             startService(new Intent(this, DatabaseService.class));
 
         handler.removeCallbacks(statusChecker);
-        /*statusChecker.run();*/
 
         // Start the Wifi htotspot
-        /*startHotspot();*/
+        startHotspot();
+        statusChecker.run();
 
         // Start the webserver
         try {
@@ -118,33 +130,20 @@ public class WifiWelcomeActivity extends InjectableActivity {
         hasAnimated = true;
 
         animateBarFullscreen();
-        fadeWifiInfoOut();
+//        fadeWifiInfoOut();
+    }
+
+
+    @Click(R.id.sms_text)
+    void skip() {
+        onUserConnected("AA:BB:CC:DD:EE:FF");
     }
 
 
     void fadeWifiInfoOut() {
         Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(250);
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                wifiInfo.setVisibility(View.GONE);
-            }
-
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        wifiInfo.startAnimation(fadeOut);
+        fadeOut.setDuration(500);
+        welcomeText.startAnimation(fadeOut);
     }
 
 
@@ -160,14 +159,41 @@ public class WifiWelcomeActivity extends InjectableActivity {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
                 params.bottomMargin = (int) (oldMargin * (1f - interpolatedTime));
-                params.height = oldHeight + (int) ((parentHeight - oldHeight) * interpolatedTime);
+                params.height = (int) (oldHeight + (parentHeight - oldHeight) * interpolatedTime);
                 promptFrame.setLayoutParams(params);
             }
         };
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
 
+            }
+
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                wifiInfo.setVisibility(View.VISIBLE);
+                promptFrame.setVisibility(View.GONE);
+
+                Animation fadeIn = new AlphaAnimation(0, 1);
+                fadeIn.setDuration(250);
+                loginAdvanced.startAnimation(fadeIn);
+            }
+
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         animation.setDuration(500);
         animation.setInterpolator(new EaseInOutQuintInterpolator(3));
         promptFrame.startAnimation(animation);
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setDuration(500);
+        welcomeText.startAnimation(fadeOut);
+
     }
 
 
@@ -187,6 +213,8 @@ public class WifiWelcomeActivity extends InjectableActivity {
             for (ClientScanResult client : clients) {
                 onUserConnected(client.getHWAddr());
 
+                continueChecking = false;
+                wifiHotspot.stop();
                 // stop the loop immediately and return. We only need one client.
                 return;
             }
@@ -203,7 +231,6 @@ public class WifiWelcomeActivity extends InjectableActivity {
         passengerResource.checkin(macAddress);
 
         // Register client here and goto next screen
-        Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, DashboardActivity_.class);
         startActivity(intent);
     }

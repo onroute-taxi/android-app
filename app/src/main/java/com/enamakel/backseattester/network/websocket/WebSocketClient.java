@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import org.java_websocket.handshake.ServerHandshake;
 
+import java.net.ConnectException;
 import java.net.URI;
 import java.nio.channels.NotYetConnectedException;
 
@@ -82,8 +83,10 @@ public class WebSocketClient extends org.java_websocket.client.WebSocketClient {
 
     @Override
     public void onError(Exception exception) {
-        Log.i("Websocket", "Error " + exception.getMessage());
-        exception.printStackTrace();
+        Log.e("Websocket", "Error " + exception.getMessage());
+
+        // Connection exceptions keep repeating
+        if (!(exception instanceof ConnectException)) exception.printStackTrace();
 
         close();
         connected = false;

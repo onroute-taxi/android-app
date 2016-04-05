@@ -79,13 +79,13 @@ public class AdcolonyVideoActivity extends InjectableActivity {
     }
 
 
-    @Click(R.id.linearlayout_skip)
+//    @Click(R.id.linearlayout_skip)
     protected void buttonSkipAdClicked() {
         SkipAd();
     }
 
 
-    @Click(R.id.cta_textview)
+//    @Click(R.id.cta_textview)
     protected void cta_textviewClicked() {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("https://in.bookmyshow.com/mumbai/movies/batman-v-superman-dawn-of-justice-3d/ET00030143"));
@@ -93,7 +93,7 @@ public class AdcolonyVideoActivity extends InjectableActivity {
     }
 
 
-    @Click(R.id.relativelayout_video_minimized)
+//    @Click(R.id.relativelayout_video_minimized)
     protected void replayVideoAd() {
         videoAdTouchCount = 0;
         videoViewMinimized.setVisibility(View.GONE);
@@ -169,44 +169,44 @@ public class AdcolonyVideoActivity extends InjectableActivity {
             }
         });
 
-
-        videoViewAd.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                /*videoViewAd.setEnabled(false);
-                buttonSkipAd.setVisibility(View.VISIBLE);
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        YoYo.with(Techniques.FadeOut).duration(500).playOn(findViewById(R.id.linearlayout_skip));
-                        videoViewAd.setEnabled(true);
-                    }
-                }, 3000);*/
-
-                if (videoAdTouchCount % 2 == 0) {
-                    YoYo.with(Techniques.FadeOutRight).duration(500).playOn(findViewById(R.id.linearlayout_skip));
-                    buttonSkipAd.setVisibility(View.GONE);
-                } else {
-                    buttonSkipAd.setVisibility(View.VISIBLE);
-                    YoYo.with(Techniques.FadeIn).duration(500).playOn(findViewById(R.id.linearlayout_skip));
-
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            YoYo.with(Techniques.FadeOut).duration(500).playOn(findViewById(R.id.linearlayout_skip));
-                            videoAdTouchCount++;
-                        }
-                    }, 3000);
-
-                }
-                videoAdTouchCount++;
-//                progressBar.setProgress(videoAdTouchCount*25);
-                return false;
-            }
-        });
+//
+//        videoViewAd.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                /*videoViewAd.setEnabled(false);
+//                buttonSkipAd.setVisibility(View.VISIBLE);
+//                final Handler handler = new Handler();
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        YoYo.with(Techniques.FadeOut).duration(500).playOn(findViewById(R.id.linearlayout_skip));
+//                        videoViewAd.setEnabled(true);
+//                    }
+//                }, 3000);*/
+//
+//                if (videoAdTouchCount % 2 == 0) {
+//                    YoYo.with(Techniques.FadeOutRight).duration(500).playOn(findViewById(R.id.linearlayout_skip));
+//                    buttonSkipAd.setVisibility(View.GONE);
+//                } else {
+//                    buttonSkipAd.setVisibility(View.VISIBLE);
+//                    YoYo.with(Techniques.FadeIn).duration(500).playOn(findViewById(R.id.linearlayout_skip));
+//
+//                    final Handler handler = new Handler();
+//                    handler.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            YoYo.with(Techniques.FadeOut).duration(500).playOn(findViewById(R.id.linearlayout_skip));
+//                            videoAdTouchCount++;
+//                        }
+//                    }, 3000);
+//
+//                }
+//                videoAdTouchCount++;
+////                progressBar.setProgress(videoAdTouchCount*25);
+//                return false;
+//            }
+//        });
     }
 
 

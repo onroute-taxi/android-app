@@ -37,7 +37,7 @@
                 <!-- The following two intent-filters are the key to set homescreen -->
                 <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             </intent-filter>
         </activity>
         <activity
@@ -45,10 +45,7 @@
             android:label="@string/title_activity_dashboard"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/DashboardTheme"/>
-        <activity
-            android:name=".activities.SmsActivity_"
-            android:label="@string/title_activity_sms"
-            android:screenOrientation="sensorLandscape"/>
+
         <activity
             android:name=".activities.VideoPlayerActivity_"
             android:label="@string/title_activity_video_player"

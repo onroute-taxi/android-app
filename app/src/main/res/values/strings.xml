@@ -75,24 +75,14 @@
     <string name="feedback_sent">Feedback sent. Thank you!</string>
     <string name="feedback_failed">Failed to send, please try again</string>
 
-    <string name="title_activity_about">About</string>
-    <string name="title_activity_ask">Ask HN</string>
-    <string name="title_activity_compose">Compose</string>
-    <string name="title_activity_favorite">Saved Stories</string>
-    <string name="title_activity_item">Comments</string>
-    <string name="title_activity_jobs">Jobs</string>
-    <string name="title_activity_list">Top Stories</string>
-    <string name="title_activity_login">Login to The Big Indian News</string>
-    <string name="title_activity_new">New Stories</string>
-    <string name="title_activity_popular">What\'s Hot</string>
-    <string name="title_activity_search">Search</string>
-    <string name="title_activity_show">Show HN</string>
-    <string name="title_activity_submit">Submit an Article</string>
-    <string name="title_activity_thread_preview">Thread Preview</string>
-    <string name="title_activity_user">My Profile</string>
-    <string name="title_activity_walkthrough">Walkthrough</string>
-    <string name="title_hint">Title</string>
-    <string name="title_required">Title is required</string>
+    <string name="screen_select_destination_ride_text">I\'m taking ride for</string>
+    <string name="layout_select_destination_food_text">Food</string>
+    <string name="layout_select_destination_others_text">Others</string>
+    <string name="layout_select_destination_tourist_text">Tourist</string>
+    <string name="layout_select_destination_work_text">Work</string>
+    <string name="layout_select_destination_drinks_text">Drinks</string>
+    <string name="layout_select_destination_travel_text">Travel</string>
+
 
     <string name="wifi_ssid">Login to OnRoute</string>
     <!-- TODO: Remove or change this placeholder text -->

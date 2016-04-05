@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I&apos;m taking this ride for"
+        android:id="@+id/textView"
+        android:textSize="20sp"
+        android:layout_margin="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_airplane_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_travel_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_glass_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_drinks_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_briefcase_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_work_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_camera_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_tourist_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_food_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_food_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginRight="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ToggleButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/destination_taxi_selector"
+                android:padding="8dp"
+                android:textOff=""
+                android:textOn=""
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:text="@string/layout_select_destination_others_text"
+                android:textColor="@color/orange500"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
