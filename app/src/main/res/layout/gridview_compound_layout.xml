@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <com.enamakel.backseattester.views.gridview.grid.ScrollableGrid
+    <com.onroute.android.views.gridview.grid.ScrollableGrid
         android:id="@+id/scrollable_gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

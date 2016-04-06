@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.enamakel.backseattester.views.gridview.grid.GridView
+    <com.onroute.android.views.gridview.grid.GridView
         android:id="@+id/grid_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"/>

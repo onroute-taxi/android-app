@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.enamakel.backseattester.activities.WifiWelcomeActivity">
+                tools:context="com.onroute.android.activities.WifiWelcomeActivity">
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -78,7 +78,7 @@
                         android:tint="@color/orange500"
                         android:id="@+id/welcome_icon"/>
 
-                    <com.enamakel.backseattester.views.TextView
+                    <com.onroute.android.views.TextView
                         android:id="@+id/welcome_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

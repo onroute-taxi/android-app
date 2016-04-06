@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.enamakel.backseattester.views.gridview.list.CompoundView
+        <com.onroute.android.views.gridview.list.CompoundView
             android:id="@+id/compound_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

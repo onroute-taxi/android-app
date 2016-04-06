@@ -5,7 +5,7 @@
               android:clickable="true"
               android:orientation="vertical"
               android:weightSum="1"
-              tools:context="com.enamakel.backseattester.fragments.DrawerFragment"
+              tools:context="com.onroute.android.fragments.DrawerFragment"
               android:background="#333333">
 
     <LinearLayout

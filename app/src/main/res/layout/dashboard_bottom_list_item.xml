@@ -6,7 +6,7 @@
     android:layout_margin="10dp"
     android:orientation="vertical">
 
-    <com.enamakel.backseattester.views.gridview.items.ImageGridItem
+    <com.onroute.android.views.gridview.items.ImageGridItem
         android:id="@+id/itemImage"
         android:layout_width="100dp"
         android:layout_height="wrap_content"/>

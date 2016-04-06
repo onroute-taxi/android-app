@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                tools:context="com.enamakel.sameer.VideoAdActivity">
+                tools:context="com.onroute.sameer.VideoAdActivity">
 
     <!-- Dummy item to prevent VideoView from receiving focus -->
     <LinearLayout

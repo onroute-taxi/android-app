@@ -17,10 +17,10 @@
         android:scrollbars="none">
 
         <fragment
-            android:name="com.enamakel.backseattester.fragments.DrawerFragment"
+            android:name="com.onroute.android.fragments.DrawerFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:tag="com.enamakel.backseattester.DrawerFragment"
+            android:tag="com.onroute.android.DrawerFragment"
             tools:layout="@layout/fragment_drawer"/>
     </ScrollView>
 </android.support.v4.widget.DrawerLayout>
