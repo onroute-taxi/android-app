@@ -32,16 +32,22 @@
             android:foregroundGravity="center_horizontal">
 
             <LinearLayout
-                android:id="@+id/wifiInfo"
+                android:id="@+id/advancedFrame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
+                android:background="#EE111111"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                android:background="#EE111111">
+                android:visibility="gone">
 
-                <include layout="@layout/item_login_advanced"
-                         android:id="@+id/login_advanced"></include>
+                <include
+                    android:id="@+id/login_personas"
+                    android:visibility="gone"
+                    layout="@layout/item_login_personas"></include>
+
+                <include
+                    android:id="@+id/login_advanced"
+                    layout="@layout/item_login_advanced"></include>
             </LinearLayout>
 
             <LinearLayout
@@ -52,36 +58,36 @@
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/layout_wifi_prompt"
                 android:foregroundGravity="center_vertical"
+                android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingBottom="30dp"
-                android:paddingTop="30dp"
-                android:gravity="center_horizontal">
+                android:paddingTop="30dp">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal">
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:id="@+id/imageView2"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/ic_wifi_black_24dp"
                         android:tint="@color/orange500"
-                        android:layout_marginRight="15dp"/>
+                        android:id="@+id/welcome_icon"/>
 
                     <com.enamakel.backseattester.views.TextView
                         android:id="@+id/welcome_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center_horizontal"
                         android:text="Connect to the OnRoute Wifi"
                         android:textColor="#FFF"
                         android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:gravity="center_horizontal"/>
+                        android:textStyle="bold"/>
                 </LinearLayout>
 
             </LinearLayout>

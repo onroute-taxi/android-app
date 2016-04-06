@@ -1,9 +1,11 @@
 package com.enamakel.backseattester.activities;
 
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,25 +44,29 @@ import javax.inject.Inject;
 
 @EActivity(R.layout.activity_wifi_welcome)
 public class WifiWelcomeActivity extends InjectableActivity {
-    final static String TAG = WifiWelcomeActivity.class.getSimpleName();
+    private final static String TAG = WifiWelcomeActivity.class.getSimpleName();
 
     @ViewById FrameLayout contentFrame;
     @ViewById LinearLayout promptFrame;
     @ViewById VideoView videoView;
-    @ViewById LinearLayout wifiInfo;
+    @ViewById LinearLayout advancedFrame;
     @ViewById TextView welcomeText;
     @ViewById TextView instructionText;
     @ViewById TextView smsText;
     @ViewById View loginAdvanced;
+    @ViewById View loginPersonas;
+    @ViewById View personas;
+    @ViewById ImageView welcomeIcon;
 
     @Inject WifiHotspot wifiHotspot;
 
-    Handler handler = new Handler();
-    boolean continueChecking = true;
-    final int interval = 1000;
-    boolean hasAnimated = false;
+    private BluetoothAdapter adapter;
 
-    final Runnable statusChecker = new Runnable() {
+    private Handler handler = new Handler();
+    private boolean continueChecking = true;
+    private final int interval = 1000;
+    private boolean hasAnimated = false;
+    private final Runnable statusChecker = new Runnable() {
         @Override
         public void run() {
             if (!continueChecking) {
@@ -68,7 +75,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
 
             try {
-                 Log.d(TAG, "refresing hotspot");
+                Log.d(TAG, "refresing hotspot");
                 refreshHotspot();
             } finally {
                 // 100% guarantee that this always happens, even if your update method throws an
@@ -77,6 +84,20 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
         }
     };
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+        super.onCreate(savedInstanceState);
+    }
 
 
     @AfterViews
@@ -109,11 +130,11 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
         handler.removeCallbacks(statusChecker);
 
-        // Start the Wifi htotspot
+        // Start the Wifi hotspot
         startHotspot();
         statusChecker.run();
 
-        // Start the webserver
+        // Start the web-server
         try {
             Webserver.startServer();
         } catch (IOException e) {
@@ -125,25 +146,10 @@ public class WifiWelcomeActivity extends InjectableActivity {
     @Click
     void contentFrameClicked() {
         Log.d(TAG, "show animation");
-//        onUserConnected("AA:BB:CC:DD:EE:FF");
         if (hasAnimated) return;
         hasAnimated = true;
 
         animateBarFullscreen();
-//        fadeWifiInfoOut();
-    }
-
-
-    @Click(R.id.sms_text)
-    void skip() {
-        onUserConnected("AA:BB:CC:DD:EE:FF");
-    }
-
-
-    void fadeWifiInfoOut() {
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(500);
-        welcomeText.startAnimation(fadeOut);
     }
 
 
@@ -172,7 +178,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                wifiInfo.setVisibility(View.VISIBLE);
+                advancedFrame.setVisibility(View.VISIBLE);
                 promptFrame.setVisibility(View.GONE);
 
                 Animation fadeIn = new AlphaAnimation(0, 1);
@@ -193,19 +199,68 @@ public class WifiWelcomeActivity extends InjectableActivity {
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setDuration(500);
         welcomeText.startAnimation(fadeOut);
+        welcomeIcon.startAnimation(fadeOut);
 
     }
 
 
+    @Click(R.id.sms_text)
+    protected void onPhoneVerified() {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setDuration(250);
+        fadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                loginPersonas.setVisibility(View.VISIBLE);
+                loginAdvanced.setVisibility(View.GONE);
+
+                Animation fadeIn = new AlphaAnimation(0, 1);
+                fadeIn.setDuration(250);
+                loginPersonas.startAnimation(fadeIn);
+            }
+
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        loginAdvanced.startAnimation(fadeOut);
+    }
+
+
+    @Click({
+            R.id.login_personas,
+            R.id.persona_airport,
+            R.id.persona_bar,
+            R.id.persona_camera,
+            R.id.persona_office,
+            R.id.persona_other,
+            R.id.persona_rest
+    })
+    protected void onPersonasCollected() {
+        Toast.makeText(this, "hit", Toast.LENGTH_LONG);
+        // Register client here and goto next screen
+        Intent intent = new Intent(this, DashboardActivity_.class);
+        startActivity(intent);
+    }
+
+
     @Background
-    void startHotspot() {
+    protected void startHotspot() {
         continueChecking = true;
         wifiHotspot.start();
     }
 
 
     @Background
-    void refreshHotspot() {
+    protected void refreshHotspot() {
         List<ClientScanResult> clients = wifiHotspot.getClients();
 
 
@@ -223,20 +278,51 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
 
     @UiThread
-    void onUserConnected(String macAddress) {
+    protected void onUserConnected(String macAddress) {
         Log.d(TAG, macAddress);
 
         continueChecking = false;
         handler.removeCallbacks(statusChecker);
         passengerResource.checkin(macAddress);
 
-        // Register client here and goto next screen
-        Intent intent = new Intent(this, DashboardActivity_.class);
-        startActivity(intent);
+        Animation animation = new AlphaAnimation(1, 0);
+        animation.setDuration(500);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                advancedFrame.setVisibility(View.VISIBLE);
+                promptFrame.setVisibility(View.GONE);
+
+                loginAdvanced.setVisibility(View.GONE);
+                loginPersonas.setVisibility(View.VISIBLE);
+
+                Animation fadeIn = new AlphaAnimation(0, 1);
+                fadeIn.setDuration(250);
+                loginPersonas.startAnimation(fadeIn);
+            }
+
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        promptFrame.startAnimation(animation);
+
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setDuration(500);
+        welcomeText.startAnimation(fadeOut);
+        welcomeIcon.startAnimation(fadeOut);
     }
 
 
-    MediaPlayer.OnPreparedListener PreparedListener = new MediaPlayer.OnPreparedListener() {
+    private MediaPlayer.OnPreparedListener PreparedListener = new MediaPlayer.OnPreparedListener() {
 
         @Override
         public void onPrepared(MediaPlayer mediaPlayer) {

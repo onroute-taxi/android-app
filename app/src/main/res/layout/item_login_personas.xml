@@ -1,157 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center_horizontal"
-              android:orientation="vertical">
+<FrameLayout
+    android:id="@+id/personas"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:orientation="vertical">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="I&apos;m taking this ride for"
-        android:id="@+id/textView"
-        android:textSize="20sp"
-        android:layout_margin="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_view_orange_stroke"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Awesome, you are logged in."
+            android:textColor="@color/white1000"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="What are you taking this ride for?"
+            android:textColor="@color/white1000"
+            android:textSize="26sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            >
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_airplane_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_travel_text"
-                android:textColor="@color/orange500"/>
-        </LinearLayout>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:orientation="vertical">
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_airplane_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_airport"/>
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_glass_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_travel_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_drinks_text"
-                android:textColor="@color/orange500"/>
-        </LinearLayout>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_glass_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_bar"/>
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_briefcase_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_drinks_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_work_text"
-                android:textColor="@color/orange500"/>
-        </LinearLayout>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_briefcase_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_office"/>
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_camera_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_work_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_tourist_text"
-                android:textColor="@color/orange500"/>
-        </LinearLayout>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_camera_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_camera"/>
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_food_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_tourist_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_food_text"
-                android:textColor="@color/orange500"/>
-        </LinearLayout>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_food_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_rest"/>
 
-            <ToggleButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/destination_taxi_selector"
-                android:padding="8dp"
-                android:textOff=""
-                android:textOn=""
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:gravity="center_horizontal"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_food_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/layout_select_destination_others_text"
-                android:textColor="@color/orange500"/>
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
+
+                <ToggleButton
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/destination_taxi_selector"
+                    android:padding="8dp"
+                    android:textOff=""
+                    android:textOn=""
+                    android:id="@+id/persona_other"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/layout_select_destination_others_text"
+                    android:textColor="@color/orange500"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
+</FrameLayout>

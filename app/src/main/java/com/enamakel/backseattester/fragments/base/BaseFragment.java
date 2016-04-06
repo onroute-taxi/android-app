@@ -1,4 +1,4 @@
-package com.enamakel.backseattester.fragments;
+package com.enamakel.backseattester.fragments.base;
 
 
 import android.content.Context;

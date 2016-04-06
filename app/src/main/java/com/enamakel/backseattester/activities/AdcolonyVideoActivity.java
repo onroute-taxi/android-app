@@ -79,9 +79,14 @@ public class AdcolonyVideoActivity extends InjectableActivity {
     }
 
 
-//    @Click(R.id.linearlayout_skip)
+    @Click(R.id.linearlayout_skip)
     protected void buttonSkipAdClicked() {
-        SkipAd();
+        mediaModel = getIntent().getParcelableExtra(EXTRA_MEDIA_MODEL);
+
+        Intent intent = new Intent(AdcolonyVideoActivity.this, VideoPlayerActivity_.class);
+        intent.putExtra(VideoPlayerActivity.EXTRA_MEDIA_MODEL, mediaModel);
+        startActivity(intent);
+//        SkipAd();
     }
 
 

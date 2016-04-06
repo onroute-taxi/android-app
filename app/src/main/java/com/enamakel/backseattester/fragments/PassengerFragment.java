@@ -14,6 +14,7 @@ import com.enamakel.backseattester.data.models.PassengerModel;
 import com.enamakel.backseattester.data.models.SessionModel;
 import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
+import com.enamakel.backseattester.fragments.base.BaseFragment;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;

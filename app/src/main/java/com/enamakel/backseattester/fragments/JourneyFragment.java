@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.data.models.TabletModel;
 import com.enamakel.backseattester.data.resources.JourneyResource;
+import com.enamakel.backseattester.fragments.base.BaseFragment;
 import com.enamakel.backseattester.network.websocket.Websocket;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;

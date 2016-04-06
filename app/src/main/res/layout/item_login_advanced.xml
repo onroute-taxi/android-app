@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Connect to the OnRoute wifi from your phone to start"
+                android:text="@string/login_instruction_detailed"
                 android:textColor="@color/white"
                 android:textSize="32sp"
                 android:textStyle="bold"/>
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
-            android:text="OR"
+            android:text="@string/or"
             android:textColor="#F5A623"
             android:textSize="50sp"
             android:textStyle="bold"/>
@@ -57,11 +57,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Connect to the OnRoute wifi from your phone to start"
+                android:text="@string/login_instruction_detailed"
                 android:textColor="@color/white"
                 android:textSize="32sp"
                 android:textStyle="bold"/>
-
         </LinearLayout>
     </LinearLayout>
 

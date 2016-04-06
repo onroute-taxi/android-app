@@ -44,4 +44,10 @@ public class App extends Application {
         // Setup the application graph
         applicationGraph = ObjectGraph.create().plus(new ActivityModule(this));
     }
+
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
 }

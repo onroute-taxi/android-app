@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.data.resources.TabletResource;
+import com.enamakel.backseattester.fragments.base.BaseFragment;
 import com.enamakel.backseattester.network.websocket.Websocket;
 
 import org.androidannotations.annotations.AfterViews;

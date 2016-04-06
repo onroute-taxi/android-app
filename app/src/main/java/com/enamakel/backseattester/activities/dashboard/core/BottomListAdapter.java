@@ -1,4 +1,4 @@
-package com.enamakel.backseattester.activities.dashboard;
+package com.enamakel.backseattester.activities.dashboard.core;
 
 
 import android.support.v7.widget.RecyclerView;

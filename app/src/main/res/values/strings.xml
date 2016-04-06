@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OnRoute</string>
 
-    <string name="skip">Skip</string>
+    <string name="skip">Skip Ad</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_tabbed">TabbedActivity</string>
@@ -93,4 +93,19 @@
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="title_activity_video_player">VideoPlayerActivity</string>
     <string name="title_activity_adcolony_video">AdcolonyVideoActivity</string>
+    <string name="login_instruction_landing">
+        <![CDATA[
+            <font color=#FFFFFF>Connect to the </font>
+            <font color=#FF9800>OnRoute</font>
+            <font color=#FFFFFF> Wifi to start</font>
+        ]]>
+    </string>
+    <string name="login_instruction_detailed">
+        <![CDATA[
+            <font color=#FFFFFF>Connect to the </font>
+            <font color=#FF9800>OnRoute</font>
+            <font color=#FFFFFF> Wifi to start</font>
+        ]]>
+    </string>
+    <string name="or">OR</string>
 </resources>

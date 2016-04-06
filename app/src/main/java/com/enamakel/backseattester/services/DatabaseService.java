@@ -15,18 +15,32 @@ import com.enamakel.backseattester.network.websocket.Websocket;
 import javax.inject.Inject;
 
 
-public class DatabaseService extends BaseService {
+/**
+ * This service is responsible for constantly communicating with the server and sending little
+ * 'heartbeats' to the server.
+ */
+public class DatabaseService extends InjectableService {
     static final String TAG = DatabaseService.class.getSimpleName();
 
     @Inject Websocket websocket;
     @Inject TabletResource tabletResource;
 
-    final Handler handler = new Handler();
+    /**
+     * This interval is counted in ms, and determines how frequently the app sends the heartbeat
+     * to the server.
+     */
     final long interval = 5000;
+
+
+    /**
+     * A runnable to send the heartbeat to the server at regular intervals.
+     */
+    final Handler handler = new Handler();
     final Runnable statusChecker = new Runnable() {
         @Override
         public void run() {
             try {
+                Log.d(TAG, "heartbeat");
                 tabletResource.heartbeat();
             } finally {
                 handler.postDelayed(statusChecker, interval);
@@ -35,6 +49,9 @@ public class DatabaseService extends BaseService {
     };
 
 
+    /**
+     * Returns True if the service is running.
+     */
     public static boolean isRunning(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service :

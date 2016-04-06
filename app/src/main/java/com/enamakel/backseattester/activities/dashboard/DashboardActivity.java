@@ -4,16 +4,14 @@ package com.enamakel.backseattester.activities.dashboard;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.AdcolonyVideoActivity;
 import com.enamakel.backseattester.activities.AdcolonyVideoActivity_;
-import com.enamakel.backseattester.activities.VideoPlayerActivity;
-import com.enamakel.backseattester.activities.VideoPlayerActivity_;
 import com.enamakel.backseattester.activities.base.BaseDashboardActivity;
+import com.enamakel.backseattester.activities.dashboard.core.BottomListAdapter;
+import com.enamakel.backseattester.activities.dashboard.core.DashboardTile;
 import com.enamakel.backseattester.data.models.media.MediaModel;
 import com.enamakel.backseattester.views.gridview.OnGridItemClickListener;
 import com.enamakel.backseattester.views.gridview.grid.ScrollableGrid;
@@ -85,18 +83,16 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
             // Brookly Nine Nine
             MediaModel ninenineMedia = new MediaModel();
-            ninenineMedia.setTitle("Brooklyn Nine-Nine");
-            ninenineMedia.setDescription("Jake Peralta, an immature but talented NYPD detective in " +
-                    "Brooklyn's 99th Precinct, comes into immediate conflict with his new commanding " +
-                    "officer, the serious and stern Captain Ray Holt.");
-            ninenineMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
-            ninenineMedia.setImagePath("file:///android_asset/images/nine_nine.jpg");
+            ninenineMedia.setTitle("Mind your language");
+            ninenineMedia.setDescription("Mind Your Language is a British comedy television series that premiered on ITV in 1977. Produced by London Weekend Television and directed by Stuart Allen.");
+            ninenineMedia.setVideoPath("/sdcard/mind.mp4");
+            ninenineMedia.setImagePath("file:///android_asset/images/mind.jpg");
 
             // Friends
             MediaModel friendsMedia = new MediaModel();
             friendsMedia.setTitle("Friends S1:E5");
             friendsMedia.setDescription("Eager to spend time with Rachel, Ross pretends his building's washroom is rat-infested so he can join her at the laundromat. Chandler points out this could be a 'date' and the first time she'll see his underwear so it shouldn't be dirty! Rachel, the spoiled 'laundry virgin' feels managing this domestic chore is a real step to independence, but despite Ross's good advice she leaves a red sock in the machine. The real accomplishment comes where she has to stand up as no-nonsense-New Yorker against a rude, aggressive woman who invents rules to pretend it's not Rachel turn to do her laundry. Joey realizes he regrets dumping foxy Angela when he learns she is dating Bob. He proposes a double-date, then needs a girl stat. Monica agrees to be Joey's date but when she sees hunky Bob and realizes he's not Angela's brother she starts to enjoy the evening. Chandler drinks too much espresso while desperately trying to break up with neurotic Janice.");
-            friendsMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
+            friendsMedia.setVideoPath("/sdcard/friends.mp4");
             friendsMedia.setImagePath("file:///android_asset/images/friends.jpg");
 
             // Friends
@@ -107,28 +103,28 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             thronesMedia.setImagePath("file:///android_asset/images/thrones.jpg");
 
             // Comedy nights with Kapil
-            MediaModel kapilMedia = new MediaModel();
-            kapilMedia.setTitle("Comedy nights with Kapil");
-            kapilMedia.setDescription("Kapil Sharma, the host, starts off with a comedy act and later moves on to interview celebrities with fellow co-actors.");
-            kapilMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
-            kapilMedia.setImagePath("file:///android_asset/images/kapil.jpg");
+            MediaModel wizardsMedia = new MediaModel();
+            wizardsMedia.setTitle("Wizards of Waverly place");
+            wizardsMedia.setDescription("The Russo family own a restaurant and live in New York. However, the father is a wizard while the children are in training. The child who masters the powers shall be given the family wand.\n");
+            wizardsMedia.setVideoPath("/sdcard/wizards.mp4");
+            wizardsMedia.setImagePath("file:///android_asset/images/wizards.jpg");
 
             // Balika Vadhu
             MediaModel balikaMedia = new MediaModel();
-            balikaMedia.setTitle("Balika Vadhu");
-            balikaMedia.setDescription("Anandi, a sweet but intelligent daughter of a farmer, is married off to Jagdish, grandson of a stern, rich lady. Her struggles lie between being a child and being the daughter-in-law of the household.");
-            balikaMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
-            balikaMedia.setImagePath("file:///android_asset/images/balika.png");
+            balikaMedia.setTitle("Mad Men");
+            balikaMedia.setDescription("Donald Draper, the Creative Director at the Sterling Cooper ad agency in New York, tries to maintain a balance between his exceptional professional life and wavering personal life in the 1960s.");
+            balikaMedia.setVideoPath("/sdcard/mad.mp4");
+            balikaMedia.setImagePath("file:///android_asset/images/mad.jpg");
 
-            MediaModel cidMedia = new MediaModel();
-            cidMedia.setTitle("CID");
-            cidMedia.setDescription("ACP Pradyuman, Daya and Abhijeet are an elite trio of officers who work for the CID. They seek the help of professional forensic expert Dr. Salunkhe and solve high-profile criminal cases.");
-            cidMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
-            cidMedia.setImagePath("file:///android_asset/images/cid.jpg");
+            MediaModel keypeeleMedia = new MediaModel();
+            keypeeleMedia.setTitle("Key & Peele");
+            keypeeleMedia.setDescription("Keegan-Michael Key and Jordan Peele, two comics, use sketches and live segments to perform their jokes.");
+            keypeeleMedia.setVideoPath("/sdcard/key.mp4");
+            keypeeleMedia.setImagePath("file:///android_asset/images/key.jpg");
 
 
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item",
-                    new ImageGridItem(this, thronesMedia), 1);
+                    new ImageGridItem(this, balikaMedia), 1);
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item two",
                     new ImageGridItem(this, friendsMedia), 1);
 
@@ -161,11 +157,11 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
             mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "button item",
                     new ImageGridItem(this, ninenineMedia), 1);
-            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "image item two",
-                    new ImageGridItem(this, balikaMedia), 1);
+//            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "image item two",
+//                    new ImageGridItem(this, balikaMedia), 1);
 
-            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item three", new ImageGridItem(this, kapilMedia), 1);
-            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item four", new ImageGridItem(this, cidMedia), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item three", new ImageGridItem(this, wizardsMedia), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item four", new ImageGridItem(this, keypeeleMedia), 1);
 
 //            Button button = new Button(this);
 //            button.setText("View more...");

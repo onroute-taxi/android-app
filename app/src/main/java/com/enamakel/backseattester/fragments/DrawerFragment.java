@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.enamakel.backseattester.R;
 import com.enamakel.backseattester.activities.base.DrawerActivity;
+import com.enamakel.backseattester.fragments.base.BaseFragment;
 
 
 public class DrawerFragment extends BaseFragment {

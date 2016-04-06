@@ -7,12 +7,21 @@ import java.util.Map;
 import fi.iki.elonen.NanoHTTPD;
 
 
+/**
+ * A webserver to serve content to the user. This webserver is access via the captive portal that
+ * is setup by the hotspot.
+ * <p/>
+ * TODO: Server an entire folder with all the resources needed.
+ */
 public class Webserver extends NanoHTTPD {
     static Webserver instance;
 
 
     public Webserver() {
         super("0.0.0.0", 8080);
+
+        // Start the captive portal and redirect all users to this ip and port.
+        // TODO: Put this in a different place.
         CaptivePortal.start("192.168.43.1:8080");
     }
 

@@ -17,7 +17,7 @@ import com.enamakel.backseattester.data.resources.JourneyResource;
 import com.enamakel.backseattester.data.resources.MediaResource;
 import com.enamakel.backseattester.data.resources.PassengerResource;
 import com.enamakel.backseattester.data.resources.TabletResource;
-import com.enamakel.backseattester.fragments.BaseFragment;
+import com.enamakel.backseattester.fragments.base.BaseFragment;
 import com.enamakel.backseattester.fragments.DrawerFragment;
 import com.enamakel.backseattester.fragments.JourneyFragment_;
 import com.enamakel.backseattester.fragments.PassengerFragment_;
