@@ -43,8 +43,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
     @AfterViews
     protected void afterViews() {
-
-        initializeToolbar(R.id.toolbar);
+//        initializeToolbar(R.id.toolbar);
 
         assert compoundView != null;
 
@@ -68,10 +67,12 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             // this is a listener which will be called when an item is clicked
             mScrollableGrid.setOnGridItemClickListener(this);
 
-            // this is how you can add items to any column you've added
-            // you can add a layout resource
-            // last parameter is layout_weight, you can specify 1 and then all items will be with same size
-            // the item with more then one will be bigger then the others
+             /*this is how you can add items to any column you've added
+             you can add a layout resource
+             last parameter is layout_weight, you can specify 1 and then all items will be with same size
+             the item with more then one will be bigger then the others*/
+
+            // TODO: remove the hardcoded data and work with the server
 
             // Everybody loves Raymond
             MediaModel raymondMedia = new MediaModel();
@@ -81,7 +82,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             raymondMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
             raymondMedia.setImagePath("file:///android_asset/images/raymond.jpg");
 
-            // Brookly Nine Nine
+            // Mind your language
             MediaModel ninenineMedia = new MediaModel();
             ninenineMedia.setTitle("Mind your language");
             ninenineMedia.setDescription("Mind Your Language is a British comedy television series that premiered on ITV in 1977. Produced by London Weekend Television and directed by Stuart Allen.");
@@ -95,27 +96,21 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             friendsMedia.setVideoPath("/sdcard/friends.mp4");
             friendsMedia.setImagePath("file:///android_asset/images/friends.jpg");
 
-            // Friends
-            MediaModel thronesMedia = new MediaModel();
-            thronesMedia.setTitle("Game of Thrones S1:E1");
-            thronesMedia.setDescription("While a civil war brews between several noble families in Westeros, the children of the former rulers of the land attempt to rise up to power. Meanwhile a forgotten race, bent on destruction, return after thousands of years in the North.");
-            thronesMedia.setVideoPath("/sdcard/raymond-s1e1.avi");
-            thronesMedia.setImagePath("file:///android_asset/images/thrones.jpg");
-
-            // Comedy nights with Kapil
+            // Wizards of Waverly place
             MediaModel wizardsMedia = new MediaModel();
             wizardsMedia.setTitle("Wizards of Waverly place");
             wizardsMedia.setDescription("The Russo family own a restaurant and live in New York. However, the father is a wizard while the children are in training. The child who masters the powers shall be given the family wand.\n");
             wizardsMedia.setVideoPath("/sdcard/wizards.mp4");
             wizardsMedia.setImagePath("file:///android_asset/images/wizards.jpg");
 
-            // Balika Vadhu
-            MediaModel balikaMedia = new MediaModel();
-            balikaMedia.setTitle("Mad Men");
-            balikaMedia.setDescription("Donald Draper, the Creative Director at the Sterling Cooper ad agency in New York, tries to maintain a balance between his exceptional professional life and wavering personal life in the 1960s.");
-            balikaMedia.setVideoPath("/sdcard/mad.mp4");
-            balikaMedia.setImagePath("file:///android_asset/images/mad.jpg");
+            // Mad Men
+            MediaModel madMenMedia = new MediaModel();
+            madMenMedia.setTitle("Mad Men");
+            madMenMedia.setDescription("Donald Draper, the Creative Director at the Sterling Cooper ad agency in New York, tries to maintain a balance between his exceptional professional life and wavering personal life in the 1960s.");
+            madMenMedia.setVideoPath("/sdcard/mad.mp4");
+            madMenMedia.setImagePath("file:///android_asset/images/mad.jpg");
 
+            // Key & Peele
             MediaModel keypeeleMedia = new MediaModel();
             keypeeleMedia.setTitle("Key & Peele");
             keypeeleMedia.setDescription("Keegan-Michael Key and Jordan Peele, two comics, use sketches and live segments to perform their jokes.");
@@ -124,7 +119,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
 
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item",
-                    new ImageGridItem(this, balikaMedia), 1);
+                    new ImageGridItem(this, madMenMedia), 1);
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item two",
                     new ImageGridItem(this, friendsMedia), 1);
 
@@ -168,22 +163,6 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 //            button.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 //            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "button item in column", button, 1);
         }
-    }
-
-
-    public ImageGridItem getImageGridItem() {
-        // this is the item from your image which you can customize how your needs are
-        ImageGridItem imageGridItem = new ImageGridItem(this);
-        imageGridItem.setBackgroundImage(R.drawable.image_place_holder);
-        imageGridItem.setIconImage(R.drawable.ic_favorite_white_24dp);
-        imageGridItem.setTitle("This is title from code");
-        imageGridItem.setDescription("This is the despcription from code for this item");
-        return imageGridItem;
-    }
-
-
-    public ImageGridItem getImageGridItem(MediaModel mediaModel) {
-        return new ImageGridItem(this, mediaModel);
     }
 
 

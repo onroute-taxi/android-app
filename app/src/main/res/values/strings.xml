@@ -108,4 +108,5 @@
         ]]>
     </string>
     <string name="or">OR</string>
+    <string name="title_activity_music">MusicActivity</string>
 </resources>
