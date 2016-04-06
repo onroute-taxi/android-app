@@ -6,31 +6,31 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.enamakel.backseattester.views.CustomViewGroup;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-    static String TAG = "BaseActivity";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        // Obtain the shared Tracker instance.
-//        NewsApplication application = (NewsApplication) getApplication();
-//        tracker = application.getDefaultTracker();
-//        disableStatusBar();
+
+        /*// Obtain the shared Tracker instance.
+        App application = (App) getApplication();
+        tracker = application.getDefaultTracker();*/
+        disableStatusBar();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-//        Log.i(TAG, "Setting screen name: " + getTrackingName());
-//        tracker.setScreenName(getTrackingName());
-//        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        /*tracker.setScreenName(getTrackingName());
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());*/
     }
 
 
@@ -76,5 +76,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         CustomViewGroup view = new CustomViewGroup(this);
 
         manager.addView(view, localLayoutParams);
+    }
+
+
+    /**
+     * Helper function to hide the system bars
+     */
+    protected void hideSystemUI() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hide nav bar
+                | View.SYSTEM_UI_FLAG_FULLSCREEN      // hide status bar
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 }
