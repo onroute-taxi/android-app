@@ -1,4 +1,4 @@
-package com.onroute.android.activities.base;
+package com.onroute.android.activities.base.dashboard;
 
 
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.onroute.android.R;
+import com.onroute.android.activities.base.DrawerActivity;
 
 
 public abstract class BaseDashboardActivity extends DrawerActivity {
@@ -16,7 +17,7 @@ public abstract class BaseDashboardActivity extends DrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*hideSystemUI();*/
+        hideSystemUI();
         super.onCreate(savedInstanceState);
     }
 

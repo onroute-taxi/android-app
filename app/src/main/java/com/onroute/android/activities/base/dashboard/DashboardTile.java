@@ -1,4 +1,4 @@
-package com.onroute.android.activities.dashboard.core;
+package com.onroute.android.activities.base.dashboard;
 
 
 import android.support.annotation.DrawableRes;

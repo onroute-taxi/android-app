@@ -2,7 +2,7 @@ package com.onroute.android.activities.dashboard;
 
 
 import com.onroute.android.R;
-import com.onroute.android.activities.base.BaseDashboardActivity;
+import com.onroute.android.activities.base.dashboard.BaseDashboardActivity;
 
 import org.androidannotations.annotations.EActivity;
 

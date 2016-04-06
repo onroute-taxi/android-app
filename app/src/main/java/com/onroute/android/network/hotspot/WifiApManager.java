@@ -43,7 +43,7 @@ public class WifiApManager {
             Method method = wifiManager.getClass().getMethod("getWifiApState");
             int tmp = ((Integer) method.invoke(wifiManager));
             tmp %= 10;
-            Log.d("wifi", "" + tmp);
+            Log.d(TAG, "" + tmp);
             // Fix for Android 4
 
             if (tmp >= WifiApState.class.getEnumConstants().length)

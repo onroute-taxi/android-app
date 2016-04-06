@@ -1,4 +1,4 @@
-package com.onroute.android.activities.dashboard.core;
+package com.onroute.android.activities.base.dashboard;
 
 
 import android.support.v7.widget.RecyclerView;

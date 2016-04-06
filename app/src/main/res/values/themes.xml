@@ -76,7 +76,7 @@
     </style>
 
     <style name="DashboardTheme" parent="Theme.AppCompat.Dark.NoActionBar.FullScreen">
-        <!--<item name="android:background">@color/grey900</item>-->
+        <item name="android:background">@color/grey900</item>
         <item name="colorPrimary">@color/grey50</item>
         <item name="colorAccent">@color/grey50</item>
         <item name="android:textColor">@color/white1000</item>
