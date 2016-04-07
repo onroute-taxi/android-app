@@ -9,6 +9,8 @@ import android.widget.Toast;
 import com.onroute.android.R;
 import com.onroute.android.activities.AdcolonyVideoActivity;
 import com.onroute.android.activities.AdcolonyVideoActivity_;
+import com.onroute.android.activities.VideoPlayerActivity;
+import com.onroute.android.activities.VideoPlayerActivity_;
 import com.onroute.android.activities.base.dashboard.BaseDashboardActivity;
 import com.onroute.android.activities.base.dashboard.BottomListAdapter;
 import com.onroute.android.activities.base.dashboard.DashboardTile;
@@ -182,7 +184,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
             if (imageGridItem.getMediaModel() != null) {
                 Intent intent = new Intent(this, AdcolonyVideoActivity_.class);
-                intent.putExtra(AdcolonyVideoActivity.EXTRA_MEDIA_MODEL, imageGridItem.getMediaModel());
+                intent.putExtra(VideoPlayerActivity.EXTRA_MEDIA_MODEL, imageGridItem.getMediaModel());
                 startActivity(intent);
             }
         }

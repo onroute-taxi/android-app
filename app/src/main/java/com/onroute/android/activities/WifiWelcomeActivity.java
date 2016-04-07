@@ -62,6 +62,8 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
     private BluetoothAdapter adapter;
 
+    static String wifiName;
+
     private Handler handler = new Handler();
     private boolean continueChecking = true;
     private final int interval = 1000;
@@ -84,6 +86,10 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
         }
     };
+
+    static {
+        wifiName = "Login to Onroute - " + Math.floor(Math.random() * 100);
+    }
 
 
     @Override
@@ -133,6 +139,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
         // Start the Wifi hotspot
         startHotspot();
         statusChecker.run();
+        wifiHotspot.setName(wifiName);
 
         // Start the web-server
         try {

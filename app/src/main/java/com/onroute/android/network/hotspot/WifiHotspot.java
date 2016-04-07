@@ -17,7 +17,7 @@ public class WifiHotspot {
 
     final WifiApManager manager;
     final Context context;
-    final WifiConfiguration configuration;
+    WifiConfiguration configuration;
 
 
     @Inject
@@ -25,6 +25,11 @@ public class WifiHotspot {
         this.context = context;
         manager = new WifiApManager(context);
         configuration = getConfiguration();
+    }
+
+
+    public void setName(String name) {
+        configuration = getConfiguration(name);
     }
 
 
@@ -66,6 +71,15 @@ public class WifiHotspot {
     WifiConfiguration getConfiguration() {
         WifiConfiguration configuration = new WifiConfiguration();
         configuration.SSID = context.getResources().getString(R.string.wifi_ssid);
+        configuration.status = WifiConfiguration.Status.ENABLED;
+        configuration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
+        return configuration;
+    }
+
+
+    WifiConfiguration getConfiguration(String name) {
+        WifiConfiguration configuration = new WifiConfiguration();
+        configuration.SSID = name;
         configuration.status = WifiConfiguration.Status.ENABLED;
         configuration.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
         return configuration;

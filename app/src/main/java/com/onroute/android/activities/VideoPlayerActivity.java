@@ -3,8 +3,10 @@ package com.onroute.android.activities;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -12,6 +14,7 @@ import android.widget.VideoView;
 import com.onroute.android.R;
 import com.onroute.android.data.models.AdvertisementModel;
 import com.onroute.android.data.models.media.MediaModel;
+import com.onroute.android.services.VideoAdService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -38,6 +41,10 @@ public class VideoPlayerActivity extends Activity {
     @ViewById SeekBar volumeSeekBar;
     @ViewById TextView timeLeft;
 
+    private MediaModel media;
+
+    private AdvertisementStatus advertisementStatus = AdvertisementStatus.NOT_PLAYED;
+
     // For this activity there are two advertisement slots.
     AdvertisementModel preVideoAdvertisement;
     AdvertisementModel postVideoAdvertisement;
@@ -53,6 +60,24 @@ public class VideoPlayerActivity extends Activity {
             if (mainVideo.isPlaying()) videoSeekBar.postDelayed(onEverySecond, 1000);
         }
     };
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        media = getIntent().getParcelableExtra(EXTRA_MEDIA_MODEL);
+
+        if (shouldShowAdBeforeVideo() &&
+                advertisementStatus == AdvertisementStatus.NOT_PLAYED) {
+            // Create an intent to display the ad!
+            Intent intent = new Intent(this, VideoAdService.class);
+            intent.putExtra(VideoAdService.EXTRA_AD, new AdvertisementModel());
+
+            // Start the ad!
+            startService(intent);
+        }
+    }
 
 
     @AfterViews
@@ -186,5 +211,12 @@ public class VideoPlayerActivity extends Activity {
         if (shouldShowAdAfterVideo()) {
 
         } else super.onBackPressed();
+    }
+
+
+    private enum AdvertisementStatus {
+        NOT_PLAYED,
+        PLAYING,
+        FINISHED
     }
 }
