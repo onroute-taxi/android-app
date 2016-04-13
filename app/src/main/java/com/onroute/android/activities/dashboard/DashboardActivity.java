@@ -184,7 +184,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
 
             if (imageGridItem.getMediaModel() != null) {
                 Intent intent = new Intent(this, AdcolonyVideoActivity_.class);
-                intent.putExtra(VideoPlayerActivity.EXTRA_MEDIA_MODEL, imageGridItem.getMediaModel());
+                intent.putExtra(AdcolonyVideoActivity.EXTRA_MEDIA_MODEL, imageGridItem.getMediaModel());
                 startActivity(intent);
             }
         }

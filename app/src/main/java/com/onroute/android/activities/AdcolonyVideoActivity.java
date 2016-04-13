@@ -24,7 +24,7 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_adcolony_video)
 public class AdcolonyVideoActivity extends InjectableActivity {
     private static final String TAG = "MainActivity";
-    public static String EXTRA_MEDIA_MODEL = AdcolonyVideoActivity.class.getName() + ".media";
+    public static String EXTRA_MEDIA_MODEL = "MEDIA";
 
     private int videoAdTouchCount = 0;
     private Thread backgroundThread;

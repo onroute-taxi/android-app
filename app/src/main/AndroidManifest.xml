@@ -32,7 +32,7 @@
         </receiver>
 
         <activity
-            android:name="com.onroute.android.activities.WifiWelcomeActivity_"
+            android:name=".activities.WelcomeActivity_"
             android:label="@string/app_name"
             android:screenOrientation="sensorLandscape">
             <intent-filter>

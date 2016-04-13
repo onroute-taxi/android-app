@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.onroute.android.activities.AdcolonyVideoActivity_;
 import com.onroute.android.activities.VideoPlayerActivity_;
-import com.onroute.android.activities.WifiWelcomeActivity_;
+import com.onroute.android.activities.WelcomeActivity_;
 import com.onroute.android.activities.dashboard.DashboardActivity_;
 import com.onroute.android.data.listeners.ResponseManager;
 import com.onroute.android.data.models.PassengerModel;
@@ -41,7 +41,7 @@ import dagger.Provides;
 @Module(
         injects = {
                 // Activities
-                WifiWelcomeActivity_.class,
+                WelcomeActivity_.class,
                 DashboardActivity_.class,
                 AdcolonyVideoActivity_.class,
                 VideoPlayerActivity_.class,

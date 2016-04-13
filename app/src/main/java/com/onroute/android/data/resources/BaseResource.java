@@ -17,7 +17,6 @@ public abstract class BaseResource implements ResponseManager.Listener {
 
     public BaseResource() {
         App.getApplicationGraph().inject(this);
-        Log.d("added", "yum " + this.getClass().getName());
         responseManager.addListener(this, this.getClass().getName());
     }
 }

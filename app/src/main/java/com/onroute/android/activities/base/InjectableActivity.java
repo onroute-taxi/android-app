@@ -16,7 +16,7 @@ import javax.inject.Inject;
 import dagger.ObjectGraph;
 
 
-public abstract class InjectableActivity extends ThemedActivity implements Injectable {
+public abstract class InjectableActivity extends BaseActivity implements Injectable {
     ObjectGraph activityGraph;
     boolean isDestroyed;
 

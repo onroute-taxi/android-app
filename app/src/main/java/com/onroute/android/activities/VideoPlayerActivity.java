@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.onroute.android.R;
+import com.onroute.android.activities.base.InjectableActivity;
 import com.onroute.android.data.models.AdvertisementModel;
 import com.onroute.android.data.models.media.MediaModel;
 import com.onroute.android.services.VideoAdService;
@@ -32,7 +33,7 @@ import java.util.List;
  * should be an interactive ad.
  */
 @EActivity(R.layout.activity_video_player)
-public class VideoPlayerActivity extends Activity {
+public class VideoPlayerActivity extends InjectableActivity {
     public static String EXTRA_MEDIA_MODEL = "MEDIA";
 
     @ViewById VideoView mainVideo;
@@ -75,7 +76,7 @@ public class VideoPlayerActivity extends Activity {
             intent.putExtra(VideoAdService.EXTRA_AD, new AdvertisementModel());
 
             // Start the ad!
-            startService(intent);
+//            startService(intent);
         }
     }
 
@@ -84,25 +85,28 @@ public class VideoPlayerActivity extends Activity {
     protected void afterViews() {
         MediaModel media = getIntent().getParcelableExtra(EXTRA_MEDIA_MODEL);
 
-        // TODO: Figure out if we should play the pre-video ad here or not
+        // TODO this should not be null
+        if (media != null) {
+            // TODO: Figure out if we should play the pre-video ad here or not
 
-        mainVideo.setVideoPath(media.getVideoPath());
-        mainVideo.start();
-        videoTitle.setText(media.getTitle());
+            mainVideo.setVideoPath(media.getVideoPath());
+            mainVideo.start();
+            videoTitle.setText(media.getTitle());
 
-        setupVolumeBar();
-        setupVideoSeekBar();
+            setupVolumeBar();
+            setupVideoSeekBar();
 
-        // TODO: Setup other parts of the activity (animation, timer etc..)
+            // TODO: Setup other parts of the activity (animation, timer etc..)
 
-        mainVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoSeekBar.setMax(mainVideo.getDuration());
-                videoSeekBar.postDelayed(onEverySecond, 1000);
-            }
-        });
+            mainVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    videoSeekBar.setMax(mainVideo.getDuration());
+                    videoSeekBar.postDelayed(onEverySecond, 1000);
+                }
+            });
 
+        }
         // TODO: Once the video end, go back to the previous activity.
 
     }
