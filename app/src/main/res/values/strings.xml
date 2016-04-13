@@ -109,4 +109,7 @@
     </string>
     <string name="or">OR</string>
     <string name="title_activity_music">MusicActivity</string>
+    <string name="auth_login_delete">Delete</string>
+    <string name="auth_login_enter">Enter</string>
+    <string name="auth_login_enter_phone_number">Enter Phone Number</string>
 </resources>

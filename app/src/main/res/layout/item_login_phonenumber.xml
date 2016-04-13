@@ -9,28 +9,34 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/auth_phone_btn_1"
             style="@style/AuthLoginPhoneButton"
             android:text="1"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_2"
             style="@style/AuthLoginPhoneButton"
             android:text="2"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_3"
             style="@style/AuthLoginPhoneButton"
             android:text="3"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_4"
             style="@style/AuthLoginPhoneButton"
             android:text="4"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_5"
             style="@style/AuthLoginPhoneButton"
             android:text="5"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_delete"
             style="@style/AuthLoginPhoneButton"
-            android:text="Delete"
+            android:text="@string/auth_login_delete"
             android:textAllCaps="false"/>
     </TableRow>
 
@@ -39,30 +45,36 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/auth_phone_btn_6"
             style="@style/AuthLoginPhoneButton"
             android:text="6"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_7"
             style="@style/AuthLoginPhoneButton"
             android:text="7"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_8"
             style="@style/AuthLoginPhoneButton"
             android:text="8"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_9"
             style="@style/AuthLoginPhoneButton"
             android:text="9"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_0"
             style="@style/AuthLoginPhoneButton"
             android:text="0"/>
 
         <Button
+            android:id="@+id/auth_phone_btn_enter"
             style="@style/AuthLoginPhoneButton"
             android:layout_width="128dp"
             android:background="@color/orange500"
-            android:text="Enter"
+            android:text="@string/auth_login_enter"
             android:textAllCaps="false"
             android:textColor="#111111"/>
     </TableRow>

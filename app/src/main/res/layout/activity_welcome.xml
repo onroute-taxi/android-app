@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.onroute.android.activities.WifiWelcomeActivity">
+                tools:context=".activities.WelcomeActivity">
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -41,13 +41,14 @@
                 android:visibility="gone">
 
                 <include
+                    android:id="@+id/login_advanced"
+                    layout="@layout/item_login_advanced"></include>
+
+                <include
                     android:id="@+id/login_personas"
                     android:visibility="gone"
                     layout="@layout/item_login_personas"></include>
 
-                <include
-                    android:id="@+id/login_advanced"
-                    layout="@layout/item_login_advanced"></include>
             </LinearLayout>
 
             <LinearLayout
@@ -61,7 +62,8 @@
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingBottom="30dp"
-                android:paddingTop="30dp">
+                android:paddingTop="30dp"
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -74,9 +76,9 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginRight="15dp"
-                        android:src="@drawable/ic_wifi_black_24dp"
                         android:tint="@color/orange500"
-                        android:id="@+id/welcome_icon"/>
+                        android:id="@+id/welcome_icon"
+                        android:src="@drawable/bluetooth"/>
 
                     <com.onroute.android.views.TextView
                         android:id="@+id/welcome_text"

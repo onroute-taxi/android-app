@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.onroute.android.R;
@@ -42,9 +42,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-@EActivity(R.layout.activity_wifi_welcome)
-public class WifiWelcomeActivity extends InjectableActivity {
-    private final static String TAG = WifiWelcomeActivity.class.getSimpleName();
+@EActivity(R.layout.activity_welcome)
+public class WelcomeActivity extends InjectableActivity {
+    private final static String TAG = WelcomeActivity.class.getSimpleName();
 
     @ViewById FrameLayout contentFrame;
     @ViewById LinearLayout promptFrame;
@@ -52,23 +52,27 @@ public class WifiWelcomeActivity extends InjectableActivity {
     @ViewById LinearLayout advancedFrame;
     @ViewById TextView welcomeText;
     @ViewById TextView instructionText;
-    @ViewById TextView smsText;
-    @ViewById View loginAdvanced;
+    //    @ViewById TextView smsText;
+//    @ViewById View loginAdvanced;
     @ViewById View loginPersonas;
     @ViewById View personas;
     @ViewById ImageView welcomeIcon;
+    @ViewById TextView phoneNumberField;
 
     @Inject WifiHotspot wifiHotspot;
 
     private BluetoothAdapter adapter;
+    private boolean isPhoneNumberCleared = false;
 
     static String wifiName;
 
     private Handler handler = new Handler();
     private boolean continueChecking = true;
-    private final int interval = 1000;
+
     private boolean hasAnimated = false;
     private final Runnable statusChecker = new Runnable() {
+        private final int interval = 1000;
+
         @Override
         public void run() {
             if (!continueChecking) {
@@ -86,6 +90,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
             }
         }
     };
+
 
     static {
         wifiName = "Login to Onroute - " + Math.floor(Math.random() * 100);
@@ -111,18 +116,13 @@ public class WifiWelcomeActivity extends InjectableActivity {
         videoView.setVideoURI(Uri.parse("/sdcard/raymond-s1e1.avi"));
         videoView.setOnPreparedListener(PreparedListener);
 
-        String welcomeHtmlText = "<font color=#FFFFFF>Connect to the </font> <font color=#FF9800>OnRoute</font> " +
-                "<font color=#FFFFFF>Wifi to start</font>";
+        String welcomeHtmlText = getResources().getString(R.string.login_instruction_landing);
         welcomeText.setText(Html.fromHtml(welcomeHtmlText));
 
 
         String instHtmlText = "<font color=#FFFFFF>Connect to the</font> <font color=#FF9800>OnRoute</font> " +
-                "<font color=#FFFFFF>wifi from your phone to start</font>";
+                "<font color=#FFFFFF>bluetooth from your phone to start</font>";
         instructionText.setText(Html.fromHtml(instHtmlText));
-
-        String smsHtmlText = "<font color=#FFFFFF>SMS</font> <font color=#FF9800>\"OnRoute\"</font> " +
-                "<font color=#FFFFFF>to 9819254358</font>";
-        smsText.setText(Html.fromHtml(smsHtmlText));
     }
 
 
@@ -190,7 +190,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
                 Animation fadeIn = new AlphaAnimation(0, 1);
                 fadeIn.setDuration(250);
-                loginAdvanced.startAnimation(fadeIn);
+//                loginAdvanced.startAnimation(fadeIn);
             }
 
 
@@ -225,7 +225,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 loginPersonas.setVisibility(View.VISIBLE);
-                loginAdvanced.setVisibility(View.GONE);
+//                loginAdvanced.setVisibility(View.GONE);
 
                 Animation fadeIn = new AlphaAnimation(0, 1);
                 fadeIn.setDuration(250);
@@ -238,7 +238,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
 
             }
         });
-        loginAdvanced.startAnimation(fadeOut);
+//        loginAdvanced.startAnimation(fadeOut);
     }
 
 
@@ -252,13 +252,15 @@ public class WifiWelcomeActivity extends InjectableActivity {
             R.id.persona_rest
     })
     protected void onPersonasCollected() {
-        Toast.makeText(this, "hit", Toast.LENGTH_LONG);
         // Register client here and goto next screen
         Intent intent = new Intent(this, DashboardActivity_.class);
         startActivity(intent);
     }
 
 
+    /**
+     * Helper function to start the Wifi Hotspot.
+     */
     @Background
     protected void startHotspot() {
         continueChecking = true;
@@ -266,6 +268,13 @@ public class WifiWelcomeActivity extends InjectableActivity {
     }
 
 
+    /**
+     * Helper function to refresh the Wifi hotspot. This function also queries for all the clients
+     * that are connected. The moment it finds a client, it then register him and moves on to the
+     * dashboard.
+     * <p/>
+     * TODO: Have this code in a service and use bluetooth instead.
+     */
     @Background
     protected void refreshHotspot() {
         List<ClientScanResult> clients = wifiHotspot.getClients();
@@ -281,6 +290,65 @@ public class WifiWelcomeActivity extends InjectableActivity {
                 return;
             }
         } //else if (wifiHotspot.isInactive() && !wifiHotspot.isStarting()) wifiHotspot.start();
+    }
+
+
+    /**
+     * Click handler for when the phone number buttons are pressed
+     *
+     * @param view The view that got clicked on.
+     */
+    @Click({
+            R.id.auth_phone_btn_0,
+            R.id.auth_phone_btn_1,
+            R.id.auth_phone_btn_2,
+            R.id.auth_phone_btn_3,
+            R.id.auth_phone_btn_4,
+            R.id.auth_phone_btn_5,
+            R.id.auth_phone_btn_6,
+            R.id.auth_phone_btn_7,
+            R.id.auth_phone_btn_8,
+            R.id.auth_phone_btn_9
+    })
+    protected void onPhoneNumberButtonClick(View view) {
+        if (!isPhoneNumberCleared) {
+            phoneNumberField.setText("");
+            isPhoneNumberCleared = true;
+        }
+
+        phoneNumberField.setTextColor(getResources().getColor(R.color.orange500));
+
+        Button viewButton = (Button) view;
+        String buttonText = viewButton.getText().toString();
+        phoneNumberField.append(buttonText);
+    }
+
+
+    /**
+     * Click handler for when the phone number section's action buttons (Enter/Delete) are pressed.
+     * Basically, the function either resets the phonenumber field or checks the phone-number.
+     *
+     * @param view The view that got clicked on.
+     */
+    @Click({
+            R.id.auth_phone_btn_delete,
+            R.id.auth_phone_btn_enter,
+    })
+    protected void onPhoneActionButtonClick(View view) {
+        phoneNumberField.setTextColor(getResources().getColor(R.color.grey300));
+
+        switch (view.getId()) {
+            case R.id.auth_phone_btn_delete:
+                // Reset the phone number field
+                phoneNumberField.setText(R.string.auth_login_enter_phone_number);
+                isPhoneNumberCleared = false;
+                break;
+
+            case R.id.auth_phone_btn_enter:
+                // Register client here and goto next screen
+                Intent intent = new Intent(this, DashboardActivity_.class);
+                startActivity(intent);
+        }
     }
 
 
@@ -306,7 +374,7 @@ public class WifiWelcomeActivity extends InjectableActivity {
                 advancedFrame.setVisibility(View.VISIBLE);
                 promptFrame.setVisibility(View.GONE);
 
-                loginAdvanced.setVisibility(View.GONE);
+//                loginAdvanced.setVisibility(View.GONE);
                 loginPersonas.setVisibility(View.VISIBLE);
 
                 Animation fadeIn = new AlphaAnimation(0, 1);
@@ -329,6 +397,10 @@ public class WifiWelcomeActivity extends InjectableActivity {
     }
 
 
+    /**
+     * A custom MediaPlayer listener to play the video in the background in an infinite loop
+     * without any volume.
+     */
     private MediaPlayer.OnPreparedListener PreparedListener = new MediaPlayer.OnPreparedListener() {
 
         @Override
