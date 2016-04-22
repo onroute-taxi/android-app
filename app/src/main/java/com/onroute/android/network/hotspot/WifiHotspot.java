@@ -24,7 +24,7 @@ public class WifiHotspot {
     public WifiHotspot(Context context) {
         this.context = context;
         manager = new WifiApManager(context);
-        configuration = getConfiguration();
+//        configuration = getConfiguration();
     }
 
 

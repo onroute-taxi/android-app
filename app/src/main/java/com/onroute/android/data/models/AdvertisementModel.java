@@ -19,6 +19,10 @@ import lombok.EqualsAndHashCode;
 public class AdvertisementModel extends BaseParcelableModel {
     String data;
 
+    // TODO: Get rid of these hardcoded values
+    Type type = Type.INTERACTIVE;
+    Rank rank = Rank.ALLOW_SKIP;
+
 
     public File getVideoFile() {
         return new File("/sdcard/ad.mp4");
@@ -29,6 +33,12 @@ public class AdvertisementModel extends BaseParcelableModel {
         SHORT_VIDEO,
         INTERACTIVE,
         TICKER
+    }
+
+    public enum Rank {
+        ALLOW_SKIP,
+        ALLOW_SKIP_AFTER_5S,
+        NO_SKIP
     }
 
 
