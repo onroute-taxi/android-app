@@ -2,12 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.onroute.android.views.gridview.items.ImageGridItem
+    <com.onroute.android.views.gridview.items.IconGridItem
         android:id="@+id/itemImage"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"/>
+        android:layout_width="200dp"
+        android:layout_height="match_parent"/>
 </LinearLayout>

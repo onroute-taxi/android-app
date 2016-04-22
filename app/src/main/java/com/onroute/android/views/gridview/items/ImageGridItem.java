@@ -1,16 +1,10 @@
 package com.onroute.android.views.gridview.items;
 
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
@@ -24,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.onroute.android.R;
-import com.onroute.android.data.models.media.MediaModel;
+import com.onroute.android.data.models.dashboard.DashboardTileModel;
 import com.squareup.picasso.Picasso;
 
 import lombok.Getter;
@@ -37,25 +31,18 @@ import lombok.Getter;
  * @author eduard.albu@gmail.com
  */
 public class ImageGridItem extends FrameLayout {
-    private Bitmap offscreenBitmap;
-    private Canvas offscreenCanvas;
-    private BitmapShader bitmapShader;
-    private Paint paint;
-    private RectF rectF;
-
-    private Handler handler;
     private Context context;
     private @Getter ImageView backgroundImage;
     private @Getter ImageView bottomIconImage;
     private TextView bottomTitleText;
     private TextView bottomDescription;
-    private @Getter MediaModel mediaModel;
+    private @Getter DashboardTileModel tileModel;
 
 
-    public ImageGridItem(Context context, MediaModel model) {
+    public ImageGridItem(Context context, DashboardTileModel tile) {
         super(context);
         initializeView(context);
-        setMediaModel(model);
+        setTile(tile);
     }
 
 
@@ -77,13 +64,6 @@ public class ImageGridItem extends FrameLayout {
     }
 
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ImageGridItem(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initializeView(context);
-    }
-
-
     public void initializeView(Context context) {
         this.context = context;
         setWillNotDraw(false);
@@ -97,7 +77,6 @@ public class ImageGridItem extends FrameLayout {
         bottomDescription = (TextView) root.findViewById(R.id.bottom_item_description);
         bottomDescription.setSingleLine(true);
         bottomDescription.setEllipsize(TextUtils.TruncateAt.END);
-        handler = new Handler();
     }
 
 
@@ -115,11 +94,10 @@ public class ImageGridItem extends FrameLayout {
     }
 
 
-    public void setMediaModel(MediaModel model) {
-        mediaModel = model;
+    public void setTile(DashboardTileModel model) {
+        tileModel = model;
 
-        Picasso.with(getContext()).load(model.getImagePath()).into(backgroundImage);
-
+        Picasso.with(getContext()).load(model.getLocalBackgroundImagePath()).into(backgroundImage);
         setIconImage(R.drawable.ic_favorite_white_24dp);
         setTitle(model.getTitle());
         setDescription(model.getDescription());
