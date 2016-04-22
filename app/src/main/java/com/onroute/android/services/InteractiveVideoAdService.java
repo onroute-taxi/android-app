@@ -26,16 +26,16 @@ import java.io.File;
  * This service is what is responsible for playing the interactive video ads. It takes in an
  * Advertisement model and ensures that the ad is displayed properly.
  */
-public class VideoAdService extends Service {
-    public static final String EXTRA_AD_FILENAME = ".AD_FILENAME";
+public class InteractiveVideoAdService extends Service {
     public static final String EXTRA_AD = ".AD";
-    private static final String TAG = VideoAdService.class.getName();
+    private static final String TAG = InteractiveVideoAdService.class.getName();
+    public static final String AD_FINISH_INTENT = InteractiveVideoAdService.class.getName() +
+            ".AD_FINISH";
 
     private ViewState mCurrentViewState = ViewState.HIDDEN;
     private WindowManager mWindowManager;
     private View mRootView;
 
-    private File targetVideo;
     private AdvertisementModel mAdvertisement;
 
 
@@ -61,7 +61,8 @@ public class VideoAdService extends Service {
         }
 
 
-        /* Only if the view is hidden do we start showing the ad. This ensures that any previous
+        /*
+         * Only if the view is hidden do we start showing the ad. This ensures that any previous
          * version of this service isin't interrupted.
          */
         if (mCurrentViewState == ViewState.HIDDEN) showView();
@@ -92,6 +93,10 @@ public class VideoAdService extends Service {
             mCurrentViewState = ViewState.HIDDEN;
             if (mRootView != null && mWindowManager != null) mWindowManager.removeView(mRootView);
         }
+
+        // Let any broadcast listeners know that the video has been played.
+        Intent intent = new Intent(AD_FINISH_INTENT);
+        sendBroadcast(intent);
 
         // With stopSelf there is a problem with the rotation. If this isn't in, the ad view will
         // not load
@@ -128,7 +133,7 @@ public class VideoAdService extends Service {
 
         // Initialize the VideoView with our video and attach a listen for when the video is done.
         VideoView videoview = (VideoView) root.findViewById(R.id.ad_video_view);
-        videoview.setVideoPath(this.targetVideo.getPath());
+        videoview.setVideoPath(mAdvertisement.getVideoFile().getPath());
         videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -182,8 +187,7 @@ public class VideoAdService extends Service {
     private void showView() {
         // showView was called view was not hiddem. So it must still be in the
         // window hence remove it,
-        if (this.mCurrentViewState != ViewState.HIDDEN
-                && this.mWindowManager != null) {
+        if (this.mCurrentViewState != ViewState.HIDDEN && this.mWindowManager != null) {
             this.mWindowManager.removeView(this.mRootView);
         }
 

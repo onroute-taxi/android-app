@@ -1,9 +1,10 @@
 package com.onroute.android.activities;
 
 
-import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ import com.onroute.android.R;
 import com.onroute.android.activities.base.InjectableActivity;
 import com.onroute.android.data.models.AdvertisementModel;
 import com.onroute.android.data.models.media.MediaModel;
-import com.onroute.android.services.VideoAdService;
+import com.onroute.android.services.InteractiveVideoAdService;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -72,26 +73,29 @@ public class VideoPlayerActivity extends InjectableActivity {
         if (shouldShowAdBeforeVideo() &&
                 advertisementStatus == AdvertisementStatus.NOT_PLAYED) {
             // Create an intent to display the ad!
-            Intent intent = new Intent(this, VideoAdService.class);
-            intent.putExtra(VideoAdService.EXTRA_AD, new AdvertisementModel());
-
+            Intent intent = new Intent(this, InteractiveVideoAdService.class);
+            intent.putExtra(InteractiveVideoAdService.EXTRA_AD, new AdvertisementModel());
             // Start the ad!
-//            startService(intent);
+            startService(intent);
+
+            advertisementStatus = AdvertisementStatus.PLAYING;
+
+            registerReceiver(AdFinishReciever, new IntentFilter(InteractiveVideoAdService.AD_FINISH_INTENT));
         }
     }
 
 
     @AfterViews
     protected void afterViews() {
-        MediaModel media = getIntent().getParcelableExtra(EXTRA_MEDIA_MODEL);
-
         // TODO this should not be null
         if (media != null) {
             // TODO: Figure out if we should play the pre-video ad here or not
 
             mainVideo.setVideoPath(media.getVideoPath());
-            mainVideo.start();
             videoTitle.setText(media.getTitle());
+
+            // If the advertisement is not playing, then we start the video automatically.
+            if (advertisementStatus != AdvertisementStatus.PLAYING) mainVideo.start();
 
             setupVolumeBar();
             setupVideoSeekBar();
@@ -203,7 +207,7 @@ public class VideoPlayerActivity extends InjectableActivity {
      * @return A {@link Boolean} if an ad should be shown.
      */
     private boolean shouldShowAdBeforeVideo() {
-        return false;
+        return true;
     }
 
 
@@ -223,4 +227,13 @@ public class VideoPlayerActivity extends InjectableActivity {
         PLAYING,
         FINISHED
     }
+
+
+    private final BroadcastReceiver AdFinishReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            advertisementStatus = AdvertisementStatus.FINISHED;
+            mainVideo.start();
+        }
+    };
 }
