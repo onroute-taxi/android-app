@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.onroute.android"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest package="com.onroute.android"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
 
     <uses-sdk tools:overrideLibrary="android.support.customtabs"/>
 
@@ -18,13 +17,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
-        android:name="com.onroute.android.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
-        <receiver android:name="com.onroute.android.reciever.PowerConnectionReceiver">
+        <receiver android:name=".reciever.PowerConnectionReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
@@ -33,7 +32,6 @@
 
         <activity
             android:name=".activities.WelcomeActivity_"
-            android:label="@string/app_name"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -44,36 +42,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.onroute.android.activities.dashboard.DashboardActivity_"
-            android:label="@string/title_activity_dashboard"
+            android:name=".activities.dashboard.DashboardActivity_"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/DashboardTheme"/>
         <activity
-            android:name="com.onroute.android.activities.VideoPlayerActivity_"
-            android:label="@string/title_activity_video_player"
+            android:name=".activities.VideoPlayerActivity_"
             android:screenOrientation="sensorLandscape"/>
 
         <service
-            android:name="com.onroute.android.services.DatabaseService"
+            android:name=".services.DatabaseService"
             android:enabled="true"
             android:exported="true">
         </service>
 
-        <activity
-            android:name="com.onroute.android.activities.AdcolonyVideoActivity_"
-            android:label="@string/title_activity_adcolony_video">
+        <activity android:name=".activities.AdcolonyVideoActivity_">
         </activity>
 
         <service
-            android:name="com.onroute.android.services.VideoAdService"
+            android:name=".services.InteractiveVideoAdService"
             android:enabled="true"
             android:exported="true">
         </service>
 
-        <activity
-            android:name="com.onroute.android.activities.dashboard.MusicActivity_"
-            android:label="@string/title_activity_music">
+        <activity android:name=".activities.dashboard.MusicActivity_">
         </activity>
+
+        <receiver
+            android:name=".activities.VideoPlayerActivity$AdFinishReciever"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

@@ -6,8 +6,6 @@ import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 
 import com.onroute.android.views.CustomViewGroup;
@@ -83,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Helper function to hide the system bars
      */
     protected void hideSystemUI() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -96,6 +94,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // Hide nav bar
                 | View.SYSTEM_UI_FLAG_FULLSCREEN      // hide status bar
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);*/
     }
 }

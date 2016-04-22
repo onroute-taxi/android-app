@@ -25,14 +25,15 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--android:paddingTop="?attr/actionBarSize">-->
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.onroute.android.views.gridview.list.CompoundView
             android:id="@+id/compound_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:elevation="4dp"/>
-    </FrameLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

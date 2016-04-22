@@ -19,7 +19,6 @@ import com.onroute.android.data.resources.PassengerResource;
 import com.onroute.android.data.resources.TabletResource;
 import com.onroute.android.fragments.base.BaseFragment;
 import com.onroute.android.fragments.DrawerFragment;
-import com.onroute.android.fragments.JourneyFragment_;
 import com.onroute.android.fragments.PassengerFragment_;
 import com.onroute.android.fragments.SessionFragment_;
 import com.onroute.android.network.hotspot.WifiHotspot;
@@ -50,7 +49,6 @@ import dagger.Provides;
                 BaseFragment.class,
                 SessionFragment_.class,
                 PassengerFragment_.class,
-                JourneyFragment_.class,
                 DrawerFragment.class,
 
                 // Resources

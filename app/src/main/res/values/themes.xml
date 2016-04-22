@@ -5,19 +5,19 @@
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <!--<item name="android:windowContentOverlay">@null</item>-->
     </style>
 
     <style name="Theme.AppCompat.Dark.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowFullscreen">true</item>
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+        <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 
     <!-- Application themes  -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar.FullScreen">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- color palette -->
         <item name="colorPrimary">@color/red500</item>
         <item name="colorPrimaryDark">@color/red700</item>
@@ -34,6 +34,7 @@
         <item name="actionModeBackground">?colorPrimary</item>
         <item name="alertDialogTheme">@style/AppAlertDialog</item>
         <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
+        <item name="android:windowAnimationStyle">@null</item>
 
         <!-- custom themed attributes -->
         <item name="titleTextSize">@dimen/text_size_medium</item>
@@ -76,7 +77,6 @@
     </style>
 
     <style name="DashboardTheme" parent="Theme.AppCompat.Dark.NoActionBar.FullScreen">
-        <item name="android:background">@color/grey900</item>
         <item name="colorPrimary">@color/grey50</item>
         <item name="colorAccent">@color/grey50</item>
         <item name="android:textColor">@color/white1000</item>

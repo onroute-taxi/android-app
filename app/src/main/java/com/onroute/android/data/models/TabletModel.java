@@ -10,9 +10,8 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import com.onroute.android.data.models.base.BaseModel;
-import com.onroute.android.fragments.JourneyFragment;
 import com.google.gson.annotations.Expose;
+import com.onroute.android.data.models.base.BaseModel;
 
 import javax.inject.Inject;
 
@@ -26,21 +25,12 @@ import lombok.Setter;
  * TODO: add updates for battery %
  */
 public class TabletModel extends BaseModel {
+    @Expose @Getter public TabletStatus status = new TabletStatus();
     @Expose @Setter String device;
     @Expose @Setter String mac;
     @Expose @Setter String model;
     @Expose @Setter String product;
     @Expose @Setter int sdk_version;
-
-    @Expose @Getter public TabletStatus status = new TabletStatus();
-
-
-    public class TabletStatus {
-        @Expose @Setter @Getter double latitude;
-        @Expose @Setter @Getter double longitude;
-        @Expose @Setter double battery_percent;
-        @Expose @Setter boolean is_charging;
-    }
 
 
     @Inject
@@ -65,6 +55,14 @@ public class TabletModel extends BaseModel {
     }
 
 
+    public class TabletStatus {
+        @Expose @Setter @Getter double latitude;
+        @Expose @Setter @Getter double longitude;
+        @Expose @Setter double battery_percent;
+        @Expose @Setter boolean is_charging;
+    }
+
+
     private class TabletLocationListener implements LocationListener {
         @Override
         public void onLocationChanged(Location loc) {
@@ -72,7 +70,7 @@ public class TabletModel extends BaseModel {
             status.setLongitude(loc.getLongitude());
 
             // Update the map in the journey fragment.. remove this in production
-            JourneyFragment.addMarker(loc.getLatitude(), loc.getLongitude());
+//            JourneyFragment.addMarker(loc.getLatitude(), loc.getLongitude());
         }
 
 

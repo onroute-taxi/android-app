@@ -2,11 +2,14 @@ package com.onroute.android.activities;
 
 
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -18,28 +21,20 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.onroute.android.R;
 import com.onroute.android.activities.base.InjectableActivity;
 import com.onroute.android.activities.dashboard.DashboardActivity_;
-import com.onroute.android.network.hotspot.ClientScanResult;
-import com.onroute.android.network.hotspot.Webserver;
-import com.onroute.android.network.hotspot.WifiHotspot;
 import com.onroute.android.services.DatabaseService;
 import com.onroute.android.util.EaseInOutQuintInterpolator;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-
-import java.io.IOException;
-import java.util.List;
-
-import javax.inject.Inject;
 
 
 @EActivity(R.layout.activity_welcome)
@@ -59,42 +54,17 @@ public class WelcomeActivity extends InjectableActivity {
     @ViewById ImageView welcomeIcon;
     @ViewById TextView phoneNumberField;
 
-    @Inject WifiHotspot wifiHotspot;
 
-    private BluetoothAdapter adapter;
+    private BluetoothAdapter bluetoothAdapter;
+
+    // Intent request codes
+    private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
+    private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
+    private static final int REQUEST_ENABLE_BT = 3;
+
     private boolean isPhoneNumberCleared = false;
 
-    static String wifiName;
-
-    private Handler handler = new Handler();
-    private boolean continueChecking = true;
-
     private boolean hasAnimated = false;
-    private final Runnable statusChecker = new Runnable() {
-        private final int interval = 1000;
-
-        @Override
-        public void run() {
-            if (!continueChecking) {
-                handler.removeCallbacks(statusChecker);
-                return;
-            }
-
-            try {
-                Log.d(TAG, "refresing hotspot");
-                refreshHotspot();
-            } finally {
-                // 100% guarantee that this always happens, even if your update method throws an
-                // exception
-                handler.postDelayed(statusChecker, interval);
-            }
-        }
-    };
-
-
-    static {
-        wifiName = "Login to Onroute - " + Math.floor(Math.random() * 100);
-    }
 
 
     @Override
@@ -108,6 +78,7 @@ public class WelcomeActivity extends InjectableActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         super.onCreate(savedInstanceState);
+//        initializeBluetooth();
     }
 
 
@@ -119,10 +90,9 @@ public class WelcomeActivity extends InjectableActivity {
         String welcomeHtmlText = getResources().getString(R.string.login_instruction_landing);
         welcomeText.setText(Html.fromHtml(welcomeHtmlText));
 
-
-        String instHtmlText = "<font color=#FFFFFF>Connect to the</font> <font color=#FF9800>OnRoute</font> " +
-                "<font color=#FFFFFF>bluetooth from your phone to start</font>";
-        instructionText.setText(Html.fromHtml(instHtmlText));
+//        String instHtmlText = "<font color=#FFFFFF>Connect to the</font> <font color=#FF9800>OnRoute</font> " +
+//                "<font color=#FFFFFF>bluetooth from your phone to start</font>";
+        instructionText.setText(Html.fromHtml(welcomeHtmlText));
     }
 
 
@@ -131,22 +101,7 @@ public class WelcomeActivity extends InjectableActivity {
         super.onResume();
 
         // Start the database service!
-        if (!DatabaseService.isRunning(this))
-            startService(new Intent(this, DatabaseService.class));
-
-        handler.removeCallbacks(statusChecker);
-
-        // Start the Wifi hotspot
-        startHotspot();
-        statusChecker.run();
-        wifiHotspot.setName(wifiName);
-
-        // Start the web-server
-        try {
-            Webserver.startServer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (!DatabaseService.isRunning(this)) startService(new Intent(this, DatabaseService.class));
     }
 
 
@@ -157,6 +112,39 @@ public class WelcomeActivity extends InjectableActivity {
         hasAnimated = true;
 
         animateBarFullscreen();
+    }
+
+
+    private void initializeBluetooth() {
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        Log.d(TAG, "hello");
+
+        // If the bluetoothAdapter is null, then Bluetooth is not supported
+        if (bluetoothAdapter == null) {
+            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            // TODO: Hide the bluetooth CTA
+            return;
+        }
+
+        if (!bluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        }
+
+        Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+
+        // Setting the device discoverable for '0' seconds makes it always discoverable
+        discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 0);
+        startActivity(discoverableIntent);
+
+
+        // Register the BroadcastReceiver
+
+        /*IntentFilter filter1 = new IntentFilter(BluetoothDevice.ACTION_PAIRING_REQUEST);
+        registerReceiver(mReceiver, filter1);*/
+
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        registerReceiver(bluetoothReceiver, filter);
     }
 
 
@@ -252,44 +240,10 @@ public class WelcomeActivity extends InjectableActivity {
             R.id.persona_rest
     })
     protected void onPersonasCollected() {
-        // Register client here and goto next screen
+        // TODO: Register client here and goto next screen
         Intent intent = new Intent(this, DashboardActivity_.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-    }
-
-
-    /**
-     * Helper function to start the Wifi Hotspot.
-     */
-    @Background
-    protected void startHotspot() {
-        continueChecking = true;
-        wifiHotspot.start();
-    }
-
-
-    /**
-     * Helper function to refresh the Wifi hotspot. This function also queries for all the clients
-     * that are connected. The moment it finds a client, it then register him and moves on to the
-     * dashboard.
-     * <p/>
-     * TODO: Have this code in a service and use bluetooth instead.
-     */
-    @Background
-    protected void refreshHotspot() {
-        List<ClientScanResult> clients = wifiHotspot.getClients();
-
-
-        if (clients.size() > 0) {
-            for (ClientScanResult client : clients) {
-                onUserConnected(client.getHWAddr());
-
-                continueChecking = false;
-                wifiHotspot.stop();
-                // stop the loop immediately and return. We only need one client.
-                return;
-            }
-        } //else if (wifiHotspot.isInactive() && !wifiHotspot.isStarting()) wifiHotspot.start();
     }
 
 
@@ -356,8 +310,6 @@ public class WelcomeActivity extends InjectableActivity {
     protected void onUserConnected(String macAddress) {
         Log.d(TAG, macAddress);
 
-        continueChecking = false;
-        handler.removeCallbacks(statusChecker);
         passengerResource.checkin(macAddress);
 
         Animation animation = new AlphaAnimation(1, 0);
@@ -417,6 +369,39 @@ public class WelcomeActivity extends InjectableActivity {
                 mediaPlayer.start();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    };
+
+    // Create a BroadcastReceiver
+    private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (BluetoothDevice.ACTION_PAIRING_REQUEST.equals(action)) {
+                /*
+                // Get the BluetoothDevice object from the Intent
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+
+                */
+                /**
+                 * This code can retrieve Name and MAC without pairing but gives client an error
+                 */
+                /*
+                try {
+                    device.getClass().getMethod("setPairingConfirmation", boolean.class).invoke(device, true);
+                    device.getClass().getMethod("cancelPairingUserInput").invoke(device);
+                } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+                */
+            }
+
+            if (BluetoothDevice.ACTION_BOND_STATE_CHANGED.equals(action)) {
+                // Get the BluetoothDevice object from the Intent
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                onUserConnected(device.getAddress());
+                finish();
             }
         }
     };

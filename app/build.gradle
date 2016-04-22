@@ -99,15 +99,7 @@ dependencies {
 
     // Flow layout
     compile "org.apmem.tools:layouts:$flowlayoutVersion"
-
-    // Sliding tabstrip
     
-
-    // mapbox for maps!
-    compile("com.mapbox.mapboxsdk:mapbox-android-sdk:3.0.0@aar") {
-        transitive = true
-    }
-
 
     compile 'org.java-websocket:Java-WebSocket:1.3.0'
     compile 'com.google.code.gson:gson:2.5'

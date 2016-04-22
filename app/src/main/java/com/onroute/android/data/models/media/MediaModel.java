@@ -1,13 +1,18 @@
 package com.onroute.android.data.models.media;
 
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
-import com.onroute.android.App;
-import com.onroute.android.data.models.base.BaseParcelableModel;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
+import com.onroute.android.App;
+import com.onroute.android.activities.VideoPlayerActivity_;
+import com.onroute.android.data.models.base.BaseParcelableModel;
+import com.onroute.android.data.models.dashboard.DashboardTile;
+import com.onroute.android.data.models.dashboard.DashboardTileModel;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +20,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class MediaModel extends BaseParcelableModel {
+public class MediaModel extends BaseParcelableModel implements DashboardTile {
     @Expose String title;
     @Expose String studio;
     @Expose String rating;
@@ -38,4 +43,25 @@ public class MediaModel extends BaseParcelableModel {
             return new MediaModel[size];
         }
     };
+
+
+    @Override
+    public DashboardTileModel getDashboardTile() {
+        DashboardTileModel tile = new DashboardTileModel();
+        tile.setLocalBackgroundImagePath(imagePath);
+        tile.setTitle("Watch " + title);
+        tile.setDescription(description);
+
+        tile.setOnClickListener(new DashboardTileModel.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), VideoPlayerActivity_.class);
+                intent.putExtra(VideoPlayerActivity_.EXTRA_MEDIA_MODEL,
+                        MediaModel.this);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+        return tile;
+    }
 }

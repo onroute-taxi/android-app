@@ -7,13 +7,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.onroute.android.R;
-import com.onroute.android.activities.AdcolonyVideoActivity;
-import com.onroute.android.activities.AdcolonyVideoActivity_;
-import com.onroute.android.activities.VideoPlayerActivity;
-import com.onroute.android.activities.VideoPlayerActivity_;
 import com.onroute.android.activities.base.dashboard.BaseDashboardActivity;
 import com.onroute.android.activities.base.dashboard.BottomListAdapter;
 import com.onroute.android.activities.base.dashboard.DashboardTile;
+import com.onroute.android.data.models.dashboard.DashboardTileModel;
 import com.onroute.android.data.models.media.MediaModel;
 import com.onroute.android.views.gridview.OnGridItemClickListener;
 import com.onroute.android.views.gridview.grid.ScrollableGrid;
@@ -35,6 +32,8 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
     private static final String COLUMN_ONE_ID = "column one id";
     private static final String COLUMN_TWO_ID = "column two id";
     private static final String COLUMN_THREE_ID = "column three id";
+    private static final String COLUMN_FOUR_ID = "column four id";
+    private static final String COLUMN_FIVE_ID = "column five id";
 
     //    @ViewById Toolbar toolbar;
     @ViewById CompoundView compoundView;
@@ -56,7 +55,7 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
         recyclerView = CompoundView.getRecyclerView();
 
         // create an adapter instance and set it to the recycler view
-        BottomListAdapter adapter = new BottomListAdapter(createTestObject());
+        BottomListAdapter adapter = new BottomListAdapter(this, createTestObject());
         adapter.setOnBottomItemClickListener(this);
         recyclerView.setAdapter(adapter);
 
@@ -65,14 +64,16 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             mScrollableGrid.addNewColumn(COLUMN_ONE_ID, 2);
             mScrollableGrid.addNewColumn(COLUMN_TWO_ID, 3);
             mScrollableGrid.addNewColumn(COLUMN_THREE_ID, 2);
+            mScrollableGrid.addNewColumn(COLUMN_FOUR_ID, 2);
+            mScrollableGrid.addNewColumn(COLUMN_FIVE_ID, 2);
 
             // this is a listener which will be called when an item is clicked
             mScrollableGrid.setOnGridItemClickListener(this);
 
-             /*this is how you can add items to any column you've added
-             you can add a layout resource
-             last parameter is layout_weight, you can specify 1 and then all items will be with same size
-             the item with more then one will be bigger then the others*/
+             /* this is how you can add items to any column you've added you can add a layout
+             resource last parameter is layout_weight, you can specify 1 and then all items will be
+             with same size the item with more then one will be bigger then the others
+             */
 
             // TODO: remove the hardcoded data and work with the server
 
@@ -119,15 +120,32 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
             keypeeleMedia.setVideoPath("/sdcard/key.mp4");
             keypeeleMedia.setImagePath("file:///android_asset/images/key.jpg");
 
+            // Maps
+            DashboardTileModel googleMapsTile = new DashboardTileModel();
+            googleMapsTile.setLocalBackgroundImagePath("file:///android_asset/images/maps.png");
+            googleMapsTile.setTitle("Route & Maps");
+            googleMapsTile.setDescription("Set your destination and see traffic details");
+            googleMapsTile.setOnClickListener(new DashboardTileModel.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.apps.maps");
+                    startActivity(launchIntent);
+                }
+            });
 
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item",
-                    new ImageGridItem(this, madMenMedia), 1);
+                    new ImageGridItem(this, googleMapsTile), 1);
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item two",
-                    new ImageGridItem(this, friendsMedia), 1);
+                    new ImageGridItem(this, friendsMedia.getDashboardTile()), 1);
+
+            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "map item",
+                    new ImageGridItem(this, madMenMedia.getDashboardTile()), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "map item two",
+                    new ImageGridItem(this, friendsMedia.getDashboardTile()), 1);
 
             // or you can add a view to the column
-            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "image item",
-                    new ImageGridItem(this, raymondMedia), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item",
+                    new ImageGridItem(this, raymondMedia.getDashboardTile()), 1);
 
             /*// Create a new buttons layout
             ButtonsGridItem buttonsGridItem = new ButtonsGridItem(this);
@@ -152,13 +170,15 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
                 }
             });*/
 
-            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "button item",
-                    new ImageGridItem(this, ninenineMedia), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "button item",
+                    new ImageGridItem(this, ninenineMedia.getDashboardTile()), 1);
 //            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "image item two",
 //                    new ImageGridItem(this, balikaMedia), 1);
 
-            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item three", new ImageGridItem(this, wizardsMedia), 1);
-            mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item four", new ImageGridItem(this, keypeeleMedia), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_FOUR_ID, "image item three",
+                    new ImageGridItem(this, wizardsMedia.getDashboardTile()), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_FOUR_ID, "image item four",
+                    new ImageGridItem(this, keypeeleMedia.getDashboardTile()), 1);
 
 //            Button button = new Button(this);
 //            button.setText("View more...");
@@ -168,12 +188,31 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
     }
 
 
-    private ArrayList<DashboardTile> createTestObject() {
-        ArrayList<DashboardTile> objects = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objects.add(new DashboardTile(R.drawable.image_place_holder));
-        }
+    private ArrayList<DashboardTileModel> createTestObject() {
+        ArrayList<DashboardTileModel> objects = new ArrayList<>();
+
+        objects.add(getBottomTile("netflix.png", "English shows", "com.netflix.mediaclient"));
+        objects.add(getBottomTile("colors.png", "Hindi shows", "com.viacom18.colorstv"));
+        objects.add(getBottomTile("gaana.png", "Music", "com.gaana"));
+        objects.add(getBottomTile("espn.png", "Sports update", "com.espn.score_center"));
+        objects.add(getBottomTile("cnbc.png", "Business News", "com.zumobi.msnbc"));
+
         return objects;
+    }
+
+
+    public DashboardTileModel getBottomTile(String imageFile, String name, final String pkgName) {
+        DashboardTileModel dashboardTile = new DashboardTileModel();
+        dashboardTile.setTitle(name);
+        dashboardTile.setLocalBackgroundImagePath("file:///android_asset/images/bottom/" + imageFile);
+        dashboardTile.setOnClickListener(new DashboardTileModel.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage(pkgName);
+                startActivity(launchIntent);
+            }
+        });
+        return dashboardTile;
     }
 
 
@@ -182,10 +221,13 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
         if (item instanceof ImageGridItem) {
             ImageGridItem imageGridItem = (ImageGridItem) item;
 
-            if (imageGridItem.getMediaModel() != null) {
-                Intent intent = new Intent(this, AdcolonyVideoActivity_.class);
-                intent.putExtra(AdcolonyVideoActivity.EXTRA_MEDIA_MODEL, imageGridItem.getMediaModel());
-                startActivity(intent);
+            if (imageGridItem.getTileModel() != null &&
+                    imageGridItem.getTileModel().getOnClickListener() != null) {
+                imageGridItem.getTileModel().getOnClickListener().onClick(imageGridItem);
+//                Intent intent = new Intent(this, AdcolonyVideoActivity_.class);
+//                intent.putExtra(AdcolonyVideoActivity.EXTRA_MEDIA_MODEL,
+//                        imageGridItem.getTileModel());
+//                startActivity(intent);
             }
         }
     }

@@ -1,13 +1,17 @@
 package com.onroute.android.activities.base.dashboard;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.onroute.android.R;
+import com.onroute.android.data.models.dashboard.DashboardTileModel;
+import com.onroute.android.views.gridview.items.IconGridItem;
 import com.onroute.android.views.gridview.items.ImageGridItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -20,12 +24,14 @@ import java.util.ArrayList;
  */
 public class BottomListAdapter extends RecyclerView.Adapter<BottomListAdapter.ViewHolder> {
 
-    private ArrayList<DashboardTile> mSomeObjects;
+    private ArrayList<DashboardTileModel> mSomeObjects;
     private OnBottomItemClickListener mOnBottomItemClickListener;
+    Context context;
 
 
-    public BottomListAdapter(ArrayList<DashboardTile> someObjects) {
+    public BottomListAdapter(Context context, ArrayList<DashboardTileModel> someObjects) {
         mSomeObjects = someObjects;
+        this.context = context;
     }
 
 
@@ -44,8 +50,8 @@ public class BottomListAdapter extends RecyclerView.Adapter<BottomListAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        DashboardTile object = mSomeObjects.get(position);
-        holder.mImageView.setBackgroundImage(object.getImageResId());
+        DashboardTileModel model = mSomeObjects.get(position);
+        holder.iconGridItem.setTile(model);
     }
 
 
@@ -55,22 +61,13 @@ public class BottomListAdapter extends RecyclerView.Adapter<BottomListAdapter.Vi
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageGridItem mImageView;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        IconGridItem iconGridItem;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
-            mImageView = (ImageGridItem) itemView.findViewById(R.id.itemImage);
-        }
-
-
-        @Override
-        public void onClick(View v) {
-            if (mOnBottomItemClickListener != null) {
-                mOnBottomItemClickListener.onBottomItemClickListener(mSomeObjects.get(getAdapterPosition()));
-            }
+            iconGridItem = (IconGridItem) itemView.findViewById(R.id.itemImage);
         }
     }
 
