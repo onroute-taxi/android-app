@@ -3,7 +3,8 @@ package com.onroute.android;
 
 import android.content.Context;
 
-import com.onroute.android.activities.AdcolonyVideoActivity_;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.onroute.android.activities.VideoPlayerActivity_;
 import com.onroute.android.activities.WelcomeActivity_;
 import com.onroute.android.activities.dashboard.DashboardActivity_;
@@ -17,18 +18,16 @@ import com.onroute.android.data.resources.JourneyResource;
 import com.onroute.android.data.resources.MediaResource;
 import com.onroute.android.data.resources.PassengerResource;
 import com.onroute.android.data.resources.TabletResource;
-import com.onroute.android.fragments.base.BaseFragment;
 import com.onroute.android.fragments.DrawerFragment;
 import com.onroute.android.fragments.PassengerFragment_;
 import com.onroute.android.fragments.SessionFragment_;
+import com.onroute.android.fragments.base.BaseFragment;
 import com.onroute.android.network.hotspot.WifiHotspot;
 import com.onroute.android.network.websocket.Request;
 import com.onroute.android.network.websocket.Response;
 import com.onroute.android.network.websocket.WebSocketClient;
 import com.onroute.android.network.websocket.Websocket;
 import com.onroute.android.services.DatabaseService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import javax.inject.Singleton;
 
@@ -42,7 +41,6 @@ import dagger.Provides;
                 // Activities
                 WelcomeActivity_.class,
                 DashboardActivity_.class,
-                AdcolonyVideoActivity_.class,
                 VideoPlayerActivity_.class,
 
                 // Fragments
@@ -80,7 +78,7 @@ import dagger.Provides;
         library = true
 )
 public class ActivityModule {
-    public final static String socket_ip = "192.168.1.232";
+    public final static String socket_ip = "162.208.10.149";
     final Context context;
 
     /**
@@ -107,8 +105,8 @@ public class ActivityModule {
     public Gson provideGson() {
         // Gson init
         final GsonBuilder builder = new GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
-            .registerTypeAdapterFactory(new AutoParcelGsonTypeAdapterFactory());
+                .excludeFieldsWithoutExposeAnnotation()
+                .registerTypeAdapterFactory(new AutoParcelGsonTypeAdapterFactory());
         return builder.create();
     }
 

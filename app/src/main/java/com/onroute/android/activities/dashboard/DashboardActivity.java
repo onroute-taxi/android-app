@@ -2,6 +2,7 @@ package com.onroute.android.activities.dashboard;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
@@ -133,15 +134,46 @@ public class DashboardActivity extends BaseDashboardActivity implements OnGridIt
                 }
             });
 
+
+            // Food - top places to eat
+            DashboardTileModel foodTile = new DashboardTileModel();
+            foodTile.setLocalBackgroundImagePath("file:///android_asset/images/food.jpg");
+            foodTile.setTitle("Top Places to eat");
+            foodTile.setDescription("See our best picks for the month. Explore Mumbai and the wide variety of restaurants");
+            foodTile.setOnClickListener(new DashboardTileModel.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("https://www.zomato.com/mumbai/top-restaurants"));
+                    startActivity(i);
+                }
+            });
+
+            // News - top places to eat
+            DashboardTileModel newsTile = new DashboardTileModel();
+            newsTile.setLocalBackgroundImagePath("file:///android_asset/images/news.jpg");
+            newsTile.setTitle("Watch NDTV live");
+            newsTile.setDescription("Get the latest news from NDTV");
+            newsTile.setOnClickListener(new DashboardTileModel.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("http://www.ndtv.com/video/live/channel/ndtv24x7"));
+                    startActivity(i);
+                }
+            });
+
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item",
                     new ImageGridItem(this, googleMapsTile), 1);
             mScrollableGrid.addViewToColumn(COLUMN_ONE_ID, "map item two",
                     new ImageGridItem(this, friendsMedia.getDashboardTile()), 1);
 
             mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "map item",
-                    new ImageGridItem(this, madMenMedia.getDashboardTile()), 1);
+                    new ImageGridItem(this, foodTile), 1);
+            mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "map item three",
+                    new ImageGridItem(this, newsTile), 1);
             mScrollableGrid.addViewToColumn(COLUMN_TWO_ID, "map item two",
-                    new ImageGridItem(this, friendsMedia.getDashboardTile()), 1);
+                    new ImageGridItem(this, madMenMedia.getDashboardTile()), 1);
 
             // or you can add a view to the column
             mScrollableGrid.addViewToColumn(COLUMN_THREE_ID, "image item",

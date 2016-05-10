@@ -37,8 +37,12 @@
             android:layout_marginBottom="16dp"
             android:background="@color/black1000"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            >
 
             <TextView
                 android:layout_width="wrap_content"

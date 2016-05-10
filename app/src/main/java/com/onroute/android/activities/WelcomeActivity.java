@@ -48,7 +48,7 @@ public class WelcomeActivity extends InjectableActivity {
     @ViewById TextView welcomeText;
     @ViewById TextView instructionText;
     //    @ViewById TextView smsText;
-//    @ViewById View loginAdvanced;
+    @ViewById View loginAdvanced;
     @ViewById View loginPersonas;
     @ViewById View personas;
     @ViewById ImageView welcomeIcon;
@@ -78,20 +78,18 @@ public class WelcomeActivity extends InjectableActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 
         super.onCreate(savedInstanceState);
-//        initializeBluetooth();
+        initializeBluetooth();
     }
 
 
     @AfterViews
     void afterViews() {
+        // TODO: Make this a loop of the content or a tutorial on how to use the tablet.
         videoView.setVideoURI(Uri.parse("/sdcard/raymond-s1e1.avi"));
         videoView.setOnPreparedListener(PreparedListener);
 
         String welcomeHtmlText = getResources().getString(R.string.login_instruction_landing);
         welcomeText.setText(Html.fromHtml(welcomeHtmlText));
-
-//        String instHtmlText = "<font color=#FFFFFF>Connect to the</font> <font color=#FF9800>OnRoute</font> " +
-//                "<font color=#FFFFFF>bluetooth from your phone to start</font>";
         instructionText.setText(Html.fromHtml(welcomeHtmlText));
     }
 
@@ -109,8 +107,6 @@ public class WelcomeActivity extends InjectableActivity {
     void contentFrameClicked() {
         Log.d(TAG, "show animation");
         if (hasAnimated) return;
-        hasAnimated = true;
-
         animateBarFullscreen();
     }
 
@@ -149,6 +145,8 @@ public class WelcomeActivity extends InjectableActivity {
 
 
     void animateBarFullscreen() {
+        hasAnimated = true;
+
         final FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
                 promptFrame.getLayoutParams();
 
@@ -173,12 +171,11 @@ public class WelcomeActivity extends InjectableActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                advancedFrame.setVisibility(View.VISIBLE);
                 promptFrame.setVisibility(View.GONE);
 
-                Animation fadeIn = new AlphaAnimation(0, 1);
-                fadeIn.setDuration(250);
-//                loginAdvanced.startAnimation(fadeIn);
+                advancedFrame.setVisibility(View.VISIBLE);
+                loginPersonas.setVisibility(View.GONE);
+                loginAdvanced.setVisibility(View.VISIBLE);
             }
 
 
@@ -201,32 +198,8 @@ public class WelcomeActivity extends InjectableActivity {
 
     @Click(R.id.sms_text)
     protected void onPhoneVerified() {
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(250);
-        fadeOut.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                loginPersonas.setVisibility(View.VISIBLE);
-//                loginAdvanced.setVisibility(View.GONE);
-
-                Animation fadeIn = new AlphaAnimation(0, 1);
-                fadeIn.setDuration(250);
-                loginPersonas.startAnimation(fadeIn);
-            }
-
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-//        loginAdvanced.startAnimation(fadeOut);
+        loginPersonas.setVisibility(View.VISIBLE);
+        loginAdvanced.setVisibility(View.GONE);
     }
 
 
@@ -242,7 +215,6 @@ public class WelcomeActivity extends InjectableActivity {
     protected void onPersonasCollected() {
         // TODO: Register client here and goto next screen
         Intent intent = new Intent(this, DashboardActivity_.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }
 
@@ -299,9 +271,8 @@ public class WelcomeActivity extends InjectableActivity {
                 break;
 
             case R.id.auth_phone_btn_enter:
-                // Register client here and goto next screen
-                Intent intent = new Intent(this, DashboardActivity_.class);
-                startActivity(intent);
+                // TODO Verify the phonenumber with the OTP
+                onPhoneVerified();
         }
     }
 
@@ -312,40 +283,11 @@ public class WelcomeActivity extends InjectableActivity {
 
         passengerResource.checkin(macAddress);
 
-        Animation animation = new AlphaAnimation(1, 0);
-        animation.setDuration(500);
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
+        promptFrame.setVisibility(View.GONE);
 
-            }
-
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                advancedFrame.setVisibility(View.VISIBLE);
-                promptFrame.setVisibility(View.GONE);
-
-//                loginAdvanced.setVisibility(View.GONE);
-                loginPersonas.setVisibility(View.VISIBLE);
-
-                Animation fadeIn = new AlphaAnimation(0, 1);
-                fadeIn.setDuration(250);
-                loginPersonas.startAnimation(fadeIn);
-            }
-
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        promptFrame.startAnimation(animation);
-
-        Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(500);
-        welcomeText.startAnimation(fadeOut);
-        welcomeIcon.startAnimation(fadeOut);
+        advancedFrame.setVisibility(View.VISIBLE);
+        loginAdvanced.setVisibility(View.GONE);
+        loginPersonas.setVisibility(View.VISIBLE);
     }
 
 

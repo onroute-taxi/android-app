@@ -36,6 +36,9 @@ public class InteractiveVideoAdService extends Service {
     private WindowManager mWindowManager;
     private View mRootView;
 
+    private VideoView videoview;
+    private View skipButton;
+
     private AdvertisementModel mAdvertisement;
 
 
@@ -131,8 +134,18 @@ public class InteractiveVideoAdService extends Service {
 
         // TODO: Inform the server that we are starting the video.
 
+        // Initialize the skip button
+        skipButton = root.findViewById(R.id.linearlayout_skip);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                videoview.stopPlayback();
+                finish();
+            }
+        });
+
         // Initialize the VideoView with our video and attach a listen for when the video is done.
-        VideoView videoview = (VideoView) root.findViewById(R.id.ad_video_view);
+        videoview = (VideoView) root.findViewById(R.id.ad_video_view);
         videoview.setVideoPath(mAdvertisement.getVideoFile().getPath());
         videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
